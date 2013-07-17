@@ -27,4 +27,3 @@ ignore[.-]*
 svnignore[.-]*
 lint.db
 packages/
-App_Data/
