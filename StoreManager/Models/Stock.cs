@@ -46,12 +46,12 @@ namespace StoreManager.Models {
 
         [Display(Name = "Expiry Date")]
         [DataType(DataType.Date)]
-        [DisplayFormat(ApplyFormatInEditMode = false, DataFormatString = "{0:dd/MM/yy}", NullDisplayText = "")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yy}", NullDisplayText = "")]
         public DateTime? ExpiryDate { get; set; }
 
         [Display(Name = "Purchase Date")]
         [DataType(DataType.Date)]
-        [DisplayFormat(ApplyFormatInEditMode = false, DataFormatString = "{0:dd/MM/yy}", NullDisplayText = "")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yy}", NullDisplayText = "")]
         public DateTime? PurchaseDate { get; set; }
 
         [DataType(DataType.Currency)]
