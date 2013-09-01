@@ -4,7 +4,7 @@ namespace StoreManager.Helpers {
 
     public static class IntExtensions {
         public static string MonthName(this Int32 nMonth) {
-            var months = new string[] 
+            var months = new [] 
             { "January", 
               "February",
               "March",

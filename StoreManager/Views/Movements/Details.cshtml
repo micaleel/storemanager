@@ -1,43 +1,53 @@
 ﻿@model StoreManager.Models.Movement
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Movement Details";
 }
 
-<h2>Details</h2>
-
-<fieldset>
-    <legend>Movement</legend>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(f => f.Date)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(f => f.Date)
+<div class="container">
+    <div class="row">
+        <h2>Movement Details</h2>
     </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(f => f.Item.Name)
+    <div class="row">
+        <div class="panel">
+            <div class="panel-heading">Movement</div>
+            <div class="panel-body">
+                <table class="table">
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(f => f.Date)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(f => f.Date)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(f => f.Item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(f => f.Item.Name)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(f => f.Location.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(f => f.Location.Name)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(f => f.Notes)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(f => f.Notes)
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
     </div>
-    <div class="display-field">
-        @Html.DisplayFor(f => f.Item.Name)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(f => f.Location.Name)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(f => f.Location.Name)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(f => f.Notes)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(f => f.Notes)
-    </div>
-</fieldset>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+</div>

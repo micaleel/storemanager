@@ -7,41 +7,36 @@
 <h2>Delete</h2>
 
 <h3>Are you sure you want to delete this?</h3>
-<fieldset>
-    <legend>Movement</legend>
+<div class="row">
+    <div class="panel">
+        <div class="panel-heading">Movement</div>
+        <div class="panel-body">
+            <table class="table">
+                <tr>
+                    <td>@Html.DisplayNameFor(f => f.Date)</td>
+                    <td>@Html.DisplayFor(f => f.Date)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(f => f.Item.Name)</td>
+                    <td>@Html.DisplayFor(f => f.Item.Name)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(f => f.Location.Name)</td>
+                    <td>@Html.DisplayFor(f => f.Location.Name)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(f => f.Notes)</td>
+                    <td>@Html.DisplayFor(f => f.Notes)</td>
+                </tr>
+            </table>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(f => f.Date)
+            @using (Html.BeginForm()) {
+                @Html.AntiForgeryToken()
+                <div class="form-group">
+                    <input type="submit" value="Delete" />
+                </div>
+            }
+        </div>
     </div>
-    <div class="display-field">
-        @Html.DisplayFor(f => f.Date)
-    </div>
+</div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(f => f.Item.Name)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(f => f.Item.Name)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(f => f.Location.Name)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(f => f.Location.Name)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(f => f.Notes)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(f => f.Notes)
-    </div>
-</fieldset>
-@using (Html.BeginForm()) {
-    @Html.AntiForgeryToken()
-    <p>
-        <input type="submit" value="Delete" /> |
-        @Html.ActionLink("Back to List", "Index")
-    </p>
-}

@@ -32,7 +32,7 @@
         @foreach (var item in Model) {
             <tr>
                 <td>
-                    @item.Date.FormatDate() <small class="muted">@item.Date.FriendlyDate()</small>
+                    @item.Date.FormatDate() <small>@item.Date.FriendlyDate()</small>
                 </td>
                 <td>
                     @Html.DisplayFor(_ => item.Location.Name)

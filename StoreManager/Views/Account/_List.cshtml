@@ -1,15 +1,13 @@
 ﻿@model IEnumerable<StoreManager.Models.User>
 @functions
 {
-    public static string ToYesNo(bool value)
-    {
+    public static string ToYesNo(bool value) {
         return value ? "Yes" : "No";
     }
 }
 @functions
 {
-    public static string GetRowClass(StoreManager.Models.User user)
-    {
+    public static string GetRowClass(StoreManager.Models.User user) {
         return user.Locked ? "warning" : (!user.Approved ? "info" : string.Empty);
     }
 
@@ -23,30 +21,25 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
-        {
+        @foreach (var item in Model) {
             <tr class="@GetRowClass(item)">
-                <td>@item.DisplayName <span class="muted">(@item.UserName)</span></td>
+                <td>@item.DisplayName (@item.UserName)</td>
                 <td>@HTML.FriendlyDate(item.LastLogin)</td>
                 <td>
                     <div class="pull-right" style="margin-right: 10px">
-                        @if (!item.Approved)
-                        {
-                            <a href="@Url.Action("Approve", new { id = item.UserId })">Approve <i class="icon-check"></i></a>
+                        @if (!item.Approved) {
+                            <a href="@Url.Action("Approve", new { id = item.UserId })">Approve</a>
                             <text>&nbsp;|&nbsp;</text>
-                            <a href="@Url.Action("Deny", new { id = item.UserId })">Reject <i class="icon-sign-blank"></i></a>                        
+                            <a href="@Url.Action("Deny", new { id = item.UserId })">Reject</a>                        
                         }
-                        else
-                        {
-                            <a href="@Url.Action("Edit", new { id = item.UserId })">Edit <i class="icon-edit"></i></a>
+                        else {
+                            <a href="@Url.Action("Edit", new { id = item.UserId })">Edit</a>
                             <text>&nbsp;|&nbsp;</text>
-                            if (item.Locked)
-                            {
-                            <a href="@Url.Action("Unlock", new { id = item.UserId })">Unlock <i class="icon-unlock"></i></a>
+                            if (item.Locked) {
+                            <a href="@Url.Action("Unlock", new { id = item.UserId })">Unlock</a>
                             }
-                            else
-                            {
-                            <a href="@Url.Action("Lock", new { id = item.UserId })">Lock <i class="icon-lock"></i></a>                            
+                            else {
+                            <a href="@Url.Action("Lock", new { id = item.UserId })">Lock</a>                            
                             }
                         }
                     </div>

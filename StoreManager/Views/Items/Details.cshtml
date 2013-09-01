@@ -45,7 +45,7 @@
                 <td>@Html.DisplayFor(_ => item.PurchasePrice)</td>
                 <td>@Html.DisplayFor(_ => item.ExpiryDate)</td>
                 <td>@Html.DisplayFor(_ => item.Notes)</td>
-                <td><a href="@Url.Action("AdjustStock")">Adjust</a> | <a href="@Url.Action("MoveStock")">Move</a> </td>
+                <td><a href="@Url.Action("Edit", "Stock", new { id = item.Id })">Adjust</a> | <a href="@Url.Action("Move", "Stock", new { id = item.Id })">Move</a> </td>
             </tr>
                 
             itemIdx += 1;
@@ -136,7 +136,7 @@
                 else {
                     <div class="alert alert-info alert-dismissable">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        <strong>Empty!</strong> there are no stock items to display here. <a class="alert-link" href="@Url.Action("AddStock", new { id = Model.Id })">Click here to add a new stock item</a>
+                        <strong>Empty!</strong> there are no stock items to display here. <a class="alert-link" href="@Url.Action("Create", "Stock", new { id = Model.Id })">Click here to add a new stock item</a>
                     </div>
                 }
             </div>
