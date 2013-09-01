@@ -1,29 +1,144 @@
 ﻿@model StoreManager.Models.Item
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Item Details";
 }
 
-<h2>Details</h2>
+@functions
+{
+    static string PaintRow(StoreManager.Models.Stock item) {
+        return item.IsExpired ? "warning" : string.Empty;
+    }
 
-<fieldset>
-    <legend>Item</legend>
+    static int GetExpiredItemCount(IEnumerable<StoreManager.Models.Stock> items) {
+        return items == null ? 0 : items.Count(z => z.IsExpired);
+    }
+    
+}
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Name)
+@helper StockItemsTable() {
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Date Added</th>
+                <th>Reference #</th>
+                <th>Condition</th>
+                <th>Quantity</th>
+                <th>Purchase Date</th>
+                <th>Purchase Price</th>
+                <th>Expiry Date</th>
+                <th>Notes</th>
+                <th></th>
+            </tr>
+        </thead>
+        @{ var itemIdx = 1; }
+        @foreach (var item in Model.Stocks.OrderBy(x => x.DateAdded)) {
+                
+            <tr class="@PaintRow(item)">
+                <td>@itemIdx</td>
+                <td>@Html.DisplayFor(_ => item.DateAdded)</td>
+                <td>@Html.DisplayFor(_ => item.ReferenceId)</td>
+                <td>@Html.DisplayFor(_ => item.Condition.Name)</td>
+                <td><strong>@Html.DisplayFor(_ => item.Quantity)</strong></td>
+                <td>@Html.DisplayFor(_ => item.PurchaseDate)</td>
+                <td>@Html.DisplayFor(_ => item.PurchasePrice)</td>
+                <td>@Html.DisplayFor(_ => item.ExpiryDate)</td>
+                <td>@Html.DisplayFor(_ => item.Notes)</td>
+            </tr>
+                
+            itemIdx += 1;
+        }
+
+    </table>
+}
+
+@helper ShowExpiredItemsWarninig() {
+    int expiredItemsCount = GetExpiredItemCount(Model.Stocks);
+    if (expiredItemsCount > 0) {
+    <div class="row">
+        <div class="alert alert-warning alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <strong>Warning!</strong> there are @expiredItemsCount stock items that have expired.
+        </div>
     </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Name)
+    }
+}
+
+<div class="container">
+    <div class="row">
+        <h2 class="page-header">@Model.Name <small>Item Details</small></h2>
     </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Status.Name)
+    <div class="row">
+        <ul class="nav nav-pills">
+            <li><a href="@Url.Action("Index", "Items")">All Items</a></li>
+            <li><a href="@Url.Action("Create", "Items")">Create New</a></li>
+            <li class="active"><a href="@Url.Action("Details", "Items", new { id = Model.Id })">Details</a></li>
+            <li><a href="@Url.Action("Edit", "Items", new { id = Model.Id })">Edit</a></li>
+        </ul>
     </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Status.Name)
+
+    <p>&nbsp;</p>
+
+    @if (GetExpiredItemCount(Model.Stocks) > 0) {
+        <div class="row">
+            @ShowExpiredItemsWarninig()
+        </div>
+
+        <p>&nbsp;</p>
+    }
+
+    <div class="row">
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">Item Information</h3>
+            </div>
+            <div class="panel-body">
+                <table class="table">
+                    <tr>
+                        <td>@Html.DisplayNameFor(f => f.Name)</td>
+                        <td>@Html.DisplayFor(f => f.Name)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(f => f.QuantityinStock)</td>
+                        <td>@Html.DisplayFor(f => f.QuantityinStock)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(f => f.ReorderLevel)</td>
+                        <td>@Html.DisplayFor(f => f.ReorderLevel)</td>
+                    </tr>
+                    @if (!String.IsNullOrWhiteSpace(Model.Notes)) {
+                        <tr>
+                            <td>@Html.DisplayNameFor(f => f.Notes)</td>
+                            <td>@Html.DisplayFor(f => f.Notes)</td>
+                        </tr>
+                    }
+                    <tr>
+                        <td>@Html.DisplayNameFor(f => f.Discontinued)</td>
+                        <td>@Html.DisplayFor(f => f.Discontinued)</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
     </div>
-</fieldset>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+    <div class="row">
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">Stock Items</h3>
+            </div>
+            <div class="panel-body">
+                @if (Model.Stocks.Any()) {
+                    @StockItemsTable()
+                }
+                else {
+                    <div class="alert alert-info alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <strong>Empty!</strong> there are no stock items to display here. <a class="alert-link" href="@Url.Action("AddStock", new { id = Model.Id })">Click here to add a new stock item</a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

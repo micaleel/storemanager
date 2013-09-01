@@ -1,54 +1,57 @@
 ﻿@using StoreManager.Models
-@model IEnumerable<StoreManager.Models.Movement>
+@model IEnumerable<Movement>
 
 @{
     ViewBag.Title = "Movements";
 }
 
-<h2 class="page-header">Movements</h2>
+<div class="container">
+    <div class="row">
+        <h2 class="page-header">Stock Conditions <small>showing @Model.Count() items statuses</small></h2>
+    </div>
 
-<p>
-    <a href="@Url.Action("Create")" class="btn">Create New</a>
-</p>
+    <p class="row">
+        <a href="@Url.Action("Create")" class="btn btn-success">Create New</a>
+    </p>
 
-<table class="table table-bordered table-hover">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Date)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Item.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Location.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Notes)
-        </th>
-        <th></th>
-    </tr>
+    <div class="row">
+        <table class="table table-bordered table-hover">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(f => f.Date)
+                </th>
+                <th>Item
+                </th>
+                <th>Location
+                </th>
+                <th>
+                    @Html.DisplayNameFor(f => f.Notes)
+                </th>
+                <th></th>
+            </tr>
 
-    @foreach (var item in Model.OrderByDescending(x => x.Date))
-    {
-        <tr>
-            <td>
-                @item.Date.FormatDate() <small class="muted">@item.Date.FriendlyDate()</small>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Location.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Notes)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+            @foreach (var item in Model.OrderByDescending(x => x.Date)) {
+                <tr>
+                    <td>
+                        @item.Date.FormatDate() <small class="muted">@item.Date.FriendlyDate()</small>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(_ => item.Item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(_ => item.Location.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(_ => item.Notes)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
             @Html.ActionLink("Details", "Details", new { id = item.Id }) |
             @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            </td>
-        </tr>
-    }
+                    </td>
+                </tr>
+            }
 
-</table>
+        </table>
+    </div>
+</div>

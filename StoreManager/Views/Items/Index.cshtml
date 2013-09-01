@@ -1,40 +1,90 @@
 ﻿@model IEnumerable<StoreManager.Models.Item>
 
 @{
-    ViewBag.Title = "Items";
+    ViewBag.Title = "Items Dashboard";
 }
 
-<h2 class="page-header">Items</h2>
+@functions
+{
+    static string PaintRow(StoreManager.Models.Item item) {
+        return (item.QuantityinStock <= item.ReorderLevel && item.ReorderLevel != 0) ? "warning" : string.Empty;
+    }
 
-<p>
-    <a href="@Url.Action("Create")" class="btn">Create New</a>
-</p>
-
-<table class="table table-bordered table-hover">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Status.Name)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Status.Name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
+    static int GetExpiredItemCount(IEnumerable<StoreManager.Models.Item> items) {
+        return items == null ? 0 : items.Sum(x => x.Stocks.Count(z => z.IsExpired));
+    }
+    
 }
 
-</table>
+@helper ItemsTable() {
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th></th>
+                <th>@Html.DisplayNameFor(f => f.Name)</th>
+                <th>@Html.DisplayNameFor(f => f.QuantityinStock)</th>
+                <th>@Html.DisplayNameFor(f => f.ReorderLevel)</th>
+                <th>@Html.DisplayNameFor(f => f.Discontinued)</th>
+                <th></th>
+            </tr>
+        </thead>
+        @{ var itemIdx = 1; }
+        @foreach (var item in Model.OrderBy(x => x.Name)) {
+                
+            <tr class="@PaintRow(item)">
+                <td>@itemIdx</td>
+                <td><a href="@Url.Action("Details", new { id = item.Id })">@Html.DisplayFor(_ => item.Name)</a></td>
+                <td>@Html.DisplayFor(_ => item.QuantityinStock)</td>
+                <td>@Html.DisplayFor(_ => item.ReorderLevel)</td>
+                <td>@Html.DisplayFor(_ => item.Discontinued)</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) | @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+                
+            itemIdx += 1;
+        }
+
+    </table>
+}
+
+@helper ShowExpiredItemsWarninig() {
+    int expiredItemsCount = GetExpiredItemCount(Model);
+    if (expiredItemsCount > 0) {
+    <div class="row">
+        <div class="alert alert-warning alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <strong>Warning!</strong> there are @expiredItemsCount items that have expired.
+        </div>
+    </div>
+    }
+}
+
+<div class="container">
+
+    <div class="row">
+        <h2 class="page-header">Stock Items Dashboard</h2>
+    </div>
+
+    <div class="row">
+        <ul class="nav nav-pills">
+            <li class="active"><a href="@Url.Action("Index", "Items")">All Items</a></li>
+            <li><a href="@Url.Action("Create", "Items")">Create New</a></li>
+        </ul>
+    </div>
+
+    <p>&nbsp;</p>
+
+    @ShowExpiredItemsWarninig()
+
+    <div lang="row">
+        @if (Model == null || Model.Any() == false) {
+            <div class="alert alert-info">
+                <strong>Hello!</strong> there are no items to display here. <a href="@Url.Action("Create")" class="alert-link">Click here to create a new item</a>.
+            </div>
+        }
+        else {
+            @ItemsTable()
+        }
+    </div>
+</div>

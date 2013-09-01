@@ -1,31 +1,41 @@
 ﻿@model StoreManager.Models.Location
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Edit Location";
 }
 
-<h2>Edit</h2>
+<h2>Edit Location</h2>
 
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>Location</legend>
+        <legend>Edit Location</legend>
 
-        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(f => f.Id)
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Name)
+        <div class="form-group">
+            @Html.LabelFor(f => f.Name)
+            <div >
+                @Html.EditorFor(f => f.Name)
+                @Html.ValidationMessageFor(f => f.Name)
+            </div>
         </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Name)
-            @Html.ValidationMessageFor(model => model.Name)
+        
+        <div class="form-group">
+            @Html.LabelFor(f => f.IsStore)
+            <div >
+                @Html.EditorFor(f => f.IsStore)
+                @Html.ValidationMessageFor(f => f.IsStore)
+            </div>
         </div>
 
-        <p>
-            <button type="submit" class="btn btn-primary">Save changes</button>
-        </p>
+        <div class="form-group">
+            <div >
+                <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
     </fieldset>
 }
 

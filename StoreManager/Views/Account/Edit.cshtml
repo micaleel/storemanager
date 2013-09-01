@@ -1,0 +1,88 @@
+﻿@using StoreManager.Models
+@model User
+@{
+    ViewBag.Title = "Edit User";
+}
+
+@functions
+{
+    // Check if a user can make changes to his/her account
+    bool CanEditSelf()
+    {
+        return Model.UserName != User.Identity.Name;
+    }
+}
+
+<div class="container">
+
+    <div class="row">
+        @ViewHelpers.PageHeader("Edit User Account")
+    </div>
+
+    <div class="row">
+
+        <div class="widget form-widget">
+            <div class="widget-header">
+                <h3>User Information</h3>
+            </div>
+            <table class="table table-striped">
+                <tr>
+                    <td>UserName</td>
+                    <td>@Model.UserName</td>
+                </tr>
+                <tr>
+                    <td>Last Login</td>
+                    <td>@HTML.FriendlyDate(Model.LastLogin)</td>
+                </tr>
+                <tr>
+                    <td>User Role</td>
+                    <td>@Model.Role</td>
+                </tr>
+                <tr>
+                    <td>Phone</td>
+                    <td>@Model.Phone</td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td>@Model.Email</td>
+                </tr>
+            </table>
+        </div>
+
+    <div class="widget form-widget">
+        <div class="widget-header">
+            <h3>Set User Permission</h3>
+        </div>
+        <div class="widget-content">
+            @if (CanEditSelf())
+            {
+                <form action="@Url.Action("Edit", "Account")" method="post" >
+
+                    @Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.")
+                    @Html.HiddenFor(f => f.UserId)
+
+                    <div class="form-group">
+                        @Html.LabelFor(f => f.Role)
+                        <div >
+                            @Html.DropDownListFor(f => f.Role,
+                                                  new SelectList(Enum.GetValues(typeof(Role)), Model.Role))
+                            @Html.ValidationMessageFor(f => f.Role)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            }
+            else
+            {
+                <div class="alert">
+                    <p class="lead">You cannot edit your own account, for now.</p>
+                </div>
+            }
+        </div>
+    </div>
+
+</div>
+</div>

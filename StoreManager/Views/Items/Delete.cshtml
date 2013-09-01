@@ -1,7 +1,7 @@
 ﻿@model StoreManager.Models.Item
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Delete Item";
 }
 
 <h2>Delete</h2>
@@ -11,17 +11,10 @@
     <legend>Item</legend>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Name)
+         @Html.DisplayNameFor(f => f.Name)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.Name)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Status.Name)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Status.Name)
+        @Html.DisplayFor(f => f.Name)
     </div>
 </fieldset>
 @using (Html.BeginForm()) {

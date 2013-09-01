@@ -1,0 +1,43 @@
+﻿@model IEnumerable<StoreManager.Models.StockCondition>
+
+@{
+    ViewBag.Title = "Stock Conditions";
+}
+
+<div class="container">
+    <div class="row">
+        <h2 class="page-header">Stock Conditions <small>Settings</small></h2>
+    </div>
+
+    <div class="row">
+        <ul class="nav nav-pills">
+            <li class="active"><a href="@Url.Action("Index")">List</a></li>
+            <li><a href="@Url.Action("Create")">Create New</a></li>
+        </ul>
+    </div>
+
+    <p>&nbsp;</p>
+
+    <div class="row">
+        <table class="table table-hover">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(f => f.Name)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model) {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(_ => item.Name)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) | @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>

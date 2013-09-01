@@ -1,0 +1,41 @@
+﻿@model IEnumerable<StoreManager.Models.User>
+@{
+    ViewBag.Title = "Users Accounts";
+
+    var usersByRole = Model.GroupBy(d => d.Role).OrderBy(f => f.Key);
+    var totalUsers = Model.Count();
+}
+
+@ViewHelpers.Jumbotron("Settings")
+
+<div class="container">
+
+    <div class="row">
+        @ViewHelpers.PageHeader("User Accounts", string.Format("{0} users", totalUsers))
+    </div>
+
+    <div class="row">
+        <p class="well well-small">
+            <a href="@Url.Action("Create")" class="btn btn-success">
+                <i class="icon-plus-sign"></i>&nbsp;Create a new record 
+            </a>
+        </p>
+    </div>
+
+
+    <div class="row">
+        @foreach (var user in usersByRole)
+        {
+            <div class="widget">
+                <div class="widget-header">
+                    <h3>@user.Key <small>@user.Count() user accounts</small></h3>
+                </div>
+                @{ var orderedList = user
+                       .OrderByDescending(u => u.LastLogin)
+                       .ThenBy(d => d.DisplayName).ToList();
+                }
+                @Html.Partial("_List", orderedList)
+            </div>          
+        }
+    </div>
+</div>

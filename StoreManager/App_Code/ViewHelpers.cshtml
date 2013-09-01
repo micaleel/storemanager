@@ -1,0 +1,41 @@
+﻿@helper Jumbotron(string title, string subtext) {
+    <header class="jumbotron subhead" id="overview">
+        <div class="container">
+            <h1>@title</h1>
+            @if (!string.IsNullOrEmpty(subtext)) {
+                <p style="font-family: 'Segoe UI Light', 'Segoe UI', 'Open Sans', Arial" class="lead">@subtext</p>
+            }
+        </div>
+    </header>
+}
+
+@helper Jumbotron(string title) {
+    <header class="jumbotron subhead" id="overview">
+        <div class="container">
+            <h1>@title</h1>
+        </div>
+    </header>
+}
+
+@helper PageHeader(string title) {
+    <h2 class="page-header">@title</h2>
+}
+
+@helper PageHeader(string title, string subtitle) {
+    <h2 class="page-header">@title <small>@subtitle</small></h2>
+}
+
+@functions
+{
+    public static string ApplicationVersion() {
+        return System.Configuration.ConfigurationManager.AppSettings["abufm.app-version"].ToLowerInvariant();
+    }
+
+}
+
+@helper Html5Shim() {
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+}

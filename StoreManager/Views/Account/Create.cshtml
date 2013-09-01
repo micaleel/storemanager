@@ -1,0 +1,98 @@
+﻿@model StoreManager.ViewModels.RegisterModel
+@{
+    ViewBag.Title = "Create a user account";
+}
+
+@ViewHelpers.Jumbotron("Settings")
+
+
+<div class="container">
+
+    <div class="row">
+        @ViewHelpers.PageHeader("Create User Account")
+    </div>
+
+    <div class="row">
+
+        <div class="widget form-widget">
+
+            <div class="widget-header">
+                <h3>User Information</h3>
+            </div>
+
+            <div class="widget-content">
+                <form action="@Url.Action("Create")" method="post"  autocomplete="off">
+                    @Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.")
+
+                    <div class="form-group">
+                        @Html.LabelFor(f => f.UserName)
+                        <div >
+                            @Html.TextBoxFor(f => f.UserName)
+                            @Html.ValidationMessageFor(f => f.UserName)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(f => f.DisplayName)
+                        <div >
+                            @Html.TextBoxFor(f => f.DisplayName)
+                            @Html.ValidationMessageFor(f => f.DisplayName)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(f => f.Email)
+                        <div >
+                            @Html.TextBoxFor(f => f.Email)
+                            @Html.ValidationMessageFor(f => f.Email)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(f => f.Phone)
+                        <div >
+                            @Html.TextBoxFor(f => f.Phone)
+                            @Html.ValidationMessageFor(f => f.Phone)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(f => f.SecretQuestion)
+                        <div >
+                            @Html.TextBoxFor(f => f.SecretQuestion)
+                            @Html.ValidationMessageFor(f => f.SecretQuestion)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(f => f.SecretAnswer)
+                        <div >
+                            @Html.TextBoxFor(f => f.SecretAnswer, new { autocomplete = "off" })
+                            @Html.ValidationMessageFor(f => f.SecretAnswer)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(f => f.Password)
+                        <div >
+                            @Html.PasswordFor(f => f.Password, new { autocomplete = "off" })
+                            @Html.ValidationMessageFor(f => f.Password)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(f => f.ConfirmPassword)
+                        <div >
+                            @Html.PasswordFor(f => f.ConfirmPassword)
+                            @Html.ValidationMessageFor(f => f.ConfirmPassword)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Sign up</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

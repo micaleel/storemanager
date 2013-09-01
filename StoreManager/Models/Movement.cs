@@ -9,6 +9,8 @@ namespace StoreManager.Models
         public DateTime Date { get; set; }
         public int ItemId { get; set; }
         public int LocationId { get; set; }
+        public string Requestor { get; set; }
+        public string Approver { get; set; }
         public string Notes { get; set; }
 
         [ForeignKey("ItemId")]

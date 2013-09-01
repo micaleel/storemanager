@@ -1,22 +1,30 @@
 ﻿@model StoreManager.Models.Location
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Location Details";
 }
 
-<h2>Details</h2>
+<h2>Location Details</h2>
 
 <fieldset>
-    <legend>Location</legend>
+    <legend>Location Details</legend>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Name)
+    <div class="form-group">
+        @Html.DisplayNameFor(f => f.Name)
+        <div >
+            @Html.DisplayFor(f => f.Name)
+        </div>
     </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Name)
+    
+    <div class="form-group">
+        @Html.DisplayNameFor(f => f.IsStore)
+        <div >
+            @Html.DisplayFor(f => f.IsStore)
+        </div>
     </div>
+
 </fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

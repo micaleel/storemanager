@@ -3,79 +3,89 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 
-namespace StoreManager.Models
-{
-    public class StoreManagerContextInitializer : DropCreateDatabaseAlways<StoreManagerContext>
-    {
-        public static IEnumerable<Item> CreateItems(List<ItemStatus> itemStatuses, int count = 10)
-        {
-            var randomizer = new Random();
+namespace StoreManager.Models {
+    public class StoreManagerContextInitializer : DropCreateDatabaseAlways<StoreManagerContext> {
 
-            for (var i = 0; i < count; i++)
-            {
-                yield return new Item
-                     {
-                         Name = string.Format("Item {0}", i),
-                         Status = itemStatuses[randomizer.Next(itemStatuses.Count)]
-                     };
+        public static IEnumerable<Item> CreateItems(List<StockCondition> itemConditions) {
+            var itemNames = new[] { "Desktop Computer", "Laptop Computer", "Smart Board", "Microwave" };
+
+            for (var i = 0; i < itemNames.Count(); i++) {
+                yield return new Item {
+                    Name = itemNames[i],
+                    Discontinued = false,
+                    InternalId = Guid.NewGuid(),
+                    ReorderLevel = 2
+                };
             }
         }
 
-        public static IEnumerable<Location> CreateLocations(int count = 10)
-        {
-            for (var i = 0; i < count; i++)
-            {
-                yield return new Location
-                {
+        public static IEnumerable<Location> CreateLocations(int count = 10) {
+            for (var i = 0; i < count; i++) {
+                yield return new Location {
                     Name = string.Format("Location {0}", i),
                 };
             }
         }
 
-        public static IEnumerable<Movement> CreateMovements(List<Item> items, List<Location> locations, int count = 10)
-        {
+        public static IEnumerable<Movement> CreateMovements(List<Item> items, List<Location> locations, int count = 10) {
             var randomDates = new RandomDates();
             var randomizer = new Random();
 
-            for (var i = 0; i < count; i++)
-            {
+            for (var i = 0; i < count; i++) {
                 var item = items[randomizer.Next(items.Count)];
                 var location = locations[randomizer.Next(locations.Count)];
 
-                yield return new Movement
-                {
-                    Notes = string.Format("Remarks for moving item '{0}' to location '{1}'", item.Name, location.Name),
-                    ItemId =  item.Id, LocationId = location.Id,
-                    Date =  randomDates.Date(DateTime.UtcNow.AddYears(-1), DateTime.UtcNow)
+                yield return new Movement {
+                    Notes = string.Format("Moved '{0}' to '{1}'", item.Name, location.Name),
+                    ItemId = item.Id,
+                    LocationId = location.Id,
+                    Date = randomDates.Date(DateTime.UtcNow.AddMonths(-6), DateTime.UtcNow)
                 };
             }
         }
-        public static List<ItemStatus> CreateItemStatuses()
-        {
-            return new List<ItemStatus>
+        public static List<StockCondition> CreateStockConditions() {
+            return new List<StockCondition>
                 {
-                    new ItemStatus {Name = "Damaged"},
-                    new ItemStatus {Name = "Fair"},
-                    new ItemStatus {Name = "Stolen"},
-                    new ItemStatus {Name = "Good"}
+                    new StockCondition {Name = "Damaged"},
+                    new StockCondition {Name = "Fair"},
+                    new StockCondition {Name = "Stolen"},
+                    new StockCondition {Name = "Good"}
                 };
         }
-        protected override void Seed(StoreManagerContext context)
-        {
-            var itemStatuses = CreateItemStatuses().ToList();
+        protected override void Seed(StoreManagerContext context) {
 
-            itemStatuses.ForEach(itemStatus => context.ItemStatuses.Add(itemStatus));
+            var user = new User {
+                LastLogin = DateTime.UtcNow,
+                Locked = false,
+                Approved = true,
+                Role = Role.Admin.ToString(),
+                DisplayName = "Administrator",
+                Email = "admin@storemanager.com",
+                Password = "password",
+                Phone = "08093188347",
+                SecretAnswer = "What is Dialogue?"
+            };
 
-            var items = CreateItems(itemStatuses, 50).ToList();
+            user.SecretAnswer = "Dialogue";
+            user.UserName = "admin";
+            context.Users.Add(user);
+            context.SaveChanges();
+
+            var itemConditions = CreateStockConditions().ToList();
+
+            itemConditions.ForEach(itemCondition => context.StockConditions.Add(itemCondition));
+
+            var locations = CreateLocations().ToList();
+            locations.ForEach(location => context.Locations.Add(location));
+            context.SaveChanges();
+
+            var items = CreateItems(itemConditions).ToList();
             items.ForEach(item => context.Items.Add(item));
             context.SaveChanges();
 
-            var locations = CreateLocations(25).ToList();
-            locations.ForEach(location => context.Locations.Add(location));
-            context.SaveChanges();
-            
+
             var movements = CreateMovements(items.ToList(), locations.ToList(), 200).ToList();
-            movements.ForEach(itemStatus => context.Movements.Add(itemStatus));
+            movements.ForEach(itemCondition => context.Movements.Add(itemCondition));
             context.SaveChanges();
 
             base.Seed(context);

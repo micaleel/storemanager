@@ -1,0 +1,106 @@
+﻿@model StoreManager.ViewModels.RegisterModel
+@{
+    ViewBag.Title = "Sign up for StoreManager";
+}
+
+<div class="container">
+
+    <div class="row">
+        @ViewHelpers.PageHeader("Sign up for StoreManager")
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 col">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">New User <small>Request for access</small></h3>
+                </div>
+                <div class="panel-body">
+                    <form action="@Url.Action("Register")" method="post" >
+                        @Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.")
+
+                        <div class="form-group">
+                            @Html.LabelFor(f => f.UserName)
+                            <div>
+                                @Html.TextBoxFor(f => f.UserName)
+                                @Html.ValidationMessageFor(f => f.UserName)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(f => f.DisplayName)
+                            <div>
+                                @Html.TextBoxFor(f => f.DisplayName)
+                                @Html.ValidationMessageFor(f => f.DisplayName)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(f => f.Email)
+                            <div>
+                                @Html.TextBoxFor(f => f.Email)
+                                @Html.ValidationMessageFor(f => f.Email)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(f => f.Phone)
+                            <div>
+                                @Html.TextBoxFor(f => f.Phone)
+                                @Html.ValidationMessageFor(f => f.Phone)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(f => f.SecretQuestion)
+                            <div>
+                                @Html.TextBoxFor(f => f.SecretQuestion)
+                                @Html.ValidationMessageFor(f => f.SecretQuestion)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(f => f.SecretAnswer)
+                            <div>
+                                @Html.TextBoxFor(f => f.SecretAnswer, new{ autocomplete = "off"})
+                                @Html.ValidationMessageFor(f => f.SecretAnswer)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(f => f.Password)
+                            <div>
+                                @Html.PasswordFor(f => f.Password, new{ autocomplete = "off"})
+                                @Html.ValidationMessageFor(f => f.Password)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(f => f.ConfirmPassword)
+                            <div>
+                                @Html.PasswordFor(f => f.ConfirmPassword, new{ autocomplete = "off"})
+                                @Html.ValidationMessageFor(f => f.ConfirmPassword)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Sign up</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div>
+                <h4>Why Sign up?</h4>
+                <p style="margin-top: 10px; line-height: 1.62">StoreManager is designed for the Dialogue Group, particularly for the Dialogue Girls Computer School. It helps track the conditions and locations of all items within your business. For this reason, you need to request for an account so that administrators can validate your employment status. Only staff of the university will be approved to be users.</p>
+            </div>
+
+            <div style="margin-top: 40px">
+                <h4>Already a User?</h4>
+                <p style="margin-top: 10px; line-height: 1.62">Have you already signed up for an account previously? If so, then @Html.ActionLink("attempt to login", "Login") using the information you entered during the registration process.</p>
+                <p><a href="@Url.Action("Login")" class="btn btn-success">Sign in</a></p>
+            </div>
+        </div>
+    </div>
+</div>

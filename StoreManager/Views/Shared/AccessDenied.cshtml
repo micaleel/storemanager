@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "Access Denied";
+}
+
+<div class="container-narrow" style="margin-top: 30px">
+    <div class="row">
+        <h1 class="page-header">Access Denied</h1>
+    </div>
+    <div class="row">
+        <p class="lead">You do not have permission to perform that task</p>
+        
+        @if (ViewBag.ReferrerUrl != null)
+        {
+            <p class="alert alert-info">Go back to the <a href="@ViewBag.ReferrerUrl">previous page</a>.</p>
+        }
+
+    </div>
+
+    @* Error page must be longer than 512 bytes for IE and Chrome to show it. 
+   So add padding in case we're short. *@
+    @(new string(' ', 512))
+</div>
+<

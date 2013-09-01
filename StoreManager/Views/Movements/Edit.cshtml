@@ -14,38 +14,38 @@
     <fieldset>
         <legend>Movement</legend>
 
-        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(f => f.Id)
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Date)
+        <div class="form-group">
+            @Html.LabelFor(f => f.Date)
         </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Date)
-            @Html.ValidationMessageFor(model => model.Date)
+        <div >
+            @Html.EditorFor(f => f.Date)
+            @Html.ValidationMessageFor(f => f.Date)
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ItemId, "Item")
+        <div class="form-group">
+            @Html.LabelFor(f => f.ItemId, "Item")
         </div>
-        <div class="editor-field">
+        <div >
             @Html.DropDownList("ItemId", String.Empty)
-            @Html.ValidationMessageFor(model => model.ItemId)
+            @Html.ValidationMessageFor(f => f.ItemId)
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.LocationId, "Location")
+        <div class="form-group">
+            @Html.LabelFor(f => f.LocationId, "Location")
         </div>
-        <div class="editor-field">
+        <div >
             @Html.DropDownList("LocationId", String.Empty)
-            @Html.ValidationMessageFor(model => model.LocationId)
+            @Html.ValidationMessageFor(f => f.LocationId)
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Notes)
+        <div class="form-group">
+            @Html.LabelFor(f => f.Notes)
         </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Notes)
-            @Html.ValidationMessageFor(model => model.Notes)
+        <div >
+            @Html.EditorFor(f => f.Notes)
+            @Html.ValidationMessageFor(f => f.Notes)
         </div>
 
         <p>

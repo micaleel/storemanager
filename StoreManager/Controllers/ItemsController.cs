@@ -2,124 +2,125 @@
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
+using StoreManager.Infrastructure;
 using StoreManager.Models;
+using System;
 
-namespace StoreManager.Controllers
-{
-    public class ItemsController : Controller
-    {
-        private StoreManagerContext db = new StoreManagerContext();
+namespace StoreManager.Controllers {
 
-        //
-        // GET: /Items/
+    [AuthorizeAndRedirect]
+    public class ItemsController : BaseController {
 
-        public ActionResult Index()
-        {
-            var items = db.Items.Include(i => i.Status);
+        public ActionResult Index() {
+            var items = Db.Items;
             return View(items.ToList());
         }
 
-        //
-        // GET: /Items/Details/5
-
-        public ActionResult Details(int id = 0)
-        {
-            Item item = db.Items.Find(id);
-            if (item == null)
-            {
+        public ActionResult Details(int id = 0) {
+            Item item = Db.Items.Find(id);
+            if (item == null) {
                 return HttpNotFound();
             }
             return View(item);
         }
 
-        //
-        // GET: /Items/Create
-
-        public ActionResult Create()
-        {
-            ViewBag.ItemStatusId = new SelectList(db.ItemStatuses, "Id", "Name");
+        public ActionResult Create() {
+            ViewBag.StockConditionId = new SelectList(Db.StockConditions, "Id", "Name");
+            ViewBag.LocationId = new SelectList(Db.Locations, "Id", "Name");
             return View();
         }
 
-        //
-        // POST: /Items/Create
-
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Item item)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Items.Add(item);
-                db.SaveChanges();
+        public ActionResult Create(Item item, int locationId) {
+            if (ModelState.IsValid) {
+                Db.Items.Add(item);
+                Db.SaveChanges();
+
+                var locationName = Db.Locations.Single(l => l.Id == locationId).Name;
+                Db.Movements.Add(new Movement { Date = DateTime.UtcNow, ItemId = item.Id, LocationId = locationId, Notes = "Item created and placed at " + locationName });
+                Db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ItemStatusId = new SelectList(db.ItemStatuses, "Id", "Name", item.ItemStatusId);
+            //ViewBag.StockConditionId = new SelectList(Db.StockConditions, "Id", "Name", item.StockConditionId);
             return View(item);
         }
 
-        //
-        // GET: /Items/Edit/5
+        public ActionResult AddStock(int id) {
+            ViewBag.StockConditionId = new SelectList(Db.StockConditions, "Id", "Name");
 
-        public ActionResult Edit(int id = 0)
-        {
-            Item item = db.Items.Find(id);
-            if (item == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.ItemStatusId = new SelectList(db.ItemStatuses, "Id", "Name", item.ItemStatusId);
-            return View(item);
+            var item = Db.Items.Find(id);
+            if (item == null) return HttpNotFound("Cannot find item with specified ID");
+            var stock = new Stock { ItemId = id, Item = item };
+
+            return View(stock);
         }
-
-        //
-        // POST: /Items/Edit/5
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Item item)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(item).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+        public ActionResult AddStock(Stock stock) {
+            var item = Db.Items.Find(stock.ItemId);
+            if (item == null) return HttpNotFound("Cannot find item with specified itemId");
+
+            if (ModelState.IsValid) {
+                Db.Stocks.Add(stock);
+                Db.SaveChanges();
+
+                FlashSuccess(string.Format("{0} stock items have been added to {1}", stock.Quantity, item.Name));
+
+                return RedirectToAction("Details", new { id = stock.ItemId });
             }
-            ViewBag.ItemStatusId = new SelectList(db.ItemStatuses, "Id", "Name", item.ItemStatusId);
+
+            ViewBag.StockConditionId = new SelectList(Db.StockConditions, "Id", "Name", stock.StockConditionId);
+
+            stock = new Stock { ItemId = stock.ItemId, Item = item };
+
+            return View(stock);
+        }
+
+        public ActionResult Edit(int id = 0) {
+            Item item = Db.Items.Find(id);
+            if (item == null) {
+                return HttpNotFound();
+            }
+            //ViewBag.StockConditionId = new SelectList(Db.StockConditions, "Id", "Name", item.StockConditionId);
             return View(item);
         }
 
-        //
-        // GET: /Items/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(Item item) {
+            if (ModelState.IsValid) {
+                Db.Entry(item).State = EntityState.Modified;
+                Db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            //ViewBag.StockConditionId = new SelectList(Db.StockConditions, "Id", "Name", item.StockConditionId);
+            return View(item);
+        }
 
-        public ActionResult Delete(int id = 0)
-        {
-            Item item = db.Items.Find(id);
-            if (item == null)
-            {
+        public ActionResult Delete(int id = 0) {
+            Item item = Db.Items.Find(id);
+            if (item == null) {
                 return HttpNotFound();
             }
             return View(item);
         }
-
-        //
-        // POST: /Items/Delete/5
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Item item = db.Items.Find(id);
-            db.Items.Remove(item);
-            db.SaveChanges();
+        public ActionResult DeleteConfirmed(int id) {
+            Item item = Db.Items.Find(id);
+            Db.Items.Remove(item);
+            Db.SaveChanges();
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-            base.Dispose(disposing);
+        public ActionResult Movements(int id) {
+            var movements = Db.Movements.Where(m => m.ItemId == id).OrderByDescending(m => m.Date);
+            return View(movements);
         }
     }
 }

@@ -1,18 +1,41 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
-namespace StoreManager.Models
-{
-    public class Item
-    {
+namespace StoreManager.Models {
+
+    [DisplayColumn("Name")]
+    public class Item {
+
+        public Item() {
+            InternalId = Guid.Empty;
+        }
+
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+        public Guid InternalId { get; set; }
+
+        [Required]
+        [Display(Name = "Item")]
         public string Name { get; set; }
-        public int ItemStatusId { get; set; }
 
-        [ForeignKey("ItemStatusId")]
-        public virtual ItemStatus Status { get; set; }
+        [Display(Name = "Re-Order Level")]
+        public int ReorderLevel { get; set; }
 
-        public virtual List<Movement> Movements { get; set; } 
+        [Display(Name = "Is Discontinued")]
+        public bool Discontinued { get; set; }
+
+        [DataType(DataType.MultilineText)]
+        public string Notes { get; set; }
+
+        [Display(Name = "Quantity in Stock")]
+        public int QuantityinStock {
+            get { return Stocks == null ? 0 : Stocks.Sum(x => x.Quantity); }
+        }
+
+        public virtual List<Movement> Movements { get; set; }
+        public virtual List<Stock> Stocks { get; set; }
     }
 }

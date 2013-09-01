@@ -1,0 +1,57 @@
+﻿@{
+    ViewBag.Title = "Reports";
+}
+
+@helper ActiveItem(string actionName, string controllerName) {
+    @:ViewContext.RouteData.Values["action"].ToString()
+    <br />
+    @ViewContext.RouteData.Values["controller"].ToString()
+    <br />
+    if (ViewContext.RouteData.Values["action"].ToString() == actionName &&
+            ViewContext.RouteData.Values["controller"].ToString() == controllerName) {
+    @:active
+    }
+}
+
+@functions
+{
+    string IsActive(string actionName, string controllerName) {
+        var routeAction = ViewContext.RouteData.Values["action"].ToString();
+        var routeController = ViewContext.RouteData.Values["controller"].ToString();
+
+        if (string.IsNullOrEmpty(routeAction)) {
+            if (routeController == controllerName) {
+                return "active";
+            }
+        }
+
+        if (routeAction == actionName && routeController == controllerName) {
+            return "active";
+        }
+
+        return string.Empty;
+    }
+
+}
+
+<header>
+    <div class="container">
+        <h1>Reports</h1>
+        <p class="lead">Generate reports about your store.</p>
+    </div>
+</header>
+
+<div class="container">
+    <div class="row">
+        <div class="span3">
+            <ul class="nav nav-list">
+                <li class="@IsActive("Index", "Reports")"><a href="@Url.Action("Index")">Reports Home</a></li>
+                <li class=""><a href="@Url.Action("ExpiredItems")">Expired Items</a></li>
+                <li><a href="@Url.Action("Inventory")">Inventory List</a></li>
+                <li><a href="@Url.Action("RecentMovements")">Recent Movements</a></li>
+
+            </ul>
+        </div>
+        <div class="span9"></div>
+    </div>
+</div>

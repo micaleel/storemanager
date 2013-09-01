@@ -1,42 +1,62 @@
 ﻿@model StoreManager.Models.Item
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Edit Item";
 }
 
-<h2>Edit</h2>
+<div class="container">
 
-@using (Html.BeginForm()) {
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
+    <div class="row">
+        <h2 class="page-header">Edit Item</h2>
+    </div>
 
-    <fieldset>
-        <legend>Item</legend>
+    <div class="row">
+        <form method="POST" action="@Url.Action("Edit")">
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
 
-        @Html.HiddenFor(model => model.Id)
+            <fieldset>
+                <legend>Item Information</legend>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Name)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Name)
-            @Html.ValidationMessageFor(model => model.Name)
-        </div>
+                @Html.HiddenFor(f => f.Id)
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ItemStatusId, "Status")
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("ItemStatusId", String.Empty)
-            @Html.ValidationMessageFor(model => model.ItemStatusId)
-        </div>
+                <div class="form-group">
+                    @Html.LabelFor(f => f.Name)
+                    <div>
+                        @Html.TextBoxFor(f => f.Name)
+                        @Html.ValidationMessageFor(f => f.Name)
+                    </div>
+                </div>
 
-        <p>
-            <button type="submit" class="btn btn-primary">Save changes</button>
-        </p>
-    </fieldset>
-}
+                <div class="form-group">
+                    @Html.LabelFor(f => f.ReorderLevel)
+                    <div>
+                        @Html.EditorFor(f => f.ReorderLevel)
+                        @Html.ValidationMessageFor(f => f.ReorderLevel)
+                    </div>
+                </div>
+                
+                 <div class="form-group">
+                    @Html.LabelFor(f => f.Discontinued)
+                    <div>
+                        @Html.EditorFor(f => f.Discontinued)
+                        @Html.ValidationMessageFor(f => f.Discontinued)
+                    </div>
+                </div>
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
+                <div class="form-group">
+                    @Html.LabelFor(f => f.Notes)
+                    <div>
+                        @Html.TextAreaFor(f => f.Notes)
+                        @Html.ValidationMessageFor(f => f.Notes)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                    <a href="@Url.Action("Index")" class="btn">Back to Index</a>
+                </div>
+            </fieldset>
+        </form>
+    </div>
 </div>
