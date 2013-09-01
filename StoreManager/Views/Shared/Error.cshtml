@@ -2,15 +2,14 @@
     ViewBag.Title = "Error";
 }
 
-<div class="container-narrow" style="margin-top: 30px">
+<div class="container">
     <div class="row">
         <h1 class="page-header">Error</h1>
     </div>
     <div class="row">
         <p class="lead">An error occurred while processing your request.</p>
-        
-        @if (ViewBag.ReferrerUrl != null)
-        {
+
+        @if (ViewBag.ReferrerUrl != null) {
             <p class="alert alert-info">Go back to the <a href="@ViewBag.ReferrerUrl">previous page</a>.</p>
         }
 

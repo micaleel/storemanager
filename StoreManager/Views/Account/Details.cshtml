@@ -5,15 +5,18 @@
     ViewBag.Title = string.Format("User Profile for {0} ({1}) ", Model.DisplayName, Model.UserName);
 }
 
-@ViewHelpers.Jumbotron("User Profile")
+<div class="container">
+    
+    <div class="row">
+        @ViewHelpers.PageHeader("User Profile")
+    </div>
 
-<div class="container" style="margin-top: 30px">
-    <div class="span10">
-        <div class="widget">
-            <div class="widget-header">
+    <div class="col-md-10">
+        <div class="panel">
+            <div class="panel-header">
                 <h3>@Model.DisplayName (@Model.UserName)</h3>
             </div>
-            <div class="widget-content">
+            <div class="panel-content">
 
                 <dl class="dl-horizontal">
                     <dt>UserName</dt>

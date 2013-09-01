@@ -7,7 +7,6 @@ using StoreManager.Models;
 using System;
 
 namespace StoreManager.Controllers {
-
     [AuthorizeAndRedirect]
     public class ItemsController : BaseController {
 
@@ -46,38 +45,6 @@ namespace StoreManager.Controllers {
 
             //ViewBag.StockConditionId = new SelectList(Db.StockConditions, "Id", "Name", item.StockConditionId);
             return View(item);
-        }
-
-        public ActionResult AddStock(int id) {
-            ViewBag.StockConditionId = new SelectList(Db.StockConditions, "Id", "Name");
-
-            var item = Db.Items.Find(id);
-            if (item == null) return HttpNotFound("Cannot find item with specified ID");
-            var stock = new Stock { ItemId = id, Item = item };
-
-            return View(stock);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult AddStock(Stock stock) {
-            var item = Db.Items.Find(stock.ItemId);
-            if (item == null) return HttpNotFound("Cannot find item with specified itemId");
-
-            if (ModelState.IsValid) {
-                Db.Stocks.Add(stock);
-                Db.SaveChanges();
-
-                FlashSuccess(string.Format("{0} stock items have been added to {1}", stock.Quantity, item.Name));
-
-                return RedirectToAction("Details", new { id = stock.ItemId });
-            }
-
-            ViewBag.StockConditionId = new SelectList(Db.StockConditions, "Id", "Name", stock.StockConditionId);
-
-            stock = new Stock { ItemId = stock.ItemId, Item = item };
-
-            return View(stock);
         }
 
         public ActionResult Edit(int id = 0) {

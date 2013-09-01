@@ -16,10 +16,5 @@ namespace StoreManager.Controllers {
             var movements = Db.Movements.OrderBy(x => x.Date).Take(20);
             return View(movements);
         }
-
-        public ActionResult Inventory() {
-            var items = Db.Items.ToList();
-            return View(items);
-        }
     }
 }

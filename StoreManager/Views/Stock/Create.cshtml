@@ -1,0 +1,45 @@
+﻿@model StoreManager.Models.Stock
+
+@{
+    ViewBag.Title = "Add Stock Item";
+}
+
+<div class="container">
+
+    <div class="row">
+        <h2 class="page-header">Add Stock Item <small>@Model.Item.Name</small></h2>
+    </div>
+
+    <div class="row">
+        <ul class="nav nav-pills">
+            <li><a href="@Url.Action("Index", "Items")">All Items</a></li>
+            <li class="active"><a href="@Url.Action("Create", "Items")">Create New</a></li>
+        </ul>
+    </div>
+
+    <p>&nbsp;</p>
+
+    <div class="row">
+        <div class="col-md-6">
+            @using (Html.BeginForm()) {
+
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+                @Html.HiddenFor(f => f.ItemId)
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h3>Stock Information</h3>
+                    </div>
+                    <div class="panel-body">
+
+                        @Html.Partial("_CreateOrEdit")
+
+                        <div class="form-group">
+                            <input type="submit" value="Add Stock" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

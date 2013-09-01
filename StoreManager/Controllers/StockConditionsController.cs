@@ -13,14 +13,6 @@ namespace StoreManager.Controllers {
             return View(Db.StockConditions.ToList());
         }
 
-        public ActionResult Details(int id = 0) {
-            StockCondition itemcondition = Db.StockConditions.Find(id);
-            if (itemcondition == null) {
-                return HttpNotFound();
-            }
-            return View(itemcondition);
-        }
-
         public ActionResult Create() {
             return View();
         }

@@ -45,6 +45,7 @@
                 <td>@Html.DisplayFor(_ => item.PurchasePrice)</td>
                 <td>@Html.DisplayFor(_ => item.ExpiryDate)</td>
                 <td>@Html.DisplayFor(_ => item.Notes)</td>
+                <td><a href="@Url.Action("AdjustStock")">Adjust</a> | <a href="@Url.Action("MoveStock")">Move</a> </td>
             </tr>
                 
             itemIdx += 1;

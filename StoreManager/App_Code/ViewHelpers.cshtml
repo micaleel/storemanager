@@ -1,23 +1,4 @@
-﻿@helper Jumbotron(string title, string subtext) {
-    <header class="jumbotron subhead" id="overview">
-        <div class="container">
-            <h1>@title</h1>
-            @if (!string.IsNullOrEmpty(subtext)) {
-                <p style="font-family: 'Segoe UI Light', 'Segoe UI', 'Open Sans', Arial" class="lead">@subtext</p>
-            }
-        </div>
-    </header>
-}
-
-@helper Jumbotron(string title) {
-    <header class="jumbotron subhead" id="overview">
-        <div class="container">
-            <h1>@title</h1>
-        </div>
-    </header>
-}
-
-@helper PageHeader(string title) {
+﻿@helper PageHeader(string title) {
     <h2 class="page-header">@title</h2>
 }
 

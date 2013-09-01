@@ -18,12 +18,12 @@ namespace StoreManager.Models
             TimeSpan timeSpan = max - min;
 
             // for random long see: http://stackoverflow.com/questions/677373/generate-random-values-in-c/677384#677384
-            byte[] bytes = new byte[8];
+            var bytes = new byte[8];
             _random.NextBytes(bytes);
 
             long int64 = Math.Abs(BitConverter.ToInt64(bytes, 0)) % timeSpan.Ticks;
 
-            TimeSpan newSpan = new TimeSpan(int64);
+            var newSpan = new TimeSpan(int64);
 
             return min + newSpan;
         }

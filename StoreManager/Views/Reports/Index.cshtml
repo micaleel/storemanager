@@ -43,15 +43,13 @@
 
 <div class="container">
     <div class="row">
-        <div class="span3">
-            <ul class="nav nav-list">
+        <div class="col-md-3">
+            <ul class="nav">
                 <li class="@IsActive("Index", "Reports")"><a href="@Url.Action("Index")">Reports Home</a></li>
-                <li class=""><a href="@Url.Action("ExpiredItems")">Expired Items</a></li>
-                <li><a href="@Url.Action("Inventory")">Inventory List</a></li>
                 <li><a href="@Url.Action("RecentMovements")">Recent Movements</a></li>
 
             </ul>
         </div>
-        <div class="span9"></div>
+        <div class="col-md-9"></div>
     </div>
 </div>
