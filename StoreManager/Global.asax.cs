@@ -21,11 +21,11 @@ namespace StoreManager
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-#if DEBUG
+//#if DEBUG
             Database.SetInitializer(new StoreManagerContextInitializer());
-#else
-            Database.SetInitializer<StoreManagerContext>(null);
-#endif
+//#else
+//            Database.SetInitializer<StoreManagerContext>(null);
+//#endif
         }
     }
 }
