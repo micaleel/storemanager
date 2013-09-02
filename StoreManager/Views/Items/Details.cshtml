@@ -7,6 +7,10 @@
 @functions
 {
     static string PaintRow(StoreManager.Models.Stock item) {
+        if (item.IsParent) {
+            return "success";
+        }
+
         return item.IsExpired ? "warning" : string.Empty;
     }
 
@@ -23,9 +27,9 @@
                 <th></th>
                 <th>Date Added</th>
                 <th>Condition</th>
-                <th>Quantity</th>
                 <th>Purchase Date</th>
-                <th>Purchase Price</th>
+                <th>Batch Price</th>
+                <th>Unit Price</th>
                 <th>Expiry Date</th>
                 <th>Notes</th>
                 <th></th>
@@ -38,12 +42,12 @@
                 <td>@itemIdx</td>
                 <td>@Html.DisplayFor(_ => item.DateAdded)</td>
                 <td>@Html.DisplayFor(_ => item.Condition.Name)</td>
-                <td><strong>@Html.DisplayFor(_ => item.Quantity)</strong></td>
                 <td>@Html.DisplayFor(_ => item.PurchaseDate)</td>
-                <td>@Html.DisplayFor(_ => item.PurchasePrice)</td>
+                <td>@Html.DisplayFor(_ => item.BatchPrice)</td>
+                <td>@Html.DisplayFor(_ => item.UnitPrice)</td>
                 <td>@Html.DisplayFor(_ => item.ExpiryDate)</td>
                 <td>@Html.DisplayFor(_ => item.Notes)</td>
-                <td><a href="@Url.Action("Edit", "Stock", new { id = item.Id })">Adjust</a> | <a href="@Url.Action("Move", "Stock", new { id = item.Id })">Move</a> </td>
+                <td><a href="@Url.Action("Edit", "Stock", new { id = item.Id })">Adjust</a> | <a href="@Url.Action("Move", "Stock", new { id = item.Id })">Move</a> | <a href="@Url.Action("Delete", "Stock", new { id = item.Id })">Delete</a> </td>
             </tr>
                 
             itemIdx += 1;

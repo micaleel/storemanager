@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace StoreManager.Views.Stock {
@@ -24,10 +25,11 @@ namespace StoreManager.Views.Stock {
         }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext) {
-            if (Quantity > Stock.Quantity) {
-                yield return new ValidationResult(
-                    "Quantity to be moved is more than available stock quantity on hand");
-            }
+            //if (Quantity > Stock.Quantity) {
+            //    yield return new ValidationResult(
+            //        "Quantity to be moved is more than available stock quantity on hand");
+            //}
+            throw new NotImplementedException();
         }
     }
 }

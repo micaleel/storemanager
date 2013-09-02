@@ -179,6 +179,7 @@
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\RegisterModel.cs" />
     <Compile Include="ViewModels\ResetPasswordModel.cs" />
+    <Compile Include="Views\Stock\CreateStockModel.cs" />
     <Compile Include="Views\Stock\MoveStockModel.cs" />
   </ItemGroup>
   <ItemGroup>

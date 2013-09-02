@@ -4,11 +4,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StoreManager.Models {
 
-    public class Stock : IValidatableObject {
-    
+    public class Stock {
+
         public Stock() {
-            Quantity = 1;
             DateAdded = DateTime.UtcNow;
+            BatchId = Guid.Empty;
         }
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -20,13 +20,10 @@ namespace StoreManager.Models {
         public virtual Item Item { get; set; }
 
         [Display(Name = "Batch #")]
-        public string BatchId { get; set; }
+        public Guid BatchId { get; set; }
 
-        [Display(Name = "Serial #")]
-        public string SerialId { get; set; }
-
-        [Required]
-        public int Quantity { get; set; }
+        [Display(Name = "Ref #")]
+        public string RefNo { get; set; }
 
         [Display(Name = "Condition")]
         public int StockConditionId { get; set; }
@@ -57,8 +54,12 @@ namespace StoreManager.Models {
         public DateTime? PurchaseDate { get; set; }
 
         [DataType(DataType.Currency)]
-        [Display(Name = "Purchase Price")]
-        public decimal? PurchasePrice { get; set; }
+        [Display(Name = "Purchase Price (Batch)")]
+        public decimal? BatchPrice { get; set; }
+
+        [DataType(DataType.Currency)]
+        [Display(Name = "Purchase Price (Unit)")]
+        public decimal? UnitPrice { get; set; }
 
         [DataType(DataType.MultilineText)]
         public string Notes { get; set; }
@@ -68,16 +69,11 @@ namespace StoreManager.Models {
         [ForeignKey("StockAuditDetailId")]
         public StockAuditDetail AuditDetail { get; set; }
 
-        public System.Collections.Generic.IEnumerable<ValidationResult> Validate(ValidationContext validationContext) {
-            if (Quantity < 1) {
-                yield return new ValidationResult("Quantity cannot be less than or equal to 0");
-            }
-        }
-
         [Display(Name = "Date Added")]
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = false, NullDisplayText = "", DataFormatString = "{0:dd/mm/yy}")]
         public DateTime DateAdded { get; set; }
-    }
+
+        public bool IsParent { get; set; }}
 
 }

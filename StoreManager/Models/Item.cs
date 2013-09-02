@@ -27,7 +27,7 @@ namespace StoreManager.Models {
 
         [Display(Name = "Quantity in Stock")]
         public int QuantityinStock {
-            get { return Stocks == null ? 0 : Stocks.Sum(x => x.Quantity); }
+            get { return Stocks == null ? 0 : Stocks.Count; }
         }
 
         public virtual List<Movement> Movements { get; set; }

@@ -33,22 +33,6 @@
                     <div class="panel-body">
 
                         <div class="form-group">
-                            @Html.LabelFor(f => f.ReferenceId)
-                            <div>
-                                @Html.EditorFor(f => f.ReferenceId)
-                                @Html.ValidationMessageFor(f => f.ReferenceId)
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(f => f.Quantity)
-                            <div>
-                                @Html.EditorFor(f => f.Quantity)
-                                @Html.ValidationMessageFor(f => f.Quantity)
-                            </div>
-                        </div>
-
-                        <div class="form-group">
                             @Html.LabelFor(f => f.StockConditionId)
                             <div>
                                 @Html.DropDownList("StockConditionId", String.Empty)
@@ -65,10 +49,18 @@
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(f => f.PurchasePrice)
+                            @Html.LabelFor(f => f.BatchPrice)
                             <div>
-                                @Html.EditorFor(f => f.PurchasePrice)
-                                @Html.ValidationMessageFor(f => f.PurchasePrice)
+                                @Html.EditorFor(f => f.BatchPrice)
+                                @Html.ValidationMessageFor(f => f.BatchPrice)
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            @Html.LabelFor(f => f.UnitPrice)
+                            <div>
+                                @Html.EditorFor(f => f.UnitPrice)
+                                @Html.ValidationMessageFor(f => f.UnitPrice)
                             </div>
                         </div>
 
