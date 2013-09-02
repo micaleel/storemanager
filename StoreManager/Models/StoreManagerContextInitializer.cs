@@ -20,7 +20,23 @@ namespace StoreManager.Models {
         }
 
         public static IEnumerable<Location> CreateLocations() {
-            var locationNames = new[] { "Library", "Manager's Office", "TOEFL Exam Center", "Store", "JSS1A" };
+            var locationNames = new[]
+                {
+                    "JSS 1A",
+                    "JSS 1B",
+                    "JSS 1C",
+                    "JSS 1D",
+                    "JSS 1E",
+                    "Staff Toilet", "Student Toilet", "Home Economics Laboratory",
+                    "Integrated Science Laboratory",
+                    "Basic Technology Laboratory",
+                    "Creative Arts Studio",
+                    "Cafeteria",
+                    "Kitchen",
+                    "Director's Office","Principal's Office",
+                    "Staff Room 1", "Staff Room 2", "School Clinic", "School Mosque", "TOEFL Room", "E-Library", "Server Room", "Store Room", "Matron's Office", "Finantil Admin Office", "Chairman's Office", "Reception Area", "School Hall", "Student Seating Area", "School Courtyard"
+                };
+
             for (var i = 0; i < locationNames.Count(); i++) {
                 yield return new Location {
                     Name = locationNames[i]
