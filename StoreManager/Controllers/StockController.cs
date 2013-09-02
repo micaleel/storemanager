@@ -107,14 +107,14 @@ namespace StoreManager.Controllers {
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id, bool deleteBatch = false) {
+        public ActionResult DeleteConfirmed(int id, bool batchUpdate = false) {
             Stock stock = Db.Stocks.Find(id);
 
             if (stock == null) return HttpNotFound("Cannot find Stock with given ID");
 
             var itemId = stock.ItemId;
 
-            if (deleteBatch) {
+            if (batchUpdate) {
                 var batchStocks = Db.Stocks.Where(x => x.BatchId == stock.BatchId);
                 foreach (var stockItem in batchStocks) {
                     Db.Stocks.Remove(stockItem);
