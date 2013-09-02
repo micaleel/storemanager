@@ -153,6 +153,6 @@
 
 @helper StockCountIfAny(List<StoreManager.Models.Stock> stocks) {
     if (stocks != null && stocks.Any()) {
-    <span>(@stocks.Count()) entries</span>
+    <span>@stocks.Count() entries</span>
     }
 }

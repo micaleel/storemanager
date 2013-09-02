@@ -6,7 +6,7 @@ using System.Linq;
 namespace StoreManager.Models {
     public class StoreManagerContextInitializer : DropCreateDatabaseAlways<StoreManagerContext> {
 
-        public static IEnumerable<Item> CreateItems(List<StockCondition> itemConditions) {
+        public static IEnumerable<Item> CreateItems(List<StockCondition> stockConditions) {
             var itemNames = new[] { "Desktop Computer", "Laptop Computer", "Smart Board", "Microwave" };
 
             for (var i = 0; i < itemNames.Count(); i++) {
@@ -71,18 +71,42 @@ namespace StoreManager.Models {
             context.Users.Add(user);
             context.SaveChanges();
 
-            var itemConditions = CreateStockConditions().ToList();
-
-            itemConditions.ForEach(itemCondition => context.StockConditions.Add(itemCondition));
+            var stockConditions = CreateStockConditions().ToList();
+            stockConditions.ForEach(stockCondition => 
+                context.StockConditions.Add(stockCondition));
 
             var locations = CreateLocations().ToList();
             locations.ForEach(location => context.Locations.Add(location));
             context.SaveChanges();
 
-            var items = CreateItems(itemConditions).ToList();
+            var items = CreateItems(stockConditions).ToList();
             items.ForEach(item => context.Items.Add(item));
             context.SaveChanges();
 
+            var random = new Random();
+            var randomDates = new RandomDates();
+
+            // Add stock
+            foreach (var item in items) {
+                var stocks = new List<Stock>();
+                var batchId = Guid.NewGuid();
+
+                for (var i = 0; i < random.Next(1, 20); i++) {
+                    var stock = new Stock {
+                        BatchId = batchId,
+                        BatchPrice = random.Next(10, 2000),
+                        UnitPrice = random.Next(10, 2000),
+                        ItemId = item.Id,
+                        StockConditionId = stockConditions[random.Next(0, stockConditions.Count - 1)].Id
+                    };
+                    stocks.Add(stock);
+                }
+
+                stocks.First().IsParent = true;
+                item.Stocks = new List<Stock>(stocks);
+            }
+
+            context.SaveChanges();
             base.Seed(context);
         }
     }
