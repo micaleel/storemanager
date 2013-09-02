@@ -3,9 +3,9 @@ using System.Linq;
 using System.Web.Mvc;
 using StoreManager.Infrastructure;
 using StoreManager.Models;
-using System;
 
 namespace StoreManager.Controllers {
+
     [AuthorizeAndRedirect]
     public class ItemsController : BaseController {
 
@@ -35,14 +35,9 @@ namespace StoreManager.Controllers {
                 Db.Items.Add(item);
                 Db.SaveChanges();
 
-                var locationName = Db.Locations.Single(l => l.Id == locationId).Name;
-                Db.Movements.Add(new Movement { Date = DateTime.UtcNow, ItemId = item.Id, LocationId = locationId, Notes = "Item created and placed at " + locationName });
-                Db.SaveChanges();
-
                 return RedirectToAction("Index");
             }
 
-            //ViewBag.StockConditionId = new SelectList(Db.StockConditions, "Id", "Name", item.StockConditionId);
             return View(item);
         }
 
@@ -85,7 +80,7 @@ namespace StoreManager.Controllers {
         }
 
         public ActionResult Movements(int id) {
-            var movements = Db.Movements.Where(m => m.ItemId == id).OrderByDescending(m => m.Date);
+            var movements = Db.Movements.Where(m => m.Stock.ItemId == id).OrderByDescending(m => m.DateCreated);
             return View(movements);
         }
     }

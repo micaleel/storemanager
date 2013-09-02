@@ -19,30 +19,15 @@ namespace StoreManager.Models {
             }
         }
 
-        public static IEnumerable<Location> CreateLocations(int count = 10) {
-            for (var i = 0; i < count; i++) {
+        public static IEnumerable<Location> CreateLocations() {
+            var locationNames = new[] { "Library", "Manager's Office", "TOEFL Exam Center", "Store", "JSS1A" };
+            for (var i = 0; i < locationNames.Count(); i++) {
                 yield return new Location {
-                    Name = string.Format("Location {0}", i),
+                    Name = locationNames[i]
                 };
             }
         }
 
-        public static IEnumerable<Movement> CreateMovements(List<Item> items, List<Location> locations, int count = 10) {
-            var randomDates = new RandomDates();
-            var randomizer = new Random();
-
-            for (var i = 0; i < count; i++) {
-                var item = items[randomizer.Next(items.Count)];
-                var location = locations[randomizer.Next(locations.Count)];
-
-                yield return new Movement {
-                    Notes = string.Format("Moved '{0}' to '{1}'", item.Name, location.Name),
-                    ItemId = item.Id,
-                    LocationId = location.Id,
-                    Date = randomDates.Date(DateTime.UtcNow.AddMonths(-6), DateTime.UtcNow)
-                };
-            }
-        }
         public static List<StockCondition> CreateStockConditions() {
             return new List<StockCondition>
                 {
@@ -81,11 +66,6 @@ namespace StoreManager.Models {
 
             var items = CreateItems(itemConditions).ToList();
             items.ForEach(item => context.Items.Add(item));
-            context.SaveChanges();
-
-
-            var movements = CreateMovements(items.ToList(), locations.ToList(), 200).ToList();
-            movements.ForEach(itemCondition => context.Movements.Add(itemCondition));
             context.SaveChanges();
 
             base.Seed(context);

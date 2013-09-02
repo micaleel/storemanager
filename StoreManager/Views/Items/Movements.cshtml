@@ -4,24 +4,24 @@
 @{
     ViewBag.Title = "Item Movements";
 }
+
+@functions {
+
+    static string GetStockName(IEnumerable<Movement> movements) {
+        return movements.First().Stock.Item.Name;
+    }
+
+}
 <div class="container">
-    <h2 class="page-header">Item Movements @if (Model.Any()) {
-        <text>for @Model.First().Item.Name</text>
-                                           } <small>@Model.Count() entries</small>
+    <h2 class="page-header">Item Movements @if (Model.Any()) {@GetStockName(Model)}<small>@Model.Count() entries</small>
     </h2>
 
     <table class="table  table-hover table-striped">
         <tr>
             <th>
-                @Html.DisplayNameFor(f => f.Date)
+                @Html.DisplayNameFor(f => f.DateCreated)
             </th>
             <th>Destination Location
-            </th>
-            <th>
-                @Html.DisplayNameFor(f => f.Requestor)
-            </th>
-            <th>
-                @Html.DisplayNameFor(f => f.Approver)
             </th>
             <th>
                 @Html.DisplayNameFor(f => f.Notes)
@@ -32,16 +32,10 @@
         @foreach (var item in Model) {
             <tr>
                 <td>
-                    @item.Date.FormatDate() <small>@item.Date.FriendlyDate()</small>
+                    @item.DateCreated.FormatDate() <small>@item.DateCreated.FriendlyDate()</small>
                 </td>
                 <td>
                     @Html.DisplayFor(_ => item.Location.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(_ => item.Requestor)
-                </td>
-                <td>
-                    @Html.DisplayFor(_ => item.Approver)
                 </td>
                 <td>
                     @Html.DisplayFor(_ => item.Notes)

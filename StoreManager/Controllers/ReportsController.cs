@@ -12,7 +12,7 @@ namespace StoreManager.Controllers {
         }
 
         public ActionResult RecentMovements() {
-            var movements = Db.Movements.OrderBy(x => x.Date).Take(20);
+            var movements = Db.Movements.OrderBy(x => x.DateCreated).Take(20);
             return View(movements);
         }
     }

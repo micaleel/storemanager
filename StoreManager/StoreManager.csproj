@@ -179,6 +179,7 @@
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\RegisterModel.cs" />
     <Compile Include="ViewModels\ResetPasswordModel.cs" />
+    <Compile Include="Views\Stock\MoveStockModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -328,8 +329,6 @@
     <Content Include="Views\StockConditions\Delete.cshtml" />
     <Content Include="Views\Movements\Index.cshtml" />
     <Content Include="Views\Movements\Details.cshtml" />
-    <Content Include="Views\Movements\Create.cshtml" />
-    <Content Include="Views\Movements\Edit.cshtml" />
     <Content Include="Views\Movements\Delete.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Reports\Index.cshtml" />

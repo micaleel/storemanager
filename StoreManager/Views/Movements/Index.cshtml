@@ -18,7 +18,7 @@
         <table class="table  table-hover">
             <tr>
                 <th>
-                    @Html.DisplayNameFor(f => f.Date)
+                    @Html.DisplayNameFor(f => f.DateCreated)
                 </th>
                 <th>Item
                 </th>
@@ -30,13 +30,13 @@
                 <th></th>
             </tr>
 
-            @foreach (var item in Model.OrderByDescending(x => x.Date)) {
+            @foreach (var item in Model.OrderByDescending(x => x.DateCreated)) {
                 <tr>
                     <td>
-                        @item.Date.FormatDate() <small>@item.Date.FriendlyDate()</small>
+                        @item.DateCreated.FormatDate() <small>@item.DateCreated.FriendlyDate()</small>
                     </td>
                     <td>
-                        @Html.DisplayFor(_ => item.Item.Name)
+                        @Html.DisplayFor(_ => item.Stock.Item.Name)
                     </td>
                     <td>
                         @Html.DisplayFor(_ => item.Location.Name)
@@ -45,8 +45,7 @@
                         @Html.DisplayFor(_ => item.Notes)
                     </td>
                     <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
             @Html.ActionLink("Delete", "Delete", new { id = item.Id })
                     </td>
                 </tr>

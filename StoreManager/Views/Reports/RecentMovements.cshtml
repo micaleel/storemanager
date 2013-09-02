@@ -11,7 +11,7 @@
     <table class="table  table-hover table-striped">
         <thead>
             <tr>
-                <th>@Html.DisplayNameFor(f => f.Date)</th>
+                <th>@Html.DisplayNameFor(f => f.DateCreated)</th>
                 <th>
                     Item
                 </th>
@@ -24,8 +24,8 @@
         </thead>
         @foreach (var item in Model) {
             <tr>
-                <td>@item.Date.FormatDate()</td>
-                <td>@Html.DisplayFor(_ => item.Item.Name)</td>
+                <td>@item.DateCreated.FormatDate()</td>
+                <td>@Html.DisplayFor(_ => item.Stock.Item.Name)</td>
                 <td>@Html.DisplayFor(_ => item.Location.Name)</td>
                 <td>@Html.DisplayFor(_ => item.Notes)</td>
                 <td></td>

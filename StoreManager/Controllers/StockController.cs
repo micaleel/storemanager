@@ -2,6 +2,8 @@
 using System.Web.Mvc;
 using StoreManager.Infrastructure;
 using StoreManager.Models;
+using StoreManager.Views.Stock;
+using System;
 
 namespace StoreManager.Controllers {
 
@@ -82,21 +84,41 @@ namespace StoreManager.Controllers {
         public ActionResult Move(int id) {
             var stock = Db.Stocks.Find(id);
             if (stock == null) return HttpNotFound("Cannot find Stock with specified ID");
+            ViewBag.LocationId = new SelectList(Db.Locations, "Id", "Name");
 
-            return View();
+            var viewModel = new MoveStockModel();
+            viewModel.SetStock(stock);
+
+            return View(viewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Move(Stock stock) {
+        public ActionResult Move(MoveStockModel input) {
             if (ModelState.IsValid) {
+
+                var stock = Db.Stocks.Find(input.StockId);
+                if (stock == null) return new HttpNotFoundResult("Cannot find Stock with given ID");
+
+                stock.Quantity -= input.Quantity;
+
+                var movement = new Movement {
+                    DateCreated = DateTime.UtcNow,
+                    StockId = input.StockId,
+                    LocationId = input.LocationId,
+                    Notes = input.Notes,
+                    Quantity = input.Quantity
+                };
+
                 Db.Entry(stock).State = EntityState.Modified;
+                Db.Movements.Add(movement);
                 Db.SaveChanges();
+
                 return RedirectToAction("Details", "Items", new { id = stock.ItemId });
             }
 
-            ViewBag.StockConditionId = new SelectList(Db.StockConditions, "Id", "Name", stock.StockConditionId);
-            return View(stock);
+            ViewBag.LocationId = new SelectList(Db.Locations, "Id", "Name");
+            return View(input);
         }
     }
 }

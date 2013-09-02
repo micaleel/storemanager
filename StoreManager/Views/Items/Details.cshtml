@@ -58,7 +58,7 @@
     int expiredItemsCount = GetExpiredItemCount(Model.Stocks);
     if (expiredItemsCount > 0) {
     <div class="row">
-        <div class="alert alert-warning alert-dismissable">
+        <div class="alert alert-danger alert-dismissable">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
             <strong>Warning!</strong> there are @expiredItemsCount stock items that have expired.
         </div>
@@ -127,7 +127,7 @@
     <div class="row">
         <div class="panel">
             <div class="panel-heading">
-                <h3 class="panel-title">Stock Items</h3>
+                <h3 class="panel-title">Stock Items <small><a href="@Url.Action("Create", "Stock", new { id = Model.Id })" class="btn btn-default btn-success btn-sm pull-right">Add Stock</a></small></h3>
             </div>
             <div class="panel-body">
                 @if (Model.Stocks.Any()) {

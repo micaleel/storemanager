@@ -1,20 +1,18 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace StoreManager.Models
-{
-    public class Movement
-    {
+namespace StoreManager.Models {
+
+    public class Movement {
         public int Id { get; set; }
-        public DateTime Date { get; set; }
-        public int ItemId { get; set; }
+        public DateTime DateCreated { get; set; }
+        public int StockId { get; set; }
         public int LocationId { get; set; }
-        public string Requestor { get; set; }
-        public string Approver { get; set; }
+        public int Quantity { get; set; }
         public string Notes { get; set; }
 
-        [ForeignKey("ItemId")]
-        public virtual Item Item { get; set; }
+        [ForeignKey("StockId")]
+        public virtual Stock Stock { get; set; }
 
         [ForeignKey("LocationId")]
         public virtual Location Location { get; set; }

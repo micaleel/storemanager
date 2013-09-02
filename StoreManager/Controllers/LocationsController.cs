@@ -99,7 +99,7 @@ namespace StoreManager.Controllers {
 
 
         public ActionResult Movements(int id) {
-            var movements = Db.Movements.Where(m => m.LocationId == id).OrderByDescending(m => m.Date);
+            var movements = Db.Movements.Where(m => m.LocationId == id).OrderByDescending(m => m.DateCreated);
             return View(movements);
         }
     }
