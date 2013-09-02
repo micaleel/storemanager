@@ -26,6 +26,7 @@
             <tr>
                 <th></th>
                 <th>Date Added</th>
+                <th>Ref #</th>
                 <th>Condition</th>
                 <th>Purchase Date</th>
                 <th>Batch Price</th>
@@ -41,6 +42,7 @@
             <tr class="@PaintRow(item)">
                 <td>@itemIdx</td>
                 <td>@Html.DisplayFor(_ => item.DateAdded)</td>
+                <td>@Html.DisplayFor(_ => item.RefNo)</td>
                 <td>@Html.DisplayFor(_ => item.Condition.Name)</td>
                 <td>@Html.DisplayFor(_ => item.PurchaseDate)</td>
                 <td>@Html.DisplayFor(_ => item.BatchPrice)</td>
@@ -129,9 +131,12 @@
     <div class="row">
         <div class="panel">
             <div class="panel-heading">
-                <h3 class="panel-title">Stock Items <small><a href="@Url.Action("Create", "Stock", new { id = Model.Id })" class="btn btn-default btn-success btn-sm pull-right">Add Stock</a></small></h3>
+                <h3 class="panel-title">Stock Items <small>@StockCountIfAny(Model.Stocks)</small></h3>
             </div>
             <div class="panel-body">
+                <p>
+                    <a href="@Url.Action("Create", "Stock", new { id = Model.Id })" class="btn btn-default btn-success btn-sm">Add Stock</a></h3>
+                </p>
                 @if (Model.Stocks.Any()) {
                     @StockItemsTable()
                 }
@@ -145,3 +150,9 @@
         </div>
     </div>
 </div>
+
+@helper StockCountIfAny(List<StoreManager.Models.Stock> stocks) {
+    if (stocks != null && stocks.Any()) {
+    <span>(@stocks.Count()) entries</span>
+    }
+}

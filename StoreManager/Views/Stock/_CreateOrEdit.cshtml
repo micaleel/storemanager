@@ -1,10 +1,10 @@
-﻿@model StoreManager.Views.Stock.CreateStockModel
+﻿@model StoreManager.Models.Stock
 
 <div class="form-group">
-    @Html.LabelFor(f => f.Quantity)
+    @Html.LabelFor(f => f.RefNo)
     <div>
-        @Html.EditorFor(f => f.Quantity)
-        @Html.ValidationMessageFor(f => f.Quantity)
+        @Html.EditorFor(f => f.RefNo)
+        @Html.ValidationMessageFor(f => f.RefNo)
     </div>
 </div>
 

@@ -26,65 +26,25 @@
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary(true)
                 @Html.HiddenFor(f => f.ItemId)
+                @Html.HiddenFor(f => f.IsParent)
+                @Html.HiddenFor(f => f.DateAdded)
+                @Html.HiddenFor(f => f.BatchId)
+                @Html.HiddenFor(f => f.Id)
+
                 <div class="panel">
                     <div class="panel-heading">
                         <h3>Stock Information</h3>
                     </div>
+
                     <div class="panel-body">
 
-                        <div class="form-group">
-                            @Html.LabelFor(f => f.StockConditionId)
-                            <div>
-                                @Html.DropDownList("StockConditionId", String.Empty)
-                                @Html.ValidationMessageFor(f => f.StockConditionId)
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(f => f.PurchaseDate)
-                            <div>
-                                @Html.EditorFor(f => f.PurchaseDate)
-                                @Html.ValidationMessageFor(f => f.PurchaseDate)
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(f => f.BatchPrice)
-                            <div>
-                                @Html.EditorFor(f => f.BatchPrice)
-                                @Html.ValidationMessageFor(f => f.BatchPrice)
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(f => f.UnitPrice)
-                            <div>
-                                @Html.EditorFor(f => f.UnitPrice)
-                                @Html.ValidationMessageFor(f => f.UnitPrice)
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(f => f.ExpiryDate)
-                            <div>
-                                @Html.EditorFor(f => f.ExpiryDate)
-                                @Html.ValidationMessageFor(f => f.ExpiryDate)
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(f => f.Notes)
-                            <div>
-                                @Html.TextAreaFor(f => f.Notes)
-                                @Html.ValidationMessageFor(f => f.Notes)
-                            </div>
-                        </div>
+                        @Html.Partial("_CreateOrEdit")
 
                         @if (Model.IsParent) {
                             <div class="form-group">
-                                @Html.LabelFor(f => f.Notes)
                                 <div>
-                                    @Html.CheckBox("updateBatch")
+                                    @Html.CheckBox("updateBatch") &nbsp;
+                                    @Html.Label("Apply updates to batch")
                                     @Html.ValidationMessageFor(f => f.Notes)
                                 </div>
                             </div>

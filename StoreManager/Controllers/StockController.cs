@@ -91,6 +91,7 @@ namespace StoreManager.Controllers {
 
                     Db.Entry(batchItem).State = EntityState.Modified;
                 }
+                Db.SaveChanges();
             }
 
             Db.Entry(stock).State = EntityState.Modified;
