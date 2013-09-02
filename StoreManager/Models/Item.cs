@@ -9,13 +9,8 @@ namespace StoreManager.Models {
     [DisplayColumn("Name")]
     public class Item {
 
-        public Item() {
-            InternalId = Guid.Empty;
-        }
-
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public Guid InternalId { get; set; }
 
         [Required]
         [Display(Name = "Item")]

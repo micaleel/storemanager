@@ -5,23 +5,25 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace StoreManager.Models {
 
     public class Stock : IValidatableObject {
+    
         public Stock() {
-            InternalId = Guid.Empty;
             Quantity = 1;
             DateAdded = DateTime.UtcNow;
         }
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public Guid InternalId { get; set; }
 
         public int ItemId { get; set; }
 
         [ForeignKey("ItemId")]
         public virtual Item Item { get; set; }
 
-        [Display(Name = "Batch/Serial Number")]
-        public string ReferenceId { get; set; }
+        [Display(Name = "Batch #")]
+        public string BatchId { get; set; }
+
+        [Display(Name = "Serial #")]
+        public string SerialId { get; set; }
 
         [Required]
         public int Quantity { get; set; }
@@ -74,7 +76,7 @@ namespace StoreManager.Models {
 
         [Display(Name = "Date Added")]
         [DataType(DataType.Date)]
-        [DisplayFormat(ApplyFormatInEditMode =  false, NullDisplayText = "", DataFormatString = "{0:dd/mm/yy}")]
+        [DisplayFormat(ApplyFormatInEditMode = false, NullDisplayText = "", DataFormatString = "{0:dd/mm/yy}")]
         public DateTime DateAdded { get; set; }
     }
 

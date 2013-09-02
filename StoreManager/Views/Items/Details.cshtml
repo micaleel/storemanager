@@ -22,7 +22,6 @@
             <tr>
                 <th></th>
                 <th>Date Added</th>
-                <th>Reference #</th>
                 <th>Condition</th>
                 <th>Quantity</th>
                 <th>Purchase Date</th>
@@ -38,7 +37,6 @@
             <tr class="@PaintRow(item)">
                 <td>@itemIdx</td>
                 <td>@Html.DisplayFor(_ => item.DateAdded)</td>
-                <td>@Html.DisplayFor(_ => item.ReferenceId)</td>
                 <td>@Html.DisplayFor(_ => item.Condition.Name)</td>
                 <td><strong>@Html.DisplayFor(_ => item.Quantity)</strong></td>
                 <td>@Html.DisplayFor(_ => item.PurchaseDate)</td>

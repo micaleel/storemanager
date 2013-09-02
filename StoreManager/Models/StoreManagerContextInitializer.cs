@@ -13,7 +13,6 @@ namespace StoreManager.Models {
                 yield return new Item {
                     Name = itemNames[i],
                     Discontinued = false,
-                    InternalId = Guid.NewGuid(),
                     ReorderLevel = 2
                 };
             }
