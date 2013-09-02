@@ -353,7 +353,6 @@
     <Content Include="Views\Account\_List.cshtml" />
     <Content Include="Views\Shared\AccessDenied.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Locations\Movements.cshtml" />
     <Content Include="Scripts\jquery-2.0.3.min.map" />
     <Content Include="Scripts\toastr.min.js.map" />
     <Content Include="Views\Home\Dashboard.cshtml" />

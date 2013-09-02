@@ -1,30 +1,82 @@
-﻿@model StoreManager.Models.Location
+﻿@using StoreManager.Models
+@model Location
 
 @{
     ViewBag.Title = "Location Details";
 }
 
-<h2>Location Details</h2>
+<div class="container">
 
-<fieldset>
-    <legend>Location Details</legend>
-
-    <div class="form-group">
-        @Html.DisplayNameFor(f => f.Name)
-        <div >
-            @Html.DisplayFor(f => f.Name)
-        </div>
-    </div>
-    
-    <div class="form-group">
-        @Html.DisplayNameFor(f => f.IsStore)
-        <div >
-            @Html.DisplayFor(f => f.IsStore)
-        </div>
+    <div class="row">
+        <h2>@Model.Name <small>Location Details</small></h2>
     </div>
 
-</fieldset>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+    <p>&nbsp;</p>
+
+    <div class="row">
+        <ul class="nav nav-pills">
+            <li><a href="@Url.Action("Index")">All Locations</a></li>
+            <li><a href="@Url.Action("Create")">Create New</a></li>
+            <li class="active"><a href="@Url.Action("Details", new { id = Model.Id })">Details</a></li>
+            <li><a href="@Url.Action("Edit", new { id = Model.Id })">Edit</a></li>
+        </ul>
+    </div>
+
+    <p>&nbsp;</p>
+
+    <div class="row">
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">Location Details <small>@Model.Name</small></h3>
+            </div>
+
+            <div class="panel-body">
+                <table class="table">
+                    <tr>
+                        <td>@Html.DisplayNameFor(f => f.Name)</td>
+                        <td>@Html.DisplayFor(f => f.Name)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(f => f.IsStore)</td>
+                        <td>@Html.DisplayFor(f => f.IsStore)</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <p>&nbsp;</p>
+
+    @if (Model.Movements.Any()) {
+        <div class="row">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Date Created</th>
+                        <th>Location/Destination</th>
+                        <th>@Html.DisplayNameFor(f => f.Notes)</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Movements) {
+                        <tr>
+                            <td>@item.DateCreated.FormatDate() <small>@item.DateCreated.FriendlyDate()</small></td>
+                            <td>@Html.DisplayFor(_ => item.Location.Name)</td>
+                            <td>@Html.DisplayFor(_ => item.Notes)</td>
+                            <td>
+                                @Html.ActionLink("Details", "Details", "Movements", new { id = item.Id }, null)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else {
+        <p class="alert alert-info alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            There are no records of any item movements to this location.
+        </p>
+    }
+</div>

@@ -1,12 +1,10 @@
-﻿using System.Data;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 using StoreManager.Infrastructure;
 using StoreManager.Models;
 
 namespace StoreManager.Controllers {
-
 
     [AuthorizeAndRedirect]
     public class MovementsController : BaseController {

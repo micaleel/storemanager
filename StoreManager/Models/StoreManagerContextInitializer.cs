@@ -84,7 +84,6 @@ namespace StoreManager.Models {
             context.SaveChanges();
 
             var random = new Random();
-            var randomDates = new RandomDates();
 
             // Add stock
             foreach (var item in items) {
