@@ -158,15 +158,11 @@ namespace StoreManager.Controllers {
                 var stock = Db.Stocks.Find(input.StockId);
                 if (stock == null) return new HttpNotFoundResult("Cannot find Stock with given ID");
 
-                // TODO:
-                //stock.Quantity -= input.Quantity;
-
                 var movement = new Movement {
                     DateCreated = DateTime.UtcNow,
                     StockId = input.StockId,
                     LocationId = input.LocationId,
                     Notes = input.Notes,
-                    Quantity = input.Quantity
                 };
 
                 Db.Entry(stock).State = EntityState.Modified;
