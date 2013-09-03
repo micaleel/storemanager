@@ -77,5 +77,11 @@ namespace StoreManager.Models {
         public DateTime DateAdded { get; set; }
 
         public bool IsParent { get; set; }
+
+        [Display(Name = "Location")]
+        public int? LocationId { get; set; }
+
+        [ForeignKey("LocationId")]
+        public virtual Location Location { get; set; }
     }
 }

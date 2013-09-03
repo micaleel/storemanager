@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity;
 using StoreManager.Models;
 
 namespace StoreManager.Repositories {
@@ -8,7 +9,7 @@ namespace StoreManager.Repositories {
             : base(db) {
         }
 
-        public virtual IEnumerable<TEntity> All {
+        public virtual DbSet<TEntity> All {
             get { return Db.Set<TEntity>(); }
         }
 

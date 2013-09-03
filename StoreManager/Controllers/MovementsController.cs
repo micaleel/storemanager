@@ -2,46 +2,49 @@
 using System.Linq;
 using System.Web.Mvc;
 using StoreManager.Infrastructure;
-using StoreManager.Models;
+using StoreManager.Repositories;
 
 namespace StoreManager.Controllers {
 
     [AuthorizeAndRedirect]
     public class MovementsController : BaseController {
+        private readonly MovementRepository _movementRepo;
+
+        public MovementsController() {
+            _movementRepo = new MovementRepository(Db);
+        }
 
         public ActionResult Index() {
-            var movements = Db.Movements.Include(m => m.Stock).Include(m => m.Location);
+            var movements = _movementRepo.All.Include(m => m.Stock).Include(m => m.Location);
             return View(movements.ToList());
         }
 
         public ActionResult Details(int id = 0) {
-            Movement movement = Db.Movements.Find(id);
-            if (movement == null) {
-                return HttpNotFound();
-            }
+            var movement = _movementRepo.Find(id);
+            if (movement == null) return HttpNotFound("Cannot find movement with given ID");
+
             return View(movement);
         }
 
         public ActionResult Delete(int id = 0) {
-            Movement movement = Db.Movements.Find(id);
-            if (movement == null) {
-                return HttpNotFound();
-            }
+            var movement = _movementRepo.Find(id);
+            if (movement == null) return HttpNotFound("Cannot find movement with given ID");
+
             return View(movement);
         }
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id) {
-            Movement movement = Db.Movements.Find(id);
-            Db.Movements.Remove(movement);
-            Db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+            try {
+                _movementRepo.Delete(id);
+            }
+            catch (EntityNotFoundException ex) {
+                ModelState.AddModelError("", ex.Message);
+                FlashError(ex.Message);
+            }
 
-        protected override void Dispose(bool disposing) {
-            Db.Dispose();
-            base.Dispose(disposing);
+            return RedirectToAction("Index");
         }
     }
 }

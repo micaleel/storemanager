@@ -179,7 +179,11 @@
     <Compile Include="Repositories\BaseRepository.cs" />
     <Compile Include="Repositories\EntityNotFoundException.cs" />
     <Compile Include="Repositories\EntityRepository.cs" />
+    <Compile Include="Repositories\ItemRepository.cs" />
     <Compile Include="Repositories\LocationRepository.cs" />
+    <Compile Include="Repositories\MovementRepository.cs" />
+    <Compile Include="Repositories\StockConditionRepository.cs" />
+    <Compile Include="Repositories\StockRepository.cs" />
     <Compile Include="ViewModels\ChangePasswordModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\RegisterModel.cs" />

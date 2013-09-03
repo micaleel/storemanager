@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System.Collections.Generic;
+using System.Data;
 using StoreManager.Models;
 using System.Linq;
 
@@ -22,6 +23,22 @@ namespace StoreManager.Repositories {
 
             Db.Locations.Remove(location);
             Db.SaveChanges();
+        }
+
+        public Location GetOrCreateStoreLocation() {
+            var storeLocation = Db.Locations.FirstOrDefault(x => x.IsStore);
+            if (storeLocation != null) return storeLocation;
+
+            storeLocation = new Location {
+                IsStore = true,
+                Name = "Store (auto-created)",
+                Notes = "Created by StoreManager"
+            };
+
+            Db.Locations.Add(storeLocation);
+            Db.SaveChanges();
+
+            return storeLocation;
         }
     }
 }

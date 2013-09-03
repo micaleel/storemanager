@@ -3,22 +3,27 @@ using System.Linq;
 using System.Web.Mvc;
 using StoreManager.Infrastructure;
 using StoreManager.Models;
+using StoreManager.Repositories;
 
 namespace StoreManager.Controllers {
 
     [AuthorizeAndRedirect]
     public class ItemsController : BaseController {
+        private readonly ItemRepository _itemRepo;
+
+        public ItemsController() {
+            _itemRepo = new ItemRepository(Db);
+        }
 
         public ActionResult Index() {
-            var items = Db.Items;
-            return View(items.ToList());
+            var items = _itemRepo.All.ToList();
+            return View(items);
         }
 
         public ActionResult Details(int id = 0) {
-            Item item = Db.Items.Find(id);
-            if (item == null) {
-                return HttpNotFound();
-            }
+            var item = _itemRepo.Find(id);
+            if (item == null) return HttpNotFound("Cannot find Item with given ID");
+
             return View(item);
         }
 
@@ -31,51 +36,48 @@ namespace StoreManager.Controllers {
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Item item, int locationId) {
-            if (ModelState.IsValid) {
-                Db.Items.Add(item);
-                Db.SaveChanges();
+            if (!ModelState.IsValid) return View(item);
 
-                return RedirectToAction("Index");
-            }
+            _itemRepo.Add(item);
 
-            return View(item);
+            return RedirectToAction("Index");
         }
 
         public ActionResult Edit(int id = 0) {
-            Item item = Db.Items.Find(id);
-            if (item == null) {
-                return HttpNotFound();
-            }
-            //ViewBag.StockConditionId = new SelectList(Db.StockConditions, "Id", "Name", item.StockConditionId);
+            var item = _itemRepo.Find(id);
+            if (item == null) return HttpNotFound("Cannot find Item with given ID");
+
             return View(item);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Item item) {
-            if (ModelState.IsValid) {
-                Db.Entry(item).State = EntityState.Modified;
-                Db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            //ViewBag.StockConditionId = new SelectList(Db.StockConditions, "Id", "Name", item.StockConditionId);
-            return View(item);
+            if (!ModelState.IsValid) return View(item);
+
+            _itemRepo.Update(item);
+
+            return RedirectToAction("Index");
         }
 
         public ActionResult Delete(int id = 0) {
-            Item item = Db.Items.Find(id);
-            if (item == null) {
-                return HttpNotFound();
-            }
+            var item = _itemRepo.Find(id);
+            if (item == null) return HttpNotFound("Cannot find Item with given ID");
+
             return View(item);
         }
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id) {
-            Item item = Db.Items.Find(id);
-            Db.Items.Remove(item);
-            Db.SaveChanges();
+            try {
+                _itemRepo.Delete(id);
+            }
+            catch (EntityNotFoundException ex) {
+                ModelState.AddModelError("", ex.Message);
+                FlashError(ex.Message);
+            }
+
             return RedirectToAction("Index");
         }
 

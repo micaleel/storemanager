@@ -2,7 +2,7 @@
 
 namespace StoreManager.Views.Stock {
 
-    public class MoveStockModel  {
+    public class MoveStockModel {
 
         public int StockId { get; set; }
 
@@ -21,9 +21,8 @@ namespace StoreManager.Views.Stock {
         [DataType(DataType.MultilineText)]
         public string Notes { get; set; }
 
-        public void SetStock(Models.Stock stock) {
-            Stock = stock;
-            StockId = stock.Id;
+        public static MoveStockModel Create(Models.Stock stock) {
+            return new MoveStockModel { Stock = stock, StockId = stock.Id };
         }
     }
 }
