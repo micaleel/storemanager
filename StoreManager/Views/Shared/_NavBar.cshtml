@@ -32,7 +32,18 @@
                         <li><a href="@Url.Action("Index", "StockConditions")">Stock Conditions</a></li>
                         <li><a href="@Url.Action("Index", "Account")">User Accounts</a></li>
                     </ul>
-                </li>@*
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Reports <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="@Url.Action("StoreInventory", "Reports")">Store Inventory</a></li>
+                        <li><a href="@Url.Action("GeneralInventory", "Reports")">General Inventory</a></li>
+                        <li><a href="@Url.Action("OutOfStockItems", "Reports")">Out-of-Stock Items</a></li>
+                        <li><a href="@Url.Action("RecentMovements", "Reports")">Recent Movements</a></li>
+                    </ul>
+                </li>
+@*
                 <form class="navbar-form navbar-left" role="search">
                     <div class="form-group">
                         <input type="text" class="form-control" placeholder="Search">
