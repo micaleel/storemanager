@@ -27,6 +27,7 @@
                 <th></th>
                 <th>Date Added</th>
                 <th>Ref #</th>
+                <th>Location</th>
                 <th>Condition</th>
                 <th>Purchase Date</th>
                 <th>Batch Price</th>
@@ -43,6 +44,7 @@
                 <td>@itemIdx</td>
                 <td>@Html.DisplayFor(_ => item.DateAdded)</td>
                 <td>@Html.DisplayFor(_ => item.RefNo)</td>
+                <td>@Html.DisplayFor(_ => item.Location.Name)</td>
                 <td>@Html.DisplayFor(_ => item.Condition.Name)</td>
                 <td>@Html.DisplayFor(_ => item.PurchaseDate)</td>
                 <td>@Html.DisplayFor(_ => item.BatchPrice)</td>

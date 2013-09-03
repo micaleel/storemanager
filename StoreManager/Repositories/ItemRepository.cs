@@ -60,12 +60,13 @@ namespace StoreManager.Repositories {
             var addedStocks = stockRepo.AddMany(stockList).ToList();
 
             foreach (var stock in addedStocks) {
-                MoveStock(stock.Id, storeLocation.Id);
+                MoveStock(new Movement { StockId = stock.Id, LocationId = storeLocation.Id });
             }
 
             return addedStocks;
         }
 
+        [Obsolete]
         public Movement MoveStock(int stockId, int locationId, string notes = "") {
             var locationRepo = new LocationRepository(Db);
             var movementRepo = new MovementRepository(Db);
@@ -93,6 +94,27 @@ namespace StoreManager.Repositories {
             return movement;
         }
 
+        public Movement MoveStock(Movement movement) {
+            var locationRepo = new LocationRepository(Db);
+            var movementRepo = new MovementRepository(Db);
+            var stockRepo = new StockRepository(Db);
+
+            var stock = stockRepo.Find(movement.StockId);
+            if (stock == null) throw new EntityNotFoundException("Cannot find Stock with given ID");
+
+            var location = locationRepo.Find(movement.LocationId);
+            if (location == null) throw new EntityNotFoundException("Cannot find Location with given ID");
+
+            stock.LocationId = location.Id;
+            stockRepo.Update(stock);
+
+            movement.DateCreated = DateTime.UtcNow;
+
+            movementRepo.Add(movement);
+            Db.SaveChanges();
+
+            return movement;
+        }
 
     }
 }

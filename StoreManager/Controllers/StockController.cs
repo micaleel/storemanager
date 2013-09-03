@@ -65,7 +65,7 @@ namespace StoreManager.Controllers {
             }
 
             ViewBag.StockConditionId = new SelectList(Db.StockConditions, "Id", "Name", item.StockConditionId);
-            
+
             return View(item);
         }
 
@@ -138,9 +138,9 @@ namespace StoreManager.Controllers {
                 LocationId = input.LocationId,
                 Notes = input.Notes,
             };
+            movement = _itemRepo.MoveStock(movement);
 
             var movementRepo = new MovementRepository(Db);
-            movement = movementRepo.Add(movement);
 
             if (requisitionDoc != null) {
                 movementRepo.AttachRequisitionDoc(movement.Id, _pictureSaver.Save(requisitionDoc));
