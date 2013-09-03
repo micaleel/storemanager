@@ -19,5 +19,11 @@ namespace StoreManager.Models {
 
         [ForeignKey("LocationId")]
         public virtual Location Location { get; set; }
+
+        [Display(Name = "Requisition Note")]
+        public string RequisitionDoc { get; set; }
+
+        [Display(Name = "Authorization Note")]
+        public string AuthorizationDoc { get; set; }
     }
 }

@@ -8,10 +8,8 @@
 <div class="container">
 
     <div class="row">
-        <h2>@Model.Name <small>Location Details</small></h2>
+        <h2 class="page-header">@Model.Name <small>Location Details</small></h2>
     </div>
-
-    <p>&nbsp;</p>
 
     <div class="row">
         <ul class="nav nav-pills">
@@ -24,36 +22,44 @@
 
     <p>&nbsp;</p>
 
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-        @Html.ValidationSummary(true)
+    <div class="row">
+        <div class="col-md-6">
+            @using (Html.BeginForm()) {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
 
-        <fieldset>
-            <legend>Edit Location</legend>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">Edit Location <small>@Model.Name</small></h2>
+                    </div>
 
-            @Html.HiddenFor(f => f.Id)
+                    <div class="panel-body">
+                        @Html.HiddenFor(f => f.Id)
 
-            <div class="form-group">
-                @Html.LabelFor(f => f.Name)
-                <div>
-                    @Html.EditorFor(f => f.Name)
-                    @Html.ValidationMessageFor(f => f.Name)
+                        <div class="form-group">
+                            @Html.LabelFor(f => f.Name)
+                            <div>
+                                @Html.EditorFor(f => f.Name)
+                                @Html.ValidationMessageFor(f => f.Name)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(f => f.IsStore)
+                            <div>
+                                @Html.EditorFor(f => f.IsStore)
+                                @Html.ValidationMessageFor(f => f.IsStore)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div>
+                                <button type="submit" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(f => f.IsStore)
-                <div>
-                    @Html.EditorFor(f => f.IsStore)
-                    @Html.ValidationMessageFor(f => f.IsStore)
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-        </fieldset>
-    }
+            }
+        </div>
+    </div>
 </div>

@@ -3,6 +3,7 @@ using System.Security.Principal;
 using System.Web.Mvc;
 using System.Web.Security;
 using AutoMapper;
+using StoreManager.Infrastructure;
 using StoreManager.Models;
 
 namespace StoreManager.Controllers {
@@ -11,7 +12,7 @@ namespace StoreManager.Controllers {
 
         protected BaseController() {
             Db = new StoreManagerContext();
-            Mapper.AddProfile<StoreManagerWebProfile>();
+            Mapper.AddProfile<StoreManagerProfile>();
         }
 
         protected override void OnAuthorization(AuthorizationContext filterContext) {

@@ -18,7 +18,7 @@
                 </div>
 
                 <div class="panel-body">
-                    @using (Html.BeginForm()) {
+                    @using (Html.BeginForm("Move", "Stock", FormMethod.Post, new { enctype = "multipart/form-data" })) {
                         @Html.ValidationSummary()
                         @Html.AntiForgeryToken()                        
                         @Html.HiddenFor(f => f.Stock.Id)
@@ -45,6 +45,23 @@
                                 @Html.ValidationMessageFor(f => f.Notes)
                             </div>
                         </div>
+                        
+                        <div class="form-group">
+                            @Html.LabelFor(f => f.RequisitionDoc)
+                            <div>
+                                @Html.TextBoxFor(f => f.RequisitionDoc, new { type = "file" })
+                                @Html.ValidationMessageFor(f => f.RequisitionDoc)
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            @Html.LabelFor(f => f.AuthorizationDoc)
+                            <div>
+                                @Html.TextBoxFor(f => f.AuthorizationDoc, new { type = "file" })
+                                @Html.ValidationMessageFor(f => f.AuthorizationDoc)
+                            </div>
+                        </div>
+                        
                         <div class="form-group">
                             <input type="submit" value="Move Item" class="btn btn-primary" />
                         </div>

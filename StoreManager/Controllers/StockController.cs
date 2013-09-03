@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using StoreManager.Infrastructure;
 using StoreManager.Models;
@@ -11,6 +12,7 @@ namespace StoreManager.Controllers {
 
     [AuthorizeAndRedirect]
     public class StockController : BaseController {
+        private readonly IFileSaver pictureSaver = new PictureSaver();
 
         public ActionResult Create(int id) {
             ViewBag.StockConditionId = new SelectList(Db.StockConditions, "Id", "Name");
@@ -23,8 +25,6 @@ namespace StoreManager.Controllers {
         }
 
         private static IEnumerable<Stock> Explode(CreateStockModel stock) {
-            AutoMapper.Mapper.CreateMap<CreateStockModel, Stock>();
-
             stock.BatchId = Guid.NewGuid();
 
             for (var i = 0; i < stock.Quantity; i++) {
@@ -43,7 +43,16 @@ namespace StoreManager.Controllers {
             if (item == null) return HttpNotFound("Cannot find item with specified itemId");
 
             if (ModelState.IsValid) {
-
+                var initialLocation = Db.Locations.FirstOrDefault(x => x.IsStore);
+                if (initialLocation == null) {
+                    initialLocation = new Location {
+                        IsStore = true,
+                        Name = "Default Initial Location",
+                        Notes = "Created by StoreManager"
+                    };
+                    Db.Locations.Add(initialLocation);
+                    Db.SaveChanges();
+                }
                 foreach (var stockItem in Explode(input)) {
                     Db.Stocks.Add(stockItem);
                 }
@@ -152,7 +161,7 @@ namespace StoreManager.Controllers {
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Move(MoveStockModel input) {
+        public ActionResult Move(MoveStockModel input, HttpPostedFileBase requisitionDoc, HttpPostedFileBase authorizationDoc) {
             if (ModelState.IsValid) {
 
                 var stock = Db.Stocks.Find(input.StockId);
@@ -164,6 +173,15 @@ namespace StoreManager.Controllers {
                     LocationId = input.LocationId,
                     Notes = input.Notes,
                 };
+
+
+                if (requisitionDoc != null) {
+                    movement.RequisitionDoc = pictureSaver.Save(requisitionDoc);
+                }
+
+                if (authorizationDoc != null) {
+                    movement.AuthorizationDoc = pictureSaver.Save(authorizationDoc);
+                }
 
                 Db.Entry(stock).State = EntityState.Modified;
                 Db.Movements.Add(movement);

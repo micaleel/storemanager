@@ -12,6 +12,12 @@ namespace StoreManager.Views.Stock {
         [Display(Name = "Location")]
         public int LocationId { get; set; }
 
+        [Display(Name = "Requisition Note")]
+        public string RequisitionDoc { get; set; }
+
+        [Display(Name = "Authorization Note")]
+        public string AuthorizationDoc { get; set; }
+
         [DataType(DataType.MultilineText)]
         public string Notes { get; set; }
 

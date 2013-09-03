@@ -1,23 +1,29 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Linq;
 using System.Web.Mvc;
 using StoreManager.Infrastructure;
 using StoreManager.Models;
+using StoreManager.Repositories;
 
 namespace StoreManager.Controllers {
 
     [AuthorizeAndRedirect]
     public class LocationsController : BaseController {
+        private readonly LocationRepository _locationRepo;
+
+        public LocationsController() {
+            _locationRepo = new LocationRepository(Db);
+        }
 
         public ActionResult Index() {
-            return View(Db.Locations.ToList());
+            return View(_locationRepo.All.ToList());
         }
 
         public ActionResult Details(int id = 0) {
-            Location location = Db.Locations.Find(id);
-            if (location == null) {
-                return HttpNotFound();
-            }
+            Location location = _locationRepo.Find(id);
+            if (location == null) return HttpNotFound("Cannot find Location with given ID");
+
             return View(location);
         }
 
@@ -28,43 +34,38 @@ namespace StoreManager.Controllers {
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Location location) {
-            if (ModelState.IsValid) {
-                Db.Locations.Add(location);
-                Db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+            if (!ModelState.IsValid) return View(location);
 
-            return View(location);
+            _locationRepo.Add(location);
+            Db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         public ActionResult Edit(int id = 0) {
-            Location location = Db.Locations.Find(id);
-            if (location == null) {
-                return HttpNotFound();
-            }
+            var location = _locationRepo.Find(id);
+            if (location == null) return HttpNotFound("Cannot find Location with given ID");
+
             return View(location);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Location location) {
-            if (ModelState.IsValid) {
-                Db.Entry(location).State = EntityState.Modified;
-                Db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(location);
+            if (!ModelState.IsValid) return View(location);
+
+            _locationRepo.Update(location);
+
+            return RedirectToAction("Index");
         }
 
         public ActionResult Delete(int id = 0) {
-            Location location = Db.Locations.Find(id);
-            if (location == null) {
-                return HttpNotFound();
-            }
+            var location = _locationRepo.Find(id);
+            if (location == null) return HttpNotFound("Cannot find Location with given ID");
+
 
             if (location.IsStore) {
                 const string warningMsg =
-                    "You cannot delete store location until another location is set as a primary location";
+                    "Cannot delete store location until another location is set as a primary location";
                 ModelState.AddModelError("", warningMsg);
                 FlashWarning(warningMsg);
             }
@@ -75,32 +76,15 @@ namespace StoreManager.Controllers {
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id) {
-            Location location = Db.Locations.Find(id);
-
-            if (location.IsStore) {
-                const string warningMsg =
-                    "You cannot delete store location until another location is set as a primary location";
-                ModelState.AddModelError("", warningMsg);
-                FlashWarning(warningMsg);
-
-                return View(location);
+            try {
+                _locationRepo.Delete(id);
+            }
+            catch (ApplicationException ex) {
+                ModelState.AddModelError("", ex.Message);
+                FlashWarning(ex.Message);
             }
 
-            var movements = location.Movements.ToList();
-
-            foreach (var movement in movements) {
-                Db.Entry(movement).State = EntityState.Deleted;
-            }
-
-            Db.Locations.Remove(location);
-            Db.SaveChanges();
             return RedirectToAction("Index");
-        }
-
-
-        public ActionResult Movements(int id) {
-            var movements = Db.Movements.Where(m => m.LocationId == id).OrderByDescending(m => m.DateCreated);
-            return View(movements);
         }
     }
 }
