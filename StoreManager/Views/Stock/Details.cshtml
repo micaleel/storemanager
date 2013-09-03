@@ -1,0 +1,122 @@
+﻿@model StoreManager.Models.Stock
+
+@{
+    ViewBag.Title = "Stock Details";
+}
+
+<div class="container">
+    <div class="row">
+        <h2 class="page-header">@Model.Item.Name <small>Stock Details (Ref # @Model.RefNo)</small></h2>
+    </div>
+
+    <div class="row">
+        <fieldset>
+            <legend>Stock</legend>
+
+            <div class="display-label">
+                @Html.DisplayNameFor(model => model.ItemId)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.ItemId)
+            </div>
+
+            <div class="display-label">
+                @Html.DisplayNameFor(model => model.BatchId)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.BatchId)
+            </div>
+
+            <div class="display-label">
+                @Html.DisplayNameFor(model => model.RefNo)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.RefNo)
+            </div>
+
+            <div class="display-label">
+                @Html.DisplayNameFor(model => model.StockConditionId)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.StockConditionId)
+            </div>
+
+            <div class="display-label">
+                @Html.DisplayNameFor(model => model.SupplierDetailId)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.SupplierDetailId)
+            </div>
+
+            <div class="display-label">
+                @Html.DisplayNameFor(model => model.IsExpired)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.IsExpired)
+            </div>
+
+            <div class="display-label">
+                @Html.DisplayNameFor(model => model.ExpiryDate)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.ExpiryDate)
+            </div>
+
+            <div class="display-label">
+                @Html.DisplayNameFor(model => model.PurchaseDate)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.PurchaseDate)
+            </div>
+
+            <div class="display-label">
+                @Html.DisplayNameFor(model => model.BatchPrice)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.BatchPrice)
+            </div>
+
+            <div class="display-label">
+                @Html.DisplayNameFor(model => model.UnitPrice)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.UnitPrice)
+            </div>
+
+            <div class="display-label">
+                @Html.DisplayNameFor(model => model.Notes)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.Notes)
+            </div>
+
+            <div class="display-label">
+                @Html.DisplayNameFor(model => model.StockAuditDetailId)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.StockAuditDetailId)
+            </div>
+
+            <div class="display-label">
+                @Html.DisplayNameFor(model => model.DateAdded)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.DateAdded)
+            </div>
+
+            <div class="display-label">
+                @Html.DisplayNameFor(model => model.IsParent)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.IsParent)
+            </div>
+
+            <div class="display-label">
+                @Html.DisplayNameFor(model => model.LocationId)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.LocationId)
+            </div>
+        </fieldset>
+    </div>
+</div>

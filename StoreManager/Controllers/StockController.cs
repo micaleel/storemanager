@@ -30,6 +30,13 @@ namespace StoreManager.Controllers {
             return View(stockModel);
         }
 
+        public ActionResult Details(int id = 0) {
+            var item = _stockRepo.Find(id);
+            if (item == null) return HttpNotFound("Cannot find Item with given ID");
+
+            return View(item);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(CreateStockModel input) {

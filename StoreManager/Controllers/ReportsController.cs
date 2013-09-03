@@ -27,7 +27,8 @@ namespace StoreManager.Controllers {
         }
 
         public ActionResult GeneralInventory() {
-            throw new System.NotImplementedException();
+            var stocks = Db.Stocks.ToList();
+            return View(stocks);
         }
     }
 }
