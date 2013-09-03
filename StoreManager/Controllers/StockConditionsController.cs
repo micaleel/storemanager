@@ -3,14 +3,20 @@ using System.Linq;
 using System.Web.Mvc;
 using StoreManager.Models;
 using StoreManager.Infrastructure;
+using StoreManager.Repositories;
 
 namespace StoreManager.Controllers {
 
     [AuthorizeAndRedirect]
     public class StockConditionsController : BaseController {
+        private StockConditionRepository conditionRepo;
+
+        public StockConditionsController() {
+            conditionRepo = new StockConditionRepository(Db);
+        }
 
         public ActionResult Index() {
-            return View(Db.StockConditions.ToList());
+            return View(conditionRepo.All.ToList());
         }
 
         public ActionResult Create() {
@@ -19,49 +25,49 @@ namespace StoreManager.Controllers {
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(StockCondition itemcondition) {
-            if (ModelState.IsValid) {
-                Db.StockConditions.Add(itemcondition);
-                Db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+        public ActionResult Create(StockCondition condition) {
+            if (!ModelState.IsValid) return View(condition);
 
-            return View(itemcondition);
+            conditionRepo.Add(condition);
+
+            return RedirectToAction("Index");
         }
 
         public ActionResult Edit(int id = 0) {
-            StockCondition itemcondition = Db.StockConditions.Find(id);
-            if (itemcondition == null) {
-                return HttpNotFound();
-            }
-            return View(itemcondition);
+            var condition = conditionRepo.Find(id);
+            if (condition == null) return HttpNotFound("Cannot find Stock Condition with given ID");
+
+            return View(condition);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(StockCondition itemcondition) {
-            if (ModelState.IsValid) {
-                Db.Entry(itemcondition).State = EntityState.Modified;
-                Db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(itemcondition);
+        public ActionResult Edit(StockCondition condition) {
+            if (!ModelState.IsValid)return View(condition);
+
+            conditionRepo.Update(condition);
+
+            return RedirectToAction("Index");
         }
 
         public ActionResult Delete(int id = 0) {
-            StockCondition itemcondition = Db.StockConditions.Find(id);
-            if (itemcondition == null) {
-                return HttpNotFound();
-            }
-            return View(itemcondition);
+            var condition = conditionRepo.Find(id);
+            if (condition == null) return HttpNotFound("Cannot find Stock Condition with given ID");
+
+            return View(condition);
         }
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id) {
-            StockCondition itemcondition = Db.StockConditions.Find(id);
-            Db.StockConditions.Remove(itemcondition);
-            Db.SaveChanges();
+            try {
+                conditionRepo.Delete(id);
+            }
+            catch (EntityNotFoundException ex) {
+                ModelState.AddModelError("", ex.Message);
+                FlashError(ex.Message);
+            }
+
             return RedirectToAction("Index");
         }
     }

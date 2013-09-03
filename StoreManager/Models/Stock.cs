@@ -69,8 +69,6 @@ namespace StoreManager.Models {
         [ForeignKey("StockAuditDetailId")]
         public StockAuditDetail AuditDetail { get; set; }
 
-        public string Hello { get; set; }
-
         [Display(Name = "Date Added")]
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = false, NullDisplayText = "", DataFormatString = "{0:dd/mm/yy}")]

@@ -15,5 +15,19 @@ namespace StoreManager.Controllers {
             var movements = Db.Movements.OrderBy(x => x.DateCreated).Take(20);
             return View(movements);
         }
+
+        public ActionResult OutOfStockItems() {
+            throw new System.NotImplementedException();
+        }
+
+
+        public ActionResult StoreInventory() {
+            var stocks = Db.Stocks.Where(x => x.Location.IsStore).ToList();
+            return View(stocks);
+        }
+
+        public ActionResult GeneralInventory() {
+            throw new System.NotImplementedException();
+        }
     }
 }

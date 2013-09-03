@@ -14,9 +14,9 @@ namespace StoreManager.Controllers {
         private readonly ItemRepository _itemRepo;
         private readonly StockRepository _stockRepo;
 
-        public StockController(StockRepository stockRepo, ItemRepository itemRepo) {
-            _stockRepo = stockRepo ?? new StockRepository(Db);
-            _itemRepo = itemRepo ?? new ItemRepository(Db);
+        public StockController() {
+            _stockRepo = new StockRepository(Db);
+            _itemRepo = new ItemRepository(Db);
         }
 
         public ActionResult Create(int id) {
