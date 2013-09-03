@@ -138,6 +138,7 @@ namespace StoreManager.Controllers {
                 LocationId = input.LocationId,
                 Notes = input.Notes,
             };
+
             movement = _itemRepo.MoveStock(movement);
 
             var movementRepo = new MovementRepository(Db);

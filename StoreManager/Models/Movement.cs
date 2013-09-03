@@ -11,11 +11,19 @@ namespace StoreManager.Models {
         public DateTime DateCreated { get; set; }
 
         public int StockId { get; set; }
-        public int LocationId { get; set; }
         public string Notes { get; set; }
 
         [ForeignKey("StockId")]
         public virtual Stock Stock { get; set; }
+
+        [ForeignKey("FromLocationId")]
+        public virtual Location FromLocation { get; set; }
+
+        [Display(Name = "From Location")]
+        public int? FromLocationId { get; set; }
+
+        [Display(Name = "To Location")]
+        public int LocationId { get; set; }
 
         [ForeignKey("LocationId")]
         public virtual Location Location { get; set; }

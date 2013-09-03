@@ -1,7 +1,34 @@
-﻿@model StoreManager.Models.Stock
+﻿@using StoreManager.Models
+@model StoreManager.Models.Stock
 
 @{
     ViewBag.Title = "Stock Details";
+}
+
+@helper RenderItemMovementsTable() {
+    <table class="table  table-hover">
+        <tr>
+            <th>Date Created</th>
+            <th>Item</th>
+            <th>From Location</th>
+            <th>Location</th>
+            <th>@Html.DisplayNameFor(f => f.Notes)</th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.Movements.OrderByDescending(x => x.DateCreated)) {
+            <tr>
+                <td>@item.DateCreated.FormatDate() <small>@item.DateCreated.FriendlyDate()</small></td>
+                <td>@Html.DisplayFor(_ => item.Stock.Item.Name)</td>
+                <td>@Html.DisplayFor(_ => item.FromLocation.Name)</td>
+                <td>@Html.DisplayFor(_ => item.Location.Name)</td>
+                <td>@Html.DisplayFor(_ => item.Notes)</td>
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) | @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </table>
 }
 
 <div class="container">
@@ -10,113 +37,103 @@
     </div>
 
     <div class="row">
-        <fieldset>
-            <legend>Stock</legend>
-
-            <div class="display-label">
-                @Html.DisplayNameFor(model => model.ItemId)
-            </div>
-            <div class="display-field">
-                @Html.DisplayFor(model => model.ItemId)
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Item & Stock Information</h3>
             </div>
 
-            <div class="display-label">
-                @Html.DisplayNameFor(model => model.BatchId)
+            <div class="panel-body">
+                <table class="table table-condensed table-hover">
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.RefNo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.RefNo)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.StockConditionId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Condition.Name)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.ExpiryDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.ExpiryDate)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.PurchaseDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.PurchaseDate)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.BatchPrice)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.BatchPrice)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.UnitPrice)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.UnitPrice)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.Notes)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Notes)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.DateAdded)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.DateAdded)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.LocationId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Location.Name)
+                        </td>
+                    </tr>
+                </table>
             </div>
-            <div class="display-field">
-                @Html.DisplayFor(model => model.BatchId)
-            </div>
+        </div>
+    </div>
 
-            <div class="display-label">
-                @Html.DisplayNameFor(model => model.RefNo)
-            </div>
-            <div class="display-field">
-                @Html.DisplayFor(model => model.RefNo)
-            </div>
+    <div class="row">
+        <h3 class="page-header">Item Movements</h3>
+    </div>
 
-            <div class="display-label">
-                @Html.DisplayNameFor(model => model.StockConditionId)
+    <div class="row">
+        @if (Model == null || !Model.Movements.Any()) {
+            <div class="alert alert-dismissable alert-info">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <p>There are no records to show here. Click here <a href="@Url.Action("Index", "Items")">view all movable items</a></p>
             </div>
-            <div class="display-field">
-                @Html.DisplayFor(model => model.StockConditionId)
-            </div>
-
-            <div class="display-label">
-                @Html.DisplayNameFor(model => model.SupplierDetailId)
-            </div>
-            <div class="display-field">
-                @Html.DisplayFor(model => model.SupplierDetailId)
-            </div>
-
-            <div class="display-label">
-                @Html.DisplayNameFor(model => model.IsExpired)
-            </div>
-            <div class="display-field">
-                @Html.DisplayFor(model => model.IsExpired)
-            </div>
-
-            <div class="display-label">
-                @Html.DisplayNameFor(model => model.ExpiryDate)
-            </div>
-            <div class="display-field">
-                @Html.DisplayFor(model => model.ExpiryDate)
-            </div>
-
-            <div class="display-label">
-                @Html.DisplayNameFor(model => model.PurchaseDate)
-            </div>
-            <div class="display-field">
-                @Html.DisplayFor(model => model.PurchaseDate)
-            </div>
-
-            <div class="display-label">
-                @Html.DisplayNameFor(model => model.BatchPrice)
-            </div>
-            <div class="display-field">
-                @Html.DisplayFor(model => model.BatchPrice)
-            </div>
-
-            <div class="display-label">
-                @Html.DisplayNameFor(model => model.UnitPrice)
-            </div>
-            <div class="display-field">
-                @Html.DisplayFor(model => model.UnitPrice)
-            </div>
-
-            <div class="display-label">
-                @Html.DisplayNameFor(model => model.Notes)
-            </div>
-            <div class="display-field">
-                @Html.DisplayFor(model => model.Notes)
-            </div>
-
-            <div class="display-label">
-                @Html.DisplayNameFor(model => model.StockAuditDetailId)
-            </div>
-            <div class="display-field">
-                @Html.DisplayFor(model => model.StockAuditDetailId)
-            </div>
-
-            <div class="display-label">
-                @Html.DisplayNameFor(model => model.DateAdded)
-            </div>
-            <div class="display-field">
-                @Html.DisplayFor(model => model.DateAdded)
-            </div>
-
-            <div class="display-label">
-                @Html.DisplayNameFor(model => model.IsParent)
-            </div>
-            <div class="display-field">
-                @Html.DisplayFor(model => model.IsParent)
-            </div>
-
-            <div class="display-label">
-                @Html.DisplayNameFor(model => model.LocationId)
-            </div>
-            <div class="display-field">
-                @Html.DisplayFor(model => model.LocationId)
-            </div>
-        </fieldset>
+        }
+        else {
+            @RenderItemMovementsTable()
+        }
     </div>
 </div>

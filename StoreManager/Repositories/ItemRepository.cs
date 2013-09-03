@@ -20,7 +20,8 @@ namespace StoreManager.Repositories {
                 Db.Entry(stock).State = EntityState.Deleted;
             }
 
-            var movements = item.Movements.ToList();
+            // TODO: Delete stocks
+            var movements = item.Stocks.SelectMany(x => x.Movements).ToList();
 
             foreach (var movement in movements) {
                 Db.Entry(movement).State = EntityState.Deleted;
@@ -107,6 +108,11 @@ namespace StoreManager.Repositories {
 
             stock.LocationId = location.Id;
             stockRepo.Update(stock);
+
+            var lastKnownMovt = movementRepo.All.Where(x => x.StockId == movement.StockId).ToList().LastOrDefault();
+            if (lastKnownMovt != null) {
+                movement.FromLocationId = lastKnownMovt.LocationId;
+            }
 
             movement.DateCreated = DateTime.UtcNow;
 

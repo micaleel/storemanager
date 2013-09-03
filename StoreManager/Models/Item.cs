@@ -30,7 +30,6 @@ namespace StoreManager.Models {
             get { return Stocks == null ? 0 : Stocks.Count; }
         }
 
-        public virtual List<Movement> Movements { get; set; }
         public virtual List<Stock> Stocks { get; set; }
     }
 }

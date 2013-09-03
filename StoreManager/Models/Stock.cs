@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -81,5 +82,7 @@ namespace StoreManager.Models {
 
         [ForeignKey("LocationId")]
         public virtual Location Location { get; set; }
+
+        public virtual List<Movement> Movements { get; set; }
     }
 }
