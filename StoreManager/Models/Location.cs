@@ -10,6 +10,9 @@ namespace StoreManager.Models {
 
         [Display(Name = "Store")]
         public bool IsStore { get; set; }
-        public virtual List<Movement> Movements { get; set; }
+
+        // Hack: the double navigation property is necessary for EF to create models.
+        public virtual List<Movement> FromMovements { get; set; }
+        public virtual List<Movement> ToMovements { get; set; }
     }
 }

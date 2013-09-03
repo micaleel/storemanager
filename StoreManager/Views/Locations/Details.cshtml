@@ -47,22 +47,25 @@
 
     <p>&nbsp;</p>
 
-    @if (Model.Movements.Any()) {
+    @if (Model.ToMovements.Any()) {
         <div class="row">
-            <table class="table table-hover">
+            <h3>Item Movements</h3>
+            <table class="table table-hover table-condensed">
                 <thead>
                     <tr>
                         <th>Date Created</th>
-                        <th>Location/Destination</th>
+                        <th>From Location</th>
+                        <th>To Location</th>
                         <th>@Html.DisplayNameFor(f => f.Notes)</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model.Movements) {
+                    @foreach (var item in Model.ToMovements) {
                         <tr>
                             <td>@item.DateCreated.FormatDate() <small>@item.DateCreated.FriendlyDate()</small></td>
-                            <td>@Html.DisplayFor(_ => item.Location.Name)</td>
+                            <td><a href="@Url.Action("Details", "Locations", new { id = item.FromLocationId })">@Html.DisplayFor(_ => item.FromLocation.Name)</a></td>
+                            <td><a href="@Url.Action("Details", "Locations", new { id = item.ToLocationId })">@Html.DisplayFor(_ => item.ToLocation.Name)</a></td>
                             <td>@Html.DisplayFor(_ => item.Notes)</td>
                             <td>
                                 @Html.ActionLink("Details", "Details", "Movements", new { id = item.Id }, null)

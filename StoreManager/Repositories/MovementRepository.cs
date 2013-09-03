@@ -14,7 +14,7 @@ namespace StoreManager.Repositories {
                 throw new EntityNotFoundException("Cannot find Stock with given ID");
             }
 
-            if (locationRepo.Find(entity.LocationId) == null) {
+            if (locationRepo.Find(entity.ToLocationId) == null) {
                 throw new EntityNotFoundException("Cannot find Location with given ID");
             }
 

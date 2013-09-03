@@ -23,10 +23,10 @@ namespace StoreManager.Models {
         public int? FromLocationId { get; set; }
 
         [Display(Name = "To Location")]
-        public int LocationId { get; set; }
+        public int ToLocationId { get; set; }
 
-        [ForeignKey("LocationId")]
-        public virtual Location Location { get; set; }
+        [ForeignKey("ToLocationId")]
+        public virtual Location ToLocation { get; set; }
 
         [Display(Name = "Requisition Note")]
         public string RequisitionDoc { get; set; }

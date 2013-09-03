@@ -13,30 +13,22 @@
         <div class="panel panel-default">
             <div class="panel-heading">Movement</div>
             <div class="panel-body">
-                <table class="table">
+                <table class="table table-condensed">
                     <tr>
-                        <td>
-                            @Html.DisplayNameFor(f => f.DateCreated)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(f => f.DateCreated)
-                        </td>
+                        <td>@Html.DisplayNameFor(f => f.DateCreated)</td>
+                        <td>@Html.DisplayFor(f => f.DateCreated)</td>
                     </tr>
                     <tr>
-                        <td>
-                            @Html.DisplayNameFor(f => f.Location.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(f => f.Location.Name)
-                        </td>
+                        <td><a href="@Url.Action("Details", new { id = Model.FromLocationId })">@Html.DisplayFor(f => f.FromLocation.Name)</a></td>
+                        <td>@Html.DisplayFor(f => f.FromLocation.Name)</td>
                     </tr>
                     <tr>
-                        <td>
-                            @Html.DisplayNameFor(f => f.Notes)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(f => f.Notes)
-                        </td>
+                        <td><a href="@Url.Action("Details", new { id = Model.ToLocationId })">@Html.DisplayFor(f => f.ToLocation.Name)</a></td>
+                        <td>@Html.DisplayFor(f => f.ToLocation.Name)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(f => f.Notes)</td>
+                        <td>@Html.DisplayFor(f => f.Notes)</td>
                     </tr>
                 </table>
             </div>

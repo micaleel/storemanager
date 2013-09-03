@@ -15,9 +15,9 @@ namespace StoreManager.Repositories {
             if (location == null) throw new System.ApplicationException("Cannot find entity with given ID");
             if (location.IsStore) throw new System.ApplicationException("Cannot delete a store location");
 
-            var movements = location.Movements.ToList();
+            var allMovements = location.FromMovements.Union(location.ToMovements).ToList();
 
-            foreach (var movement in movements) {
+            foreach (var movement in allMovements) {
                 Db.Entry(movement).State = EntityState.Deleted;
             }
 

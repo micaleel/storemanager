@@ -135,7 +135,7 @@ namespace StoreManager.Controllers {
             var movement = new Movement {
                 DateCreated = DateTime.UtcNow,
                 StockId = input.StockId,
-                LocationId = input.LocationId,
+                ToLocationId = input.LocationId,
                 Notes = input.Notes,
             };
 

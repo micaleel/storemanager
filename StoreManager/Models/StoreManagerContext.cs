@@ -10,10 +10,18 @@ namespace StoreManager.Models {
         public DbSet<Stock> Stocks { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder builder) {
-            
-            //builder.Entity<Location>().HasMany(x=>x.Movements).WithRequired(x=>x.Location).WillCascadeOnDelete(false);
-            builder.Entity<Movement>().HasRequired(x=>x.Location).WithMany(x=>x.Movements).WillCascadeOnDelete(false);
-            builder.Entity<Movement>().HasRequired(x => x.Location).WithMany(x => x.Movements).WillCascadeOnDelete(false);
+
+            builder.Entity<Movement>()
+                .HasRequired(x => x.ToLocation)
+                .WithMany(x => x.ToMovements)
+                .HasForeignKey(x=>x.ToLocationId)
+                .WillCascadeOnDelete(false);
+
+            builder.Entity<Movement>()
+                .HasOptional(x => x.FromLocation)
+                .WithMany(x => x.FromMovements)
+                .HasForeignKey(x=>x.FromLocationId)
+                .WillCascadeOnDelete(false);
 
             base.OnModelCreating(builder);
         }

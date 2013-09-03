@@ -15,7 +15,7 @@ namespace StoreManager.Controllers {
         }
 
         public ActionResult Index() {
-            var movements = _movementRepo.All.Include(m => m.Stock).Include(m => m.Location);
+            var movements = _movementRepo.All;    // TODO: Optimize
             return View(movements.ToList());
         }
 

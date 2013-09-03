@@ -61,7 +61,7 @@ namespace StoreManager.Repositories {
             var addedStocks = stockRepo.AddMany(stockList).ToList();
 
             foreach (var stock in addedStocks) {
-                MoveStock(new Movement { StockId = stock.Id, LocationId = storeLocation.Id });
+                MoveStock(new Movement { StockId = stock.Id, ToLocationId = storeLocation.Id });
             }
 
             return addedStocks;
@@ -85,7 +85,7 @@ namespace StoreManager.Repositories {
             var movement = new Movement {
                 DateCreated = DateTime.UtcNow,
                 StockId = stock.Id,
-                LocationId = location.Id,
+                ToLocationId = location.Id,
                 Notes = notes
             };
 
@@ -103,15 +103,16 @@ namespace StoreManager.Repositories {
             var stock = stockRepo.Find(movement.StockId);
             if (stock == null) throw new EntityNotFoundException("Cannot find Stock with given ID");
 
-            var location = locationRepo.Find(movement.LocationId);
+            var location = locationRepo.Find(movement.ToLocationId);
             if (location == null) throw new EntityNotFoundException("Cannot find Location with given ID");
 
             stock.LocationId = location.Id;
             stockRepo.Update(stock);
 
+            // TODO: Optimize!
             var lastKnownMovt = movementRepo.All.Where(x => x.StockId == movement.StockId).ToList().LastOrDefault();
             if (lastKnownMovt != null) {
-                movement.FromLocationId = lastKnownMovt.LocationId;
+                movement.FromLocationId = lastKnownMovt.ToLocationId;
             }
 
             movement.DateCreated = DateTime.UtcNow;

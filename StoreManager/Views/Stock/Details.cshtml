@@ -20,8 +20,8 @@
             <tr>
                 <td>@item.DateCreated.FormatDate() <small>@item.DateCreated.FriendlyDate()</small></td>
                 <td>@Html.DisplayFor(_ => item.Stock.Item.Name)</td>
-                <td>@Html.DisplayFor(_ => item.FromLocation.Name)</td>
-                <td>@Html.DisplayFor(_ => item.Location.Name)</td>
+                <td><a href="@Url.Action("Details", new { id = item.FromLocationId })">@Html.DisplayFor(_ => item.FromLocation.Name)</a></td>
+                <td><a href="@Url.Action("Details", new { id = item.ToLocation })">@Html.DisplayFor(_ => item.ToLocation.Name)</a></td>
                 <td>@Html.DisplayFor(_ => item.Notes)</td>
                 <td>
                     @Html.ActionLink("Details", "Details", new { id = item.Id }) | @Html.ActionLink("Delete", "Delete", new { id = item.Id })
