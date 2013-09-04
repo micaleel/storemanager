@@ -92,9 +92,9 @@ namespace StoreManager.Infrastructure {
     
     public class PictureSaver : FileSaverBase {
         public PictureSaver() {
-            OriginalFolder = HostingEnvironment.MapPath("~/Content/Pictures");
-            ThumbnailFolder = HostingEnvironment.MapPath("~/Content/Pictures/Thumbs");
-            TempFolder = HostingEnvironment.MapPath("~/Content/Pictures/Temp");
+            OriginalFolder = HostingEnvironment.MapPath("~/App_Data/Pictures");
+            ThumbnailFolder = HostingEnvironment.MapPath("~/App_Data/Pictures/Thumbs");
+            TempFolder = HostingEnvironment.MapPath("~/App_Data/Pictures/Temp");
         }
     }
 }
