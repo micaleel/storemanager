@@ -35,10 +35,12 @@ namespace StoreManager.Controllers {
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Item item, int locationId) {
+        public ActionResult Create(Item item) {
             if (!ModelState.IsValid) return View(item);
 
             _itemRepo.Add(item);
+
+            FlashSuccess(string.Format("Item '{0}' has been added successfully", item.Name));
 
             return RedirectToAction("Index");
         }
