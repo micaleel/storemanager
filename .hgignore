@@ -27,3 +27,5 @@ ignore[.-]*
 svnignore[.-]*
 lint.db
 packages/
+Thumbs/
+Temp/
