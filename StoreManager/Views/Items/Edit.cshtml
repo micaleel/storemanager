@@ -11,51 +11,68 @@
     </div>
 
     <div class="row">
+        <ul class="nav nav-pills">
+            <li><a href="@Url.Action("Index", "Items")">All Items</a></li>
+            <li><a href="@Url.Action("Create", "Items")">Create New</a></li>
+            <li><a href="@Url.Action("Details", "Items", new { id = Model.Id })">Details</a></li>
+            <li class="active"><a href="@Url.Action("Edit", "Items", new { id = Model.Id })">Edit</a></li>
+            <li><a href="@Url.Action("Delete", "Items", new { id = Model.Id })">Delete Item</a></li>
+            <li><a href="@Url.Action("Create", "Stock", new { id = Model.Id })">Add Stock</a></li>
+        </ul>
+    </div>
+
+    <p>&nbsp;</p>
+
+    <div class="row">
         <form method="POST" action="@Url.Action("Edit")">
             @Html.AntiForgeryToken()
             @Html.ValidationSummary(true)
 
-            <fieldset>
-                <legend>Item Information</legend>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Item Information</h3>
+                </div>
 
-                @Html.HiddenFor(f => f.Id)
+                <div class="panel-body">
+                    @Html.HiddenFor(f => f.Id)
 
-                <div class="form-group">
-                    @Html.LabelFor(f => f.Name)
-                    <div>
-                        @Html.TextBoxFor(f => f.Name)
-                        @Html.ValidationMessageFor(f => f.Name)
+                    <div class="form-group">
+                        @Html.LabelFor(f => f.Name)
+                        <div>
+                            @Html.TextBoxFor(f => f.Name)
+                            @Html.ValidationMessageFor(f => f.Name)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(f => f.ReorderLevel)
+                        <div>
+                            @Html.EditorFor(f => f.ReorderLevel)
+                            @Html.ValidationMessageFor(f => f.ReorderLevel)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(f => f.Discontinued)
+                        <div>
+                            @Html.EditorFor(f => f.Discontinued)
+                            @Html.ValidationMessageFor(f => f.Discontinued)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(f => f.Notes)
+                        <div>
+                            @Html.TextAreaFor(f => f.Notes)
+                            @Html.ValidationMessageFor(f => f.Notes)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-primary" />
                     </div>
                 </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(f => f.ReorderLevel)
-                    <div>
-                        @Html.EditorFor(f => f.ReorderLevel)
-                        @Html.ValidationMessageFor(f => f.ReorderLevel)
-                    </div>
-                </div>
-                
-                 <div class="form-group">
-                    @Html.LabelFor(f => f.Discontinued)
-                    <div>
-                        @Html.EditorFor(f => f.Discontinued)
-                        @Html.ValidationMessageFor(f => f.Discontinued)
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(f => f.Notes)
-                    <div>
-                        @Html.TextAreaFor(f => f.Notes)
-                        @Html.ValidationMessageFor(f => f.Notes)
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-primary" />
-                </div>
-            </fieldset>
+            </div>
         </form>
     </div>
 </div>

@@ -1,22 +1,27 @@
 ﻿@model StoreManager.Models.Stock
 
 @{
-    ViewBag.Title = "Adjust Stock Item";
+    ViewBag.Title = "Edit Stock Item";
 }
 
 <div class="container">
 
     <div class="row">
-        <h2 class="page-header">Adjust Stock Item <small>@Model.Item.Name</small></h2>
+        <h2 class="page-header">Edit Stock Item <small>@Model.Item.Name</small></h2>
     </div>
 
     <div class="row">
         <ul class="nav nav-pills">
             <li><a href="@Url.Action("Index", "Items")">All Items</a></li>
-            <li class="active"><a href="@Url.Action("Create", "Items")">Create New</a></li>
+            <li><a href="@Url.Action("Details", "Items", new { id = Model.ItemId })">Item Details</a></li>
+            <li><a href="@Url.Action("Create", "Stock", new { id = Model.ItemId })">Add Stock</a></li>
+            <li><a href="@Url.Action("Details", "Items", new { id = Model.Id })">Stock Details</a></li>
+            <li><a href="@Url.Action("Move", "Stock", new { id = Model.Id })">Move Item</a></li>
+            <li class="active"><a href="@Url.Action("Edit", "Stock", new { id = Model.Id })">Edit Stock</a></li>
+            <li><a href="@Url.Action("Delete", "Stock", new { id = Model.Id })">Delete Stock</a></li>
         </ul>
     </div>
-
+    
     <p>&nbsp;</p>
 
     <div class="row">
@@ -51,7 +56,7 @@
                         }
 
                         <div class="form-group">
-                            <input type="submit" value="Adjust Stock" class="btn btn-primary" />
+                            <input type="submit" value="Edit Stock" class="btn btn-primary" />
                         </div>
                     </div>
                 </div>

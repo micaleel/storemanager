@@ -11,6 +11,20 @@
     </div>
 
     <div class="row">
+        <ul class="nav nav-pills">
+            <li><a href="@Url.Action("Index", "Items")">All Items</a></li>
+            <li><a href="@Url.Action("Details", "Items", new { id = Model.Stock.ItemId })">Item Details</a></li>
+            <li><a href="@Url.Action("Create", "Stock", new { id = Model.Stock.ItemId })">Add Stock</a></li>
+            <li><a href="@Url.Action("Details", "Items", new { id = Model.Stock.Id })">Stock Details</a></li>
+            <li class="active"><a href="@Url.Action("Move", "Stock", new { id = Model.Stock.Id })">Move Item</a></li>
+            <li><a href="@Url.Action("Edit", "Stock", new { id = Model.Stock.Id })">Edit Stock</a></li>
+            <li><a href="@Url.Action("Delete", "Stock", new { id = Model.Stock.Id })">Delete Stock</a></li>
+        </ul>
+    </div>
+
+    <p>&nbsp;</p>
+
+    <div class="row">
         <div class="col-md-6">
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -69,7 +83,7 @@
                 </div>
 
                 <div class="panel-body">
-                    <table class="table">
+                    <table class="table table-condensed table-hover">
                         <tr>
                             <td>Item Name</td>
                             <td>@Model.Stock.Item.Name</td>

@@ -9,6 +9,19 @@
     <div class="row">
         <h2 class="page-header">Delete Item</h2>
     </div>
+    
+    <div class="row">
+        <ul class="nav nav-pills">
+            <li><a href="@Url.Action("Index", "Items")">All Items</a></li>
+            <li><a href="@Url.Action("Create", "Items")">Create New</a></li>
+            <li><a href="@Url.Action("Details", "Items", new { id = Model.Id })">Details</a></li>
+            <li><a href="@Url.Action("Edit", "Items", new { id = Model.Id })">Edit</a></li>
+            <li class="active"><a href="@Url.Action("Delete", "Items", new { id = Model.Id })">Delete Item</a></li>
+            <li><a href="@Url.Action("Create", "Stock", new { id = Model.Id })">Add Stock</a></li>
+        </ul>
+    </div>
+    
+    <p>&nbsp;</p>
 
     <div class="row">
         <p class="lead">Are you sure you want to delete this?</p>
@@ -18,7 +31,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">Item</div>
 
-            <table class="table">
+            <table class="table table-condensed table-hover">
                 <tr>
                     <td>@Html.DisplayNameFor(f => f.Name)</td>
                     <td>@Html.DisplayFor(f => f.Name)</td>

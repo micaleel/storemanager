@@ -11,6 +11,20 @@
     </div>
 
     <div class="row">
+        <ul class="nav nav-pills">
+            <li><a href="@Url.Action("Index", "Items")">All Items</a></li>
+            <li><a href="@Url.Action("Details", "Items", new { id = Model.ItemId })">Item Details</a></li>
+            <li><a href="@Url.Action("Create", "Stock", new { id = Model.ItemId })">Add Stock</a></li>
+            <li><a href="@Url.Action("Details", "Items", new { id = Model.Id })">Stock Details</a></li>
+            <li><a href="@Url.Action("Move", "Stock", new { id = Model.Id })">Move Item</a></li>
+            <li><a href="@Url.Action("Edit", "Stock", new { id = Model.Id })">Edit Stock</a></li>
+            <li class="active"><a href="@Url.Action("Delete", "Stock", new { id = Model.Id })">Delete Stock</a></li>
+        </ul>
+    </div>
+
+    <p>&nbsp;</p>
+
+    <div class="row">
         <p class="lead">Are you sure you want to delete this?</p>
     </div>
 
@@ -22,7 +36,7 @@
 
             <div class="panel-body">
 
-                <table class="table">
+                <table class="table table-condensed table-hover">
                     <tr>
                         <td>@Html.DisplayNameFor(model => model.IsExpired)</td>
                         <td>@Html.DisplayFor(model => model.IsExpired)</td>
@@ -39,7 +53,7 @@
                         <td>@Html.DisplayNameFor(model => model.BatchPrice)</td>
                         <td>@Html.DisplayFor(model => model.BatchPrice)</td>
                     </tr>
-                      <tr>
+                    <tr>
                         <td>@Html.DisplayNameFor(model => model.UnitPrice)</td>
                         <td>@Html.DisplayFor(model => model.UnitPrice)</td>
                     </tr>
