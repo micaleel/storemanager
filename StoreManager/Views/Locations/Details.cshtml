@@ -54,6 +54,7 @@
                 <thead>
                     <tr>
                         <th>Date Created</th>
+                        <th>Stock Item</th>
                         <th>From Location</th>
                         <th>To Location</th>
                         <th>@Html.DisplayNameFor(f => f.Notes)</th>
@@ -64,11 +65,21 @@
                     @foreach (var item in Model.ToMovements) {
                         <tr>
                             <td>@item.DateCreated.FormatDate() <small>@item.DateCreated.FriendlyDate()</small></td>
-                            <td><a href="@Url.Action("Details", "Locations", new { id = item.FromLocationId })">@Html.DisplayFor(_ => item.FromLocation.Name)</a></td>
-                            <td><a href="@Url.Action("Details", "Locations", new { id = item.ToLocationId })">@Html.DisplayFor(_ => item.ToLocation.Name)</a></td>
+                            <td><a href="@Url.Action("Details", "Stock", new { id = item.StockId })">@item.Stock.Item.Name</a> </td>
+                            <td>
+                                @if (item.FromLocationId.HasValue) {
+                                    <a href="@Url.Action("Details", "Locations", new { id = item.FromLocationId })">@Html.DisplayFor(_ => item.FromLocation.Name)</a>
+                                }
+                                else {
+                                    <span class="text-muted">(not specified)</span>                                    
+                                }
+                            </td>
+                            <td>
+                                <a href="@Url.Action("Details", "Locations", new { id = item.ToLocationId })">@Html.DisplayFor(_ => item.ToLocation.Name)</a>
+                            </td>
                             <td>@Html.DisplayFor(_ => item.Notes)</td>
                             <td>
-                                @Html.ActionLink("Details", "Details", "Movements", new { id = item.Id }, null)
+                                @Html.ActionLink("Details", "Details", "Locations", new { id = item.Id }, null)
                             </td>
                         </tr>
                     }
