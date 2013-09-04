@@ -8,8 +8,8 @@
 @helper RenderItemMovementsTable() {
     <table class="table table-condensed table-hover">
         <tr>
-            <th>Date Created</th>
             <th>Item</th>
+            <th>Date Created</th>
             <th>From Location</th>
             <th>Location</th>
             <th>@Html.DisplayNameFor(f => f.Notes)</th>
@@ -18,8 +18,8 @@
 
         @foreach (var item in Model.Movements.OrderByDescending(x => x.DateCreated)) {
             <tr>
-                <td>@item.DateCreated.FormatDate() <small>@item.DateCreated.FriendlyDate()</small></td>
                 <td>@Html.DisplayFor(_ => item.Stock.Item.Name)</td>
+                <td>@item.DateCreated.FormatDate() <small>@item.DateCreated.FriendlyDate()</small></td>
                 <td><a href="@Url.Action("Details", "Locations", new { id = item.FromLocationId })">@Html.DisplayFor(_ => item.FromLocation.Name)</a></td>
                 <td><a href="@Url.Action("Details", "Locations", new { id = item.ToLocation })">@Html.DisplayFor(_ => item.ToLocation.Name)</a></td>
                 <td>@Html.DisplayFor(_ => item.Notes)</td>
@@ -59,77 +59,47 @@
             <div class="panel-body">
                 <table class="table table-condensed table-hover">
                     <tr>
-                        <td>
-                            @Html.DisplayNameFor(model => model.RefNo)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => model.RefNo)
-                        </td>
+                        <td>@Html.DisplayNameFor(model => model.RefNo)</td>
+                        <td>@Html.DisplayFor(model => model.RefNo)</td>
                     </tr>
                     <tr>
-                        <td>
-                            @Html.DisplayNameFor(model => model.StockConditionId)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => model.Condition.Name)
-                        </td>
+                        <td>@Html.DisplayNameFor(model => model.StockConditionId)</td>
+                        <td>@Html.DisplayFor(model => model.Condition.Name)</td>
                     </tr>
                     <tr>
-                        <td>
-                            @Html.DisplayNameFor(model => model.ExpiryDate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => model.ExpiryDate)
-                        </td>
+                        <td>@Html.DisplayNameFor(model => model.ExpiryDate)</td>
+                        <td>@Html.DisplayFor(model => model.ExpiryDate)</td>
                     </tr>
                     <tr>
-                        <td>
-                            @Html.DisplayNameFor(model => model.PurchaseDate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => model.PurchaseDate)
-                        </td>
+                        <td>@Html.DisplayNameFor(model => model.PurchaseDate)</td>
+                        <td>@Html.DisplayFor(model => model.PurchaseDate)</td>
                     </tr>
                     <tr>
-                        <td>
-                            @Html.DisplayNameFor(model => model.BatchPrice)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => model.BatchPrice)
-                        </td>
+                        <td>@Html.DisplayNameFor(model => model.BatchPrice)</td>
+                        <td>@Html.DisplayFor(model => model.BatchPrice)</td>
                     </tr>
                     <tr>
-                        <td>
-                            @Html.DisplayNameFor(model => model.UnitPrice)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => model.UnitPrice)
-                        </td>
+                        <td>@Html.DisplayNameFor(model => model.UnitPrice)</td>
+                        <td>@Html.DisplayFor(model => model.UnitPrice)</td>
                     </tr>
                     <tr>
-                        <td>
-                            @Html.DisplayNameFor(model => model.Notes)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => model.Notes)
-                        </td>
+                        <td>@Html.DisplayNameFor(model => model.Notes)</td>
+                        <td>@Html.DisplayFor(model => model.Notes)</td>
                     </tr>
                     <tr>
-                        <td>
-                            @Html.DisplayNameFor(model => model.DateAdded)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => model.DateAdded)
-                        </td>
+                        <td>@Html.DisplayNameFor(model => model.DateAdded)</td>
+                        <td>@Html.DisplayFor(model => model.DateAdded)</td>
                     </tr>
                     <tr>
-                        <td>
-                            @Html.DisplayNameFor(model => model.LocationId)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => model.Location.Name)
-                        </td>
+                        <td>@Html.DisplayNameFor(model => model.LocationId)</td>
+                        <td>@Html.DisplayFor(model => model.Location.Name)</td>
                     </tr>
+                    @if (!Model.Location.IsStore) {
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td><a href="@Url.Action("ReturnToStore","Movements", new{id = Model.Id})" class="btn btn-default btn-info btn-sm">Return to Store</a> </td>
+                        </tr>
+                    }
                 </table>
             </div>
         </div>

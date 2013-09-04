@@ -1,7 +1,9 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 using StoreManager.Infrastructure;
+using StoreManager.Models;
 using StoreManager.Repositories;
 using System.IO;
 
@@ -52,6 +54,28 @@ namespace StoreManager.Controllers {
             }
 
             return RedirectToAction("Index");
+        }
+
+        public ActionResult ReturnToStore(int id) {
+            var stockRepo = new StockRepository(Db);
+            var stock = stockRepo.Find(id);
+            if (stock == null) return HttpNotFound("Cannot find Stock with given ID");
+
+            var locationRepo = new LocationRepository(Db);
+            var storeLocation = locationRepo.GetOrCreateStoreLocation();
+
+            var movement = new Movement {
+                DateCreated = DateTime.UtcNow,
+                StockId = id,
+                ToLocationId = storeLocation.Id,
+            };
+
+            var itemRepo = new ItemRepository(Db);
+            itemRepo.MoveStock(movement);
+
+            FlashSuccess(string.Format("Stock item '{0}' has been moved to the location '{1}' successfully", stock.Item.Name,
+                                       storeLocation.Name));
+            return RedirectToAction("Details", "Items", new { id = stock.ItemId });
         }
     }
 }
