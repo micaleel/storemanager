@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using StoreManager.Infrastructure;
 using StoreManager.Repositories;
+using System.IO;
 
 namespace StoreManager.Controllers {
 
@@ -12,6 +13,12 @@ namespace StoreManager.Controllers {
 
         public MovementsController() {
             _movementRepo = new MovementRepository(Db);
+        }
+
+        public ActionResult DownloadImageFile(string fileName) {
+            var dir = Server.MapPath("/App_Data/Pictures");
+            var path = Path.Combine(dir, fileName);
+            return base.File(path, "image/jpeg");
         }
 
         public ActionResult Index() {

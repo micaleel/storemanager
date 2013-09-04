@@ -12,8 +12,13 @@ namespace StoreManager.Infrastructure {
         void Delete(string fileName);
     }
 
+
     public abstract class FileSaverBase : IFileSaver {
-        public static readonly Func<HttpPostedFileBase, string> SuggestFileName = arg => Guid.NewGuid() + "-" + Path.GetFileName(arg.FileName);
+        public static readonly Func<HttpPostedFileBase, string> SuggestFileName =
+            arg => string.Format("{0}{1}{2}", arg.FileName[0], 
+                Guid.NewGuid().ToString().Replace("-", ""), 
+                Path.GetExtension(arg.FileName));
+
         public static readonly Action<string> EnsureFoldersExist =
             path => {
                 if (!Directory.Exists(path)) Directory.CreateDirectory(path);
@@ -89,7 +94,7 @@ namespace StoreManager.Infrastructure {
             if (File.Exists(thumbnail)) File.Delete(thumbnail);
         }
     }
-    
+
     public class PictureSaver : FileSaverBase {
         public PictureSaver() {
             OriginalFolder = HostingEnvironment.MapPath("~/App_Data/Pictures");

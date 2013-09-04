@@ -44,7 +44,7 @@
                                 <span class="text-muted">(none)</span>
                             }
                             else {
-                                <a href="@Url.Content("App_Data/Pictures/" + Model.RequisitionDoc)"></a>
+                                <a href="@Url.Action("DownloadImageFile", new { fileName = Model.RequisitionDoc })">View</a>
                             }
                         </td>
                     </tr>
@@ -55,7 +55,7 @@
                                 <span class="text-muted">(none)</span>
                             }
                             else {
-                                <a href="@Url.Content("App_Data/Pictures/" + Model.AuthorizationDoc)"></a>
+                                <a href="@Url.Action("DownloadImageFile", new { fileName = Model.AuthorizationDoc })">View</a>
                             }
                         </td>
                     </tr>
