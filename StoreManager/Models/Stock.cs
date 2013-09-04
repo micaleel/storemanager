@@ -15,6 +15,7 @@ namespace StoreManager.Models {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
+        [Display(Name = "Item")]
         public int ItemId { get; set; }
 
         [ForeignKey("ItemId")]

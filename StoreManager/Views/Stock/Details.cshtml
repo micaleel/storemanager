@@ -97,7 +97,7 @@
                     @if (!Model.Location.IsStore) {
                         <tr>
                             <td>&nbsp;</td>
-                            <td><a href="@Url.Action("ReturnToStore","Movements", new{id = Model.Id})" class="btn btn-default btn-info btn-sm">Return to Store</a> </td>
+                            <td><a href="@Url.Action("ReturnToStore", "Movements", new { id = Model.Id })" class="btn btn-default btn-info btn-sm">Return to Store</a> </td>
                         </tr>
                     }
                 </table>
@@ -105,19 +105,12 @@
         </div>
     </div>
 
-    <div class="row">
-        <h3 class="page-header">Item Movements</h3>
-    </div>
-
-    <div class="row">
-        @if (Model == null || !Model.Movements.Any()) {
-            <div class="alert alert-dismissable alert-info">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                <p>There are no records to show here. Click here <a href="@Url.Action("Index", "Items")">view all movable items</a></p>
-            </div>
-        }
-        else {
+    @if (Model == null || !Model.Movements.Any()) {
+        <div class="row">
+            <h3 class="page-header">Item Movements</h3>
+        </div>
+        <div class="row">
             @RenderItemMovementsTable()
-        }
-    </div>
+        </div>
+    }
 </div>

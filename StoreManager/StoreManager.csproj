@@ -389,6 +389,9 @@
     <Content Include="Views\Reports\StoreInventory.cshtml" />
     <Content Include="Views\Stock\Details.cshtml" />
     <Content Include="Views\Reports\GeneralInventory.cshtml" />
+    <Content Include="Views\Reports\OutOfStockItems.cshtml" />
+    <Content Include="Views\Locations\_LocationInventory.cshtml" />
+    <Content Include="Views\Shared\_StockItemsTable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

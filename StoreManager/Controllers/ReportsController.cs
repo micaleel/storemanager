@@ -17,7 +17,8 @@ namespace StoreManager.Controllers {
         }
 
         public ActionResult OutOfStockItems() {
-            throw new System.NotImplementedException();
+            var stocks = Db.Stocks.Where(x => !x.Location.IsStore).ToList();
+            return View(stocks);
         }
 
 

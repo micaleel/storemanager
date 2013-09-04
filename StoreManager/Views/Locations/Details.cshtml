@@ -47,9 +47,13 @@
 
     <p>&nbsp;</p>
 
-    @if (Model.ToMovements.Any()) {
-        <div class="row">
-            <h3>Item Movements</h3>
+    <div class="row">
+        @Html.Action("LocationInventory", "Locations", new { id = Model.Id })
+    </div>
+    <div class="row">
+        <h3>Item Movements <small>History of items moved to and from this location</small></h3>
+
+        @if (Model.ToMovements.Any()) {  
             <table class="table table-condensed table-hover">
                 <thead>
                     <tr>
@@ -85,12 +89,12 @@
                     }
                 </tbody>
             </table>
-        </div>
-    }
-    else {
-        <p class="alert alert-info alert-dismissable">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            There are no records of any item movements to this location.
-        </p>
-    }
+        }
+        else {
+            <p class="alert alert-info alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                There are no records of any items moved to this location.
+            </p>
+        }
+    </div>
 </div>

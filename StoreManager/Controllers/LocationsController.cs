@@ -86,5 +86,10 @@ namespace StoreManager.Controllers {
 
             return RedirectToAction("Index");
         }
+
+        public PartialViewResult LocationInventory(int id) {
+            var stocks = Db.Stocks.Where(x => x.LocationId == id).ToList();
+            return PartialView("_LocationInventory", stocks);
+        }
     }
 }
