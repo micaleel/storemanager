@@ -10,8 +10,8 @@
         <tr>
             <th>@Html.DisplayNameFor(f => f.DateCreated)</th>
             <th>Item</th>
-            <th>From Location</th>
-            <th>To Location</th>
+            <th>Source</th>
+            <th>Destination</th>
             <th>@Html.DisplayNameFor(f => f.Notes)</th>
             <th></th>
         </tr>
@@ -19,7 +19,7 @@
         @foreach (var item in Model.OrderByDescending(x => x.DateCreated)) {
             <tr>
                 <td>@item.DateCreated.FormatDate() <small>@item.DateCreated.FriendlyDate()</small></td>
-                <td>@Html.DisplayFor(_ => item.Stock.Item.Name)</td>
+                <td><a href="@Url.Action("Details", "Stock", new { id = item.StockId })">@Html.DisplayFor(_ => item.Stock.Item.Name)</a></td>
                 <td><a href="@Url.Action("Details", "Locations", new { id = item.FromLocationId })">@Html.DisplayFor(_ => item.FromLocation.Name)</a></td>
                 <td><a href="@Url.Action("Details", "Locations", new { id = item.ToLocationId })">@Html.DisplayFor(_ => item.ToLocation.Name)</a></td>
                 <td>@Html.DisplayFor(_ => item.Notes)</td>
