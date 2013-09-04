@@ -33,7 +33,7 @@
                 
             <tr class="@PaintRow(item)">
                 <td>@itemIdx</td>
-                <td><a href="@Url.Action("Details", new { id = item.Id })">@Html.DisplayFor(_ => item.Name)</a></td>
+                <td><a href="@Url.Action("Details","Items", new { id = item.Id })">@Html.DisplayFor(_ => item.Name)</a></td>
                 <td>@Html.DisplayFor(_ => item.QuantityinStock)</td>
                 <td>@Html.DisplayFor(_ => item.ReorderLevel)</td>
                 <td>@Html.DisplayFor(_ => item.Discontinued)</td>

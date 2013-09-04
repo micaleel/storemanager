@@ -42,7 +42,7 @@
 
             @foreach (var item in Model.OrderByDescending(x => x.IsStore).ThenBy(x => x.Name)) {
                 <tr class="@HighlightStoreRow(item)">
-                    <td><a href="@Url.Action("Details", new { id = item.Id })">@Html.DisplayFor(_ => item.Name)</a></td>
+                    <td><a href="@Url.Action("Details","Locations", new { id = item.Id })">@Html.DisplayFor(_ => item.Name)</a></td>
                     <td>@Html.DisplayFor(_ => item.IsStore)</td>
                     <td>
                         @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |

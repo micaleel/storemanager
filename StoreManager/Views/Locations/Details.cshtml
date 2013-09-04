@@ -17,8 +17,8 @@
         <ul class="nav nav-pills">
             <li><a href="@Url.Action("Index")">All Locations</a></li>
             <li><a href="@Url.Action("Create")">Create New</a></li>
-            <li class="active"><a href="@Url.Action("Details", new { id = Model.Id })">Details</a></li>
-            <li><a href="@Url.Action("Edit", new { id = Model.Id })">Edit</a></li>
+            <li class="active"><a href="@Url.Action("Details", "Locations", new { id = Model.Id })">Details</a></li>
+            <li><a href="@Url.Action("Edit", "Locations", new { id = Model.Id })">Edit</a></li>
         </ul>
     </div>
 
