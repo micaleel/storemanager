@@ -150,7 +150,11 @@ namespace StoreManager.Controllers {
             if (authorizationDoc != null) {
                 movementRepo.AttachAuthorizationDoc(movement.Id, _pictureSaver.Save(authorizationDoc));
             }
-
+            var toLocation = Db.Locations.Find(input.LocationId);
+            if (toLocation != null) {
+                FlashSuccess(string.Format("Stock item '{0}' has been moved to the location '{1}' successfully", stock.Item.Name,
+                                           toLocation.Name));
+            }
             return RedirectToAction("Details", "Items", new { id = stock.ItemId });
         }
     }
