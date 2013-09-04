@@ -98,9 +98,7 @@
                     <td>@Html.DisplayFor(modelItem => item.BatchPrice)</td>
                     <td>@Html.DisplayFor(modelItem => item.UnitPrice)</td>
                     <td>
-                        @Html.ActionLink("Edit", "Edit", "Stock", new { id = item.Id }, null) | 
-                        @Html.ActionLink("Details", "Details", "Stock", new { id = item.Id }, null) |
-                        @Html.ActionLink("Delete", "Delete", "Stock", new { id = item.Id }, null)
+                        @Html.ActionLink("Details", "Details", "Stock", new { id = item.Id }, null)
                     </td>
                 </tr>
                 itemIdx++;

@@ -24,7 +24,7 @@
                 <td><a href="@Url.Action("Details", "Locations", new { id = item.ToLocation })">@Html.DisplayFor(_ => item.ToLocation.Name)</a></td>
                 <td>@Html.DisplayFor(_ => item.Notes)</td>
                 <td>
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) | @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    @Html.ActionLink("Details", "Details", "Movements", new { id = item.Id }, null)
                 </td>
             </tr>
         }
@@ -35,7 +35,7 @@
     <div class="row">
         <h2 class="page-header">@Model.Item.Name <small>Stock Details (Ref # @Model.RefNo)</small></h2>
     </div>
-    
+
     <div class="row">
         <ul class="nav nav-pills">
             <li><a href="@Url.Action("Index", "Items")">All Items</a></li>
@@ -47,7 +47,7 @@
             <li><a href="@Url.Action("Delete", "Stock", new { id = Model.Id })">Delete Stock</a></li>
         </ul>
     </div>
-    
+
     <p>&nbsp;</p>
 
     <div class="row">
