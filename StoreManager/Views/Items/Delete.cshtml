@@ -9,7 +9,7 @@
     <div class="row">
         <h2 class="page-header">Delete Item</h2>
     </div>
-    
+
     <div class="row">
         <ul class="nav nav-pills">
             <li><a href="@Url.Action("Index", "Items")">All Items</a></li>
@@ -20,7 +20,7 @@
             <li><a href="@Url.Action("Create", "Stock", new { id = Model.Id })">Add Stock</a></li>
         </ul>
     </div>
-    
+
     <p>&nbsp;</p>
 
     <div class="row">
@@ -37,13 +37,14 @@
                     <td>@Html.DisplayFor(f => f.Name)</td>
                 </tr>
             </table>
-        </div>
 
-        @using (Html.BeginForm()) {
-            @Html.AntiForgeryToken()
-            <div class="form-group">
-                <input type="submit" value="Delete" />
-            </div>
-        }
+
+            @using (Html.BeginForm()) {
+                @Html.AntiForgeryToken()
+                <div class="form-group">
+                    <input type="submit" value="Delete" class="btn btn-default btn-danger" />
+                </div>
+            }
+        </div>
     </div>
 </div>
