@@ -1,5 +1,4 @@
-﻿using System.Data;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Mvc;
 using StoreManager.Infrastructure;
 using StoreManager.Models;
@@ -81,11 +80,6 @@ namespace StoreManager.Controllers {
             }
 
             return RedirectToAction("Index");
-        }
-
-        public ActionResult Movements(int id) {
-            var movements = Db.Movements.Where(m => m.Stock.ItemId == id).OrderByDescending(m => m.DateCreated);
-            return View(movements);
         }
     }
 }
