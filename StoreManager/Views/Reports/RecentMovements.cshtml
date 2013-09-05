@@ -6,12 +6,14 @@
 }
 
 <div class="container">
-    <h2 class="page-header">Recent Movements</h2>
+    <h2 class="page-header">Recent Movements <small>Shows last 50 item movements </small></h2>
 
     <table class="table table-condensed table-hover">
         <thead>
             <tr>
+                <th></th>
                 <th>Date Created</th>
+                <th>Item</th>
                 <th>From Location</th>
                 <th>To Location</th>
                 <th>@Html.DisplayNameFor(f => f.Notes)</th>
@@ -19,9 +21,16 @@
             </tr>
         </thead>
         <tbody>
+            @{ var itemIdx = 1; }
             @foreach (var item in Model) {
                 <tr>
+                    <td>@itemIdx</td>
                     <td>@item.DateCreated.FormatDate() <small>@item.DateCreated.FriendlyDate()</small></td>
+                    <td>
+                        <a href="@Url.Action("Details", "Stock", new { id = item.StockId })">
+                            @Html.DisplayFor(_ => item.Stock.Item.Name) <small>@item.Stock.RefNo</small>
+                        </a>
+                    </td>
                     <td><a href="@Url.Action("Details", "Locations", new { id = item.FromLocationId })">@Html.DisplayFor(_ => item.FromLocation.Name)</a></td>
                     <td><a href="@Url.Action("Details", "Locations", new { id = item.ToLocationId })">@Html.DisplayFor(_ => item.ToLocation.Name)</a></td>
                     <td>@Html.DisplayFor(_ => item.Notes)</td>
@@ -29,6 +38,7 @@
                         @Html.ActionLink("Details", "Details", "Movements", new { id = item.Id }, null)
                     </td>
                 </tr>
+                itemIdx++;
             }
         </tbody>
     </table>

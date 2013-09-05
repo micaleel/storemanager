@@ -4,26 +4,6 @@
     ViewBag.Title = "Item Details";
 }
 
-@functions
-{
-    static int GetExpiredItemCount(IEnumerable<StoreManager.Models.Stock> items) {
-        return items == null ? 0 : items.Count(z => z.IsExpired);
-    }
-    
-}
-
-@helper ShowExpiredItemsWarninig() {
-    int expiredItemsCount = GetExpiredItemCount(Model.Stocks);
-    if (expiredItemsCount > 0) {
-    <div class="row">
-        <div class="alert alert-danger alert-dismissable">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <strong>Warning!</strong> there are @expiredItemsCount stock items that have expired.
-        </div>
-    </div>
-    }
-}
-
 <div class="container">
     <div class="row">
         <h2 class="page-header">@Model.Name <small>Item Details</small></h2>
@@ -39,12 +19,12 @@
             <li><a href="@Url.Action("Create", "Stock", new { id = Model.Id })">Add Stock</a></li>
         </ul>
     </div>
-    
+
     <p>&nbsp;</p>
 
-    @if (GetExpiredItemCount(Model.Stocks) > 0) {
+    @if (StockViewHelpers.GetExpiredItemCount(Model.Stocks) > 0) {
         <div class="row">
-            @ShowExpiredItemsWarninig()
+            @StockViewHelpers.ShowExpiredItemsWarninig()
         </div>
 
         <p>&nbsp;</p>
@@ -91,7 +71,7 @@
             </div>
             <div class="panel-body">
                 <p>
-                    <a href="@Url.Action("Create", "Stock", new { id = Model.Id })" class="btn btn-default btn-success btn-sm">Add Stock</a></h3>
+                    <a href="@Url.Action("Create", "Stock", new { id = Model.Id })" class="btn btn-default btn-success btn-sm">Add Stock</a>
                 </p>
                 @if (Model.Stocks.Any()) {
                     @Html.Partial("_StockItemsTable", Model.Stocks)

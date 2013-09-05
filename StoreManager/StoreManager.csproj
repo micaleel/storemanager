@@ -150,6 +150,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App_Code\StockViewHelpers.cshtml" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -176,8 +177,6 @@
     <Compile Include="Infrastructure\AuthorizeAndRedirect.cs" />
     <Compile Include="Models\ItemAuditDetail.cs" />
     <Compile Include="Models\Stock.cs" />
-    <Compile Include="Models\ItemStockAuditDetail.cs" />
-    <Compile Include="Models\ItemStockSupplyDetails.cs" />
     <Compile Include="Models\ResetPasswordResult.cs" />
     <Compile Include="Models\DateTimeExtensions.cs" />
     <Compile Include="Models\Item.cs" />
@@ -392,6 +391,7 @@
     <Content Include="Views\Reports\OutOfStockItems.cshtml" />
     <Content Include="Views\Locations\_LocationInventory.cshtml" />
     <Content Include="Views\Shared\_StockItemsTable.cshtml" />
+    <Content Include="Views\Reports\ExpiredItems.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

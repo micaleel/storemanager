@@ -94,7 +94,7 @@
                         <td>@Html.DisplayNameFor(model => model.LocationId)</td>
                         <td>@Html.DisplayFor(model => model.Location.Name)</td>
                     </tr>
-                    @if (!Model.Location.IsStore) {
+                    @if (Model.Location != null && !Model.Location.IsStore) {
                         <tr>
                             <td>&nbsp;</td>
                             <td><a href="@Url.Action("ReturnToStore", "Movements", new { id = Model.Id })" class="btn btn-default btn-info btn-sm">Return to Store</a> </td>

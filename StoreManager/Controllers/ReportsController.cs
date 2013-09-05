@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using StoreManager.Infrastructure;
 
@@ -12,7 +13,7 @@ namespace StoreManager.Controllers {
         }
 
         public ActionResult RecentMovements() {
-            var movements = Db.Movements.OrderBy(x => x.DateCreated).Take(20);
+            var movements = Db.Movements.OrderBy(x => x.DateCreated).Take(50).ToList();
             return View(movements);
         }
 
@@ -29,6 +30,11 @@ namespace StoreManager.Controllers {
 
         public ActionResult GeneralInventory() {
             var stocks = Db.Stocks.ToList();
+            return View(stocks);
+        }
+
+        public ActionResult ExpiredItems() {
+            var stocks = Db.Stocks.Where(x => x.ExpiryDate <= DateTime.UtcNow).ToList();
             return View(stocks);
         }
     }

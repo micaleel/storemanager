@@ -16,6 +16,7 @@
         <tr>
             <th></th>
             <th>Date Added</th>
+            <th>Item</th>
             <th>Ref #</th>
             <th>Location</th>
             <th>Condition</th>
@@ -31,6 +32,7 @@
         <tr class="@HighlightExpiredStockItem(item)">
             <td>@itemIdx</td>
             <td>@Html.DisplayFor(_ => item.DateAdded)</td>
+            <td>@Html.DisplayFor(_ => item.Item.Name)</td>
             <td>@Html.DisplayFor(_ => item.RefNo)</td>
             <td><a href="@Url.Action("Details", "Locations", new { id = item.LocationId })">@Html.DisplayFor(_ => item.Location.Name)</a></td>
             <td>@Html.DisplayFor(_ => item.Condition.Name)</td>

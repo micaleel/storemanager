@@ -3,33 +3,6 @@
 @{
     ViewBag.Title = "General Inventory";
 }
-@functions
-{
-    static string PaintRow(StoreManager.Models.Stock item) {
-        if (item.IsParent) {
-            return "success";
-        }
-
-        return item.IsExpired ? "warning" : string.Empty;
-    }
-
-    static int GetExpiredItemCount(IEnumerable<StoreManager.Models.Stock> items) {
-        return items == null ? 0 : items.Count(z => z.IsExpired);
-    }
-}
-
-@helper ShowExpiredItemsWarninig() {
-    int expiredItemsCount = GetExpiredItemCount(Model);
-    if (expiredItemsCount > 0) {
-    <div class="row">
-        <div class="alert alert-danger alert-dismissable">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <strong>Warning!</strong> there are @expiredItemsCount stock items that have expired.
-        </div>
-    </div>
-    }
-}
-
 
 <div class="container">
 
@@ -37,9 +10,9 @@
         <h2 class="page-header">General Inventory <small>List of all Items and their current locations</small></h2>
     </div>
 
-    @if (GetExpiredItemCount(Model) > 0) {
+    @if (StockViewHelpers.GetExpiredItemCount(Model) > 0) {
         <div class="row">
-            @ShowExpiredItemsWarninig()
+            @StockViewHelpers.ShowExpiredItemsWarninig()
         </div>
 
         <p>&nbsp;</p>
@@ -89,7 +62,7 @@
             </thead>
             @{ var itemIdx = 1; }
             @foreach (var item in Model) {
-                <tr class="@PaintRow(item)">
+                <tr class="@StockViewHelpers.HighlightStockItem(item)">
                     <td>@itemIdx</td>
                     <td>@item.Item.Name</td>
                     <td>@Html.DisplayFor(modelItem => item.RefNo)</td>

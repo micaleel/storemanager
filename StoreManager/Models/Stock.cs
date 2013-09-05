@@ -33,13 +33,6 @@ namespace StoreManager.Models {
         [ForeignKey("StockConditionId")]
         public virtual StockCondition Condition { get; set; }
 
-        [Display(Name = "Supplier")]
-        public int? SupplierDetailId { get; set; }
-
-        [Display(Name = "Supplier")]
-        [ForeignKey("SupplierDetailId")]
-        public virtual SupplierDetail Supplier { get; set; }
-
         [Display(Name = "Is Expired?")]
         public bool IsExpired {
             get { return ExpiryDate <= DateTime.UtcNow; }
@@ -65,11 +58,6 @@ namespace StoreManager.Models {
 
         [DataType(DataType.MultilineText)]
         public string Notes { get; set; }
-
-        public int? StockAuditDetailId { get; set; }
-
-        [ForeignKey("StockAuditDetailId")]
-        public StockAuditDetail AuditDetail { get; set; }
 
         [Display(Name = "Date Added")]
         [DataType(DataType.Date)]

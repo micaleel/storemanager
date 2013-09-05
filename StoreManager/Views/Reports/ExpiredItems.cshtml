@@ -1,0 +1,17 @@
+﻿@model IEnumerable<StoreManager.Models.Stock>
+
+@{
+    ViewBag.Title = "Expired Items";
+}
+
+
+<div class="container">
+
+    <div class="row">
+        <h2 class="page-header">Expired Items <small>List of all Items that have expired</small></h2>
+    </div>
+
+    <div class="row">
+        @Html.Partial("_StockItemsTable", Model)
+    </div>
+</div>
