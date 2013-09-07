@@ -73,6 +73,5 @@ namespace StoreManager.Models {
         public virtual Location Location { get; set; }
 
         public virtual List<Movement> Movements { get; set; }
-        public string Remarks { get; set; }
     }
 }
