@@ -22,9 +22,9 @@
 
     <p>&nbsp;</p>
 
-    @if (StockViewHelpers.GetExpiredItemCount(Model.Stocks) > 0) {
+    @if (ViewHelpers.GetExpiredItemCount(Model.Stocks) > 0) {
         <div class="row">
-            @StockViewHelpers.ShowExpiredItemsWarninig()
+            @ViewHelpers.ShowExpiredItemsWarninig()
         </div>
 
         <p>&nbsp;</p>

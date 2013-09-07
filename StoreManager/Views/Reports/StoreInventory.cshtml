@@ -10,9 +10,9 @@
         <h2 class="page-header">Store Inventory <small>List of Current Items in Store</small></h2>
     </div>
 
-    @if (StockViewHelpers.GetExpiredItemCount(Model) > 0) {
+    @if (ViewHelpers.GetExpiredItemCount(Model) > 0) {
         <div class="row">
-            @StockViewHelpers.ShowExpiredItemsWarninig()
+            @ViewHelpers.ShowExpiredItemsWarninig()
         </div>
 
         <p>&nbsp;</p>
@@ -62,7 +62,7 @@
             </thead>
             @{ var itemIdx = 1; }
             @foreach (var item in Model) {
-                <tr class="@StockViewHelpers.HighlightStockItem(item)">
+                <tr class="@ViewHelpers.HighlightStockItem(item)">
                     <td>@itemIdx</td>
                     <td>@item.Item.Name</td>
                     <td>@Html.DisplayFor(modelItem => item.RefNo)</td>
