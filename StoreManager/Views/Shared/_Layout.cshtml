@@ -17,20 +17,28 @@
 
     @ViewHelpers.Html5Shim()
     @Scripts.Render("~/bundles/jquery")
-
+    <link href="~/Content/Custom.css" rel="stylesheet" />
 </head>
 
 <body>
     @Html.Partial("_NavBar")
+    <div id="wrap">
 
-    <div style="margin-top: 60px">
-        @RenderBody()
+        <div style="padding-top: 60px">
+            @RenderBody()
+        </div>
+
+        <div id="push"></div>
     </div>
 
-    <footer class="text-center" style="margin-top: 65px">
-        <small>&copy; @DateTime.Now.Year Dialogue Girls Computer School</small>
+    <footer id="footer">
+        <div class="container" style="margin: 0 auto;">
+            <div class="row">
+                <p class="text-center">&copy; @DateTime.Now.Year Dialogue Girls Computer School</p>
+            </div>
+        </div>
+        <div class="clearfix"></div>
     </footer>
-
     @Scripts.Render("~/bundles/scripts")
     @RenderSection("Scripts", false)
 
@@ -39,29 +47,34 @@
     </script>
 
     @functions
-    {
-        public static bool HasFlashContent(TempDataDictionary tempData, string key) {
+        {
+        public static bool HasFlashContent(TempDataDictionary tempData, string key)
+        {
             return tempData[key] != null;
         }
-    }
+        }
 
     @{
-        if (HasFlashContent(TempData, "ToastWarning")) {
+        if (HasFlashContent(TempData, "ToastWarning"))
+        {
         <script type="text/javascript">
             toastr.warning('@TempData["ToastWarning"].ToString()');
         </script>
         }
-        if (HasFlashContent(TempData, "ToastSuccess")) {
+        if (HasFlashContent(TempData, "ToastSuccess"))
+        {
         <script type="text/javascript">
             toastr.success('@TempData["ToastSuccess"].ToString()');
         </script>
         }
-        if (HasFlashContent(TempData, "ToastError")) {
+        if (HasFlashContent(TempData, "ToastError"))
+        {
         <script type="text/javascript">
             toastr.error('@TempData["ToastError"].ToString()');
         </script>
         }
-        if (HasFlashContent(TempData, "ToastInfo")) {
+        if (HasFlashContent(TempData, "ToastInfo"))
+        {
         <script type="text/javascript">
             toastr.info('@TempData["ToastInfo"].ToString()');
         </script>

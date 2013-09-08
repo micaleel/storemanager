@@ -12,23 +12,26 @@
     </div>
 
     <div class="row">
-        <p class="well">
+        <p>
             <a href="@Url.Action("Create")" class="btn btn-success">Create New</a>
         </p>
     </div>
 
 
     <div class="row">
-        @foreach (var user in usersByRole) {
+        @foreach (var user in usersByRole)
+        {
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3>@user.Key <small>@user.Count() user accounts</small></h3>
+                    <h3 class="panel-title">@user.Key <small>@user.Count() user accounts</small></h3>
                 </div>
-                @{ var orderedList = user
+                <div class="panel-body">
+                    @{ var orderedList = user
                        .OrderByDescending(u => u.LastLogin)
                        .ThenBy(d => d.DisplayName).ToList();
-                }
-                @Html.Partial("_List", orderedList)
+                    }
+                    @Html.Partial("_List", orderedList)
+                </div>
             </div>          
         }
     </div>
