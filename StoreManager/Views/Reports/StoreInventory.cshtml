@@ -10,13 +10,15 @@
         <h2 class="page-header">Store Inventory <small>List of Current Items in Store</small></h2>
     </div>
 
-    @if (ViewHelpers.GetExpiredItemCount(Model) > 0) {
-        <div class="row">
+    <div class="row">
+        @if (ViewHelpers.GetExpiredItemCount(Model) > 0) {
             @ViewHelpers.ShowExpiredItemsWarninig()
-        </div>
 
-        <p>&nbsp;</p>
-    }
+            <p>
+                <a href="@Url.Action("StoreInventory", new{pdf = true})" class="btn btn-sm">Download PDF</a>
+            </p>
+        }
+    </div>
 
     <div class="row">
         <h3>Summary Report</h3>

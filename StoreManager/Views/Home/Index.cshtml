@@ -1,35 +1,78 @@
 ﻿@{
     ViewBag.Title = "Home";
+    Layout = "../Shared/_Landing.cshtml";
 }
 
+@section Styles
+{
+    <style>
+        h1 {
+            -webkit-text-shadow: 2px 2px 2px rgb(137, 61, 0);
+            text-shadow: 2px 2px 2px rgb(137, 61, 1);
+            color: rgba(0,0,0,0.6);
+            text-shadow: 2px 8px 6px rgba(0,0,0,0.2), 0px -5px 35px rgba(255,255,255,0.3);
+        }
 
-<div class="jumbotron">
-    <h1 style="font-family: armwrestlerbold">Store Manager</h1>
+            h1 p.lead {
+                color: white;
+                /*-webkit-text-shadow: black 0.1em 0.1em 0.2em;
+                text-shadow: black 0.1em 0.1em 0.2em;*/
+                -webkit-text-shadow: 2px 2px 2px #333333;
+                text-shadow: 2px 2px 2px #333333;
+            }
+
+        hr.shadowed {
+            border: 0;
+            height: 1px;
+            background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
+            background-image: -moz-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
+            background-image: -ms-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
+            background-image: -o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
+        }
+    </style>
+
+
+}
+<div class="jumbotron" style="background-color: darkorange; color: white; background-image: url('../../Content/wallpaper_4.jpg');">
+    <img src="~/Content/logo.jpg" alt="Logo" class="pull-right hidden-sm" height="198" />
+    <h1 class="animated flip" style="font-family: armwrestlerbold">@HTML.GetAppName()</h1>
     <p class="lead">Dialogue Girls Computer Secondary School</p>
+
+    <p>
+        <a href="@Url.Action("Login", "Account")" class="btn btn-success col-md-3">Sign in to continue</a>
+    </p>
 </div>
 
-<div class="container">
+<div>
+    <div class="container">
 
-    <div class="row">
-        <div class="col-md-4">
-            <h3>Track Conditions</h3>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit fusce vel sapien elit in malesuada semper mi, id sollicitudin urna fermentum ut fusce varius nisl ac ipsum gravida vel pretium tellus.
-            </p>
-        </div>
-        <div class="col-md-4">
-            <h3>Track Locations</h3>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit fusce vel sapien elit in malesuada semper mi, id sollicitudin urna fermentum ut fusce varius nisl ac ipsum gravida vel pretium tellus.
-            </p>
-        </div>
-        <div class="col-md-4">
-            <h3>Generate Reports</h3>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit fusce vel sapien elit in malesuada semper mi, id sollicitudin urna fermentum ut fusce varius nisl ac ipsum gravida vel pretium tellus.
-            </p>
-        </div>
+        <img src="~/Content/logo.jpg" alt="Logo" class="pull-left hidden-sm" />
+        <h2>Fully Secured</h2>
+        <p class="lead">Store Manager guarantees that only authorized users can perform operations like adding new entries, recording stock movements and viewing senstive logs.</p>
+        <p>Everything is configurable. The User Administrative Console allows users with Administrative accounts to set up and modify user accounts.</p>
     </div>
 
-
+<hr class="shadowed" />
 </div>
+
+<div>
+    <div class="container">
+        <img src="~/Content/logo.jpg" alt="Logo" class="pull-right hidden-sm" height="198" />
+        <h2>Fully Secured</h2>
+        <p class="lead">Store Manager guarantees that only authorized users can perform operations like adding new entries, recording stock movements and viewing senstive logs.</p>
+        <p>Store Manager guarantees that only authorized users can perform operations like adding records, recording stock movements and viewing senstive logs. The User Administrative Console allows users with Administrative accounts to set up and modify user accounts.</p>
+    </div>
+
+    <hr class="shadowed" />
+</div>
+
+<div>
+    <div class="container">
+        <img src="~/Content/logo.jpg" alt="Logo" class="pull-left hidden-sm" height="198" />
+        <h2>Fully Secured</h2>
+        <p class="lead">Store Manager guarantees that only authorized users can perform operations like adding new entries, recording stock movements and viewing senstive logs.</p>
+        <p>Store Manager guarantees that only authorized users can perform operations like adding records, recording stock movements and viewing senstive logs. The User Administrative Console allows users with Administrative accounts to set up and modify user accounts.</p>
+    </div>
+    <hr class="shadowed" />
+</div>
+

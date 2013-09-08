@@ -1,4 +1,5 @@
-﻿@helper Html5Shim() {
+﻿@helper Html5Shim()
+{
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
             <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -7,19 +8,27 @@
 
 @functions {
 
-    public static string FriendlyLoginName() {
+    public static string GetAppName()
+    {
+        return System.Configuration.ConfigurationManager.AppSettings["AppName"];
+    }
+    
+    public static string FriendlyLoginName()
+    {
         var identity = HttpContext.Current.User.Identity as FormsIdentity;
         return identity != null ? identity.Ticket.UserData.Split('|')[1] : string.Empty;
     }
 
-    public static string FriendlyDate(DateTime d) {
+    public static string FriendlyDate(DateTime d)
+    {
         var s = DateTime.Now.Subtract(d);
         var dayDiff = (int)s.TotalDays;
         var secDiff = (int)s.TotalSeconds;
 
         if (dayDiff < 0 || dayDiff >= 31) return null;
 
-        if (dayDiff == 0) {
+        if (dayDiff == 0)
+        {
             if (secDiff < 60) return "just now";
             if (secDiff < 120) return "1 minute ago";
             if (secDiff < 3600) return string.Format("{0} minutes ago", Math.Floor((double)secDiff / 60));
@@ -35,15 +44,18 @@
             : null;
     }
 
-    public static string FormatCurrency(decimal amount) {
+    public static string FormatCurrency(decimal amount)
+    {
         return amount.ToString("c");
     }
 
-    public static string FormatDate(DateTime date) {
+    public static string FormatDate(DateTime date)
+    {
         return date.ToString("dd-MMM-yyyy");
     }
 
-    public static string FormatDate(DateTime? date, string text) {
+    public static string FormatDate(DateTime? date, string text)
+    {
         return date.HasValue ? date.Value.ToString("dd-MMM-yyyy") : text;
     }
 

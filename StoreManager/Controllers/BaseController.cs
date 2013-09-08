@@ -1,10 +1,13 @@
-﻿using System.Linq;
+﻿using System;
+using System.IO;
+using System.Linq;
 using System.Security.Principal;
 using System.Web.Mvc;
 using System.Web.Security;
 using AutoMapper;
 using StoreManager.Infrastructure;
 using StoreManager.Models;
+using System.Collections.Generic;
 
 namespace StoreManager.Controllers {
     public abstract class BaseController : Controller {
@@ -13,6 +16,26 @@ namespace StoreManager.Controllers {
         protected BaseController() {
             Db = new StoreManagerContext();
             Mapper.AddProfile<StoreManagerProfile>();
+        }
+
+
+        protected static FileResult DownloadCsvImpl<TEntity>(string[] columnHeaders,
+            IEnumerable<TEntity> list, Func<TEntity, string> toCsv, string fileName) {
+
+            var stream = new MemoryStream();
+            var writer = new StreamWriter(stream);
+
+            writer.WriteLine(string.Join(", ", columnHeaders));
+
+            foreach (var entity in list)
+                writer.WriteLine(toCsv(entity));
+
+            writer.Flush();
+            stream.Seek(0, SeekOrigin.Begin);
+
+            return new FileStreamResult(stream, System.Net.Mime.MediaTypeNames.Text.Plain) {
+                FileDownloadName = fileName,
+            };
         }
 
         protected override void OnAuthorization(AuthorizationContext filterContext) {

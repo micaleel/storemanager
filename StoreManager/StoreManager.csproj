@@ -75,6 +75,9 @@
     <Reference Include="Ninject.Web.Mvc">
       <HintPath>..\packages\Ninject.MVC3.3.0.0.6\lib\net45-full\Ninject.Web.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="RazorPDF">
+      <HintPath>..\packages\RazorPDF.1.0.0\lib\net45\RazorPDF.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -205,11 +208,17 @@
     <Compile Include="ViewModels\ResetPasswordModel.cs" />
     <Compile Include="Views\Stock\CreateStockModel.cs" />
     <Compile Include="Views\Stock\MoveStockModel.cs" />
+    <Content Include="Content\1378659867_people.png" />
+    <Content Include="Content\animate-custom.css" />
+    <Content Include="Views\Shared\_Landing.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="Content\wallpaper_1.jpg" />
+    <Content Include="Content\wallpaper_2.jpg" />
+    <Content Include="Content\logo.jpg" />
     <Content Include="Content\armwrestler_bold_macroman\ArmWrestler-webfont.svg" />
     <Content Include="Content\armwrestler_bold_macroman\specimen_files\ArmWrestler-cleartype.png" />
     <Content Include="Content\armwrestler_bold_macroman\specimen_files\easytabs.js" />
@@ -228,6 +237,8 @@
     <Content Include="Content\opensans_regular_macroman\specimen_files\OpenSans-Regular-cleartype.png" />
     <Content Include="Content\opensans_regular_macroman\specimen_files\specimen_stylesheet.css" />
     <Content Include="Content\opensans_regular_macroman\stylesheet.css" />
+    <Content Include="Content\wallpaper_3.jpg" />
+    <Content Include="Content\wallpaper_4.jpg" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
