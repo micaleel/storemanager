@@ -6,11 +6,9 @@ using StoreManager.Models;
 
 namespace StoreManager.Controllers
 {
-
     [AuthorizeAndRedirect]
     public class ReportsController : BaseController
     {
-
         public ActionResult Index()
         {
             return View();

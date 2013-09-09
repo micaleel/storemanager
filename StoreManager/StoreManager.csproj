@@ -211,6 +211,7 @@
     <Content Include="Content\1378659867_people.png" />
     <Content Include="Content\animate-custom.css" />
     <Content Include="Content\Custom.css" />
+    <Content Include="Content\DGCSS Logo.png" />
     <Content Include="Views\Shared\_Landing.cshtml" />
   </ItemGroup>
   <ItemGroup>
