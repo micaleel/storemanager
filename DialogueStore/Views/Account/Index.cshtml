@@ -1,0 +1,38 @@
+﻿@model IEnumerable<DialogueStore.Models.User>
+@{
+    ViewBag.Title = "Users Accounts";
+
+    var usersByRole = Model.GroupBy(d => d.Role).OrderBy(f => f.Key);
+}
+
+<div class="container">
+
+    <div class="row">
+        @ViewHelpers.PageHeader("User Accounts", "Settings")
+    </div>
+
+    <div class="row">
+        <p>
+            <a href="@Url.Action("Create")" class="btn btn-success">Create New</a>
+        </p>
+    </div>
+
+
+    <div class="row">
+        @foreach (var user in usersByRole)
+        {
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">@user.Key <small>@user.Count() user accounts</small></h3>
+                </div>
+                <div class="panel-body">
+                    @{ var orderedList = user
+                       .OrderByDescending(u => u.LastLogin)
+                       .ThenBy(d => d.DisplayName).ToList();
+                    }
+                    @Html.Partial("_List", orderedList)
+                </div>
+            </div>          
+        }
+    </div>
+</div>

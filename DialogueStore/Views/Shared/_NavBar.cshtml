@@ -1,0 +1,67 @@
+﻿@helper ActiveItem(string actionName, string controllerName, string areaName) {
+    if (ViewContext.RouteData.Values["action"].ToString() == actionName &&
+            ViewContext.RouteData.Values["controller"].ToString() == controllerName &&
+            (ViewContext.RouteData.DataTokens["area"] == null || ViewContext.RouteData.DataTokens["area"].ToString() == areaName)) {
+    @:active
+    }
+}
+
+<nav class="navbar navbar-fixed-top navbar-inverse navbar-default">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="@Url.Action("Index", "Home")" title="Dialogue Store Manager" style="font-family: armwrestlerbold">DialogueStore</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+            @if (User.Identity.IsAuthenticated) {
+                <li><a href="@Url.Action("Dashboard", "Home")">Dashboard</a></li>
+                <li><a href="@Url.Action("Index", "Items")">Items</a></li>
+                <li><a href="@Url.Action("Index", "Locations")">Locations</a></li>
+                <li><a href="@Url.Action("Index", "Movements")">Movements</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Settings <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="@Url.Action("Index", "StockConditions")">Stock Conditions</a></li>
+                        <li><a href="@Url.Action("Index", "Account")">User Accounts</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Reports <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="@Url.Action("StoreInventory", "Reports")">Store Inventory</a></li>
+                        <li><a href="@Url.Action("GeneralInventory", "Reports")">General Inventory</a></li>
+                        <li><a href="@Url.Action("OutOfStockItems", "Reports")">Out-of-Stock Items</a></li>
+                        <li><a href="@Url.Action("RecentMovements", "Reports")">Recent Movements</a></li>
+                        <li><a href="@Url.Action("ExpiredItems", "Reports")">Expired Items</a></li>
+                    </ul>
+                </li>
+            }
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            @if (User.Identity.IsAuthenticated) {                    
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">@HTML.FriendlyLoginName() <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("Change Password", "ChangePassword", "Account")</li>
+                        <li class="divider"></li>
+                        <li>@Html.ActionLink("Logout", "Logout", "Account")</li>
+                    </ul>
+                </li>
+            }
+            else {
+                <li>@Html.ActionLink("Login", "Login", "Account")</li>
+                <li>@Html.ActionLink("Request an Account", "Register", "Account")</li>
+            }
+        </ul>
+    </div>
+    <!-- /.navbar-collapse -->
+</nav>

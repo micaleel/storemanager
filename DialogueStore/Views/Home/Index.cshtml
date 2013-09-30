@@ -1,0 +1,50 @@
+﻿@{
+    ViewBag.Title = "Home";
+    Layout = "../Shared/_Landing.cshtml";
+}
+
+
+
+<div class="jumbotron" style="margin-top: -10px; background: transparent">
+    <div class="container" style="background: transparent">
+
+
+        <h1 style="color: white; font-family: armwrestlerbold, 'Segoe UI Light'" class="animated flip text-center text-info">@ViewHelpers.GetAppSettings().ApplicationTitle <span class="text-center badge">v @ViewHelpers.GetAppSettings().ApplicationVersion</span></h1>
+        <p class="lead text-center">Keeping your inventory</p>
+        <p class="text-center" style="margin-top: 50px">
+            <img src="~/Content/DGCSS Logo.png" alt="Logo" class="text-center" height="198" />
+        </p>
+    </div>
+</div>
+
+<div class="jumbotron" style="margin-top: -10px; background-color: transparent">
+    <div class="container">
+        <div class="col-md-6 col-md-offset-3">
+            <p class="text-center" style="border-top: 1px solid lightblue; padding: 1.5em; border-bottom: 1px solid lightblue;">
+                <a href="@Url.Action("Login", "Account")" class="btn btn-success">Login to get started</a>
+                <span style="font-size: 10pt">&nbsp;or&nbsp;</span>
+                <a href="@Url.Action("Register", "Account")" class="btn btn-info">Request for an account</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="jumbotron" style="margin-top: -10px; background-color: transparent">
+    <div class="container">
+        <p class="text-center" style="font-size: 10pt">
+            <span class="label label-default">Designed and Developed for Dialogue Group</span>
+        </p>
+    </div>
+</div>
+
+
+@section Styles
+{
+    <style type="text/css">
+        body {
+            background-color: darkorange;
+            color: white;
+            background-image: url('../../Content/wallpaper_4.jpg');
+        }
+    </style>
+}

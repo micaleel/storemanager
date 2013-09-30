@@ -1,0 +1,58 @@
+﻿@model DialogueStore.Views.Stock.CreateStockModel
+
+@{
+    ViewBag.Title = "Add Stock Item";
+}
+
+<div class="container">
+
+    <div class="row">
+        <h2 class="page-header">Add Stock Item <small>@Model.Item.Name</small></h2>
+    </div>
+
+    <div class="row">
+        <ul class="nav nav-pills">
+            <li><a href="@Url.Action("Index", "Items")">All Items</a></li>
+            <li><a href="@Url.Action("Details", "Items", new { id = Model.ItemId })">Item Details</a></li>
+            <li class="active"><a href="@Url.Action("Create", "Stock", new { id = Model.ItemId })">Add Stock</a></li>
+            @*<li><a href="@Url.Action("Details", "Items", new { id = Model.Id })">Stock Details</a></li>
+            <li><a href="@Url.Action("Move", "Stock", new { id = Model.Id })">Move Item</a></li>
+            <li><a href="@Url.Action("Edit", "Stock", new { id = Model.Id })">Edit Stock</a></li>
+            <li><a href="@Url.Action("Delete", "Stock", new { id = Model.Id })">Delete Stock</a></li>*@
+        </ul>
+    </div>
+
+    <p>&nbsp;</p>
+
+    <div class="row">
+        <div class="col-md-6">
+            @using (Html.BeginForm()) {
+
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+                @Html.HiddenFor(f => f.ItemId)
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Stock Information</h3>
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="form-group">
+                            @Html.LabelFor(f => f.Quantity)
+                            <div>
+                                @Html.EditorFor(f => f.Quantity)
+                                @Html.ValidationMessageFor(f => f.Quantity)
+                            </div>
+                        </div>
+
+                        @Html.Partial("_CreateOrEdit")
+
+                        <div class="form-group">
+                            <input type="submit" value="Add Stock" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
