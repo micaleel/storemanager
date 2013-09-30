@@ -24,7 +24,7 @@
         @foreach (var item in Model) {
             <tr class="@GetRowClass(item)">
                 <td>@item.DisplayName (@item.UserName)</td>
-                <td>@HTML.FriendlyDate(item.LastLogin)</td>
+                <td>@ViewHelpersFriendlyDate(item.LastLogin)</td>
                 <td>
                     <div class="pull-right" style="margin-right: 10px">
                         @if (!item.Approved) {

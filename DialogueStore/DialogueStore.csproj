@@ -312,7 +312,6 @@
     <Content Include="Content\font\fontawesome-webfont.ttf" />
     <Content Include="Content\font\fontawesome-webfont.woff" />
     <Content Include="Content\font\FontAwesome.otf" />
-    <Content Include="App_Code\HTML.cshtml" />
     <Content Include="App_Code\ViewHelpers.cshtml" />
     <Content Include="Content\toastr.less" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
@@ -324,6 +323,7 @@
     <Content Include="Content\armwrestler_bold_macroman\ArmWrestler-webfont.eot" />
     <Content Include="Content\armwrestler_bold_macroman\ArmWrestler-webfont.ttf" />
     <Content Include="Content\armwrestler_bold_macroman\ArmWrestler-webfont.woff" />
+    <Content Include="App_Data\settings.json" />
     <None Include="Properties\PublishProfiles\Local.pubxml" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -412,7 +412,6 @@
     <Content Include="Views\Reports\ExpiredItems.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Content\images\" />
   </ItemGroup>
   <ItemGroup>
