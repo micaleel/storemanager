@@ -1,0 +1,115 @@
+﻿@model DialogueStore.Web.ViewModels.RegisterModel
+@{
+    ViewBag.Title = "Create User Account";
+}
+
+<div class="container">
+
+    <div class="row">
+        <h2 class="page-header">Settings</h2>
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-2">
+            <ul class="nav nav-pills nav-stacked">
+                <li><a href="@Url.Action("Index", "Settings")">General Settings</a></li>
+                <li><a href="@Url.Action("Index", "Account")">User Accounts</a></li>
+                <li class="active"><a href="@Url.Action("Create", "Account")">Create User Account</a></li>
+            </ul>
+        </div>
+
+        <div class="col-md-10">
+            <form action="@Url.Action("Create")" method="post" autocomplete="off">
+
+                <div class="panel panel-default">
+
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Create User Account</h3>
+                    </div>
+
+                    <div class="panel-body">
+                        @Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.")
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(f => f.UserName)
+                                    @Html.TextBoxFor(f => f.UserName)
+                                    @Html.ValidationMessageFor(f => f.UserName)
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(f => f.DisplayName)
+                            @Html.TextBoxFor(f => f.DisplayName)
+                            @Html.ValidationMessageFor(f => f.DisplayName)
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(f => f.Email)
+                                    @Html.TextBoxFor(f => f.Email)
+                                    @Html.ValidationMessageFor(f => f.Email)
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(f => f.Phone)
+                                    @Html.TextBoxFor(f => f.Phone)
+                                    @Html.ValidationMessageFor(f => f.Phone)
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(f => f.Password)
+                                    @Html.PasswordFor(f => f.Password, new { autocomplete = "off" })
+                                    @Html.ValidationMessageFor(f => f.Password)
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(f => f.ConfirmPassword)
+                                    @Html.PasswordFor(f => f.ConfirmPassword)
+                                    @Html.ValidationMessageFor(f => f.ConfirmPassword)
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(f => f.SecretQuestion)
+                                    @Html.TextBoxFor(f => f.SecretQuestion)
+                                    @Html.ValidationMessageFor(f => f.SecretQuestion)
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(f => f.SecretAnswer)
+                                    @Html.TextBoxFor(f => f.SecretAnswer, new { autocomplete = "off" })
+                                    @Html.ValidationMessageFor(f => f.SecretAnswer)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel-footer">
+                        <p class="text-center">
+                            <input type="submit" class="btn btn-default btn-primary col-md-1" value="Create User Account" />
+                            <a href="@Url.Action("Index", "Account")" class="btn btn-default">Back to Index</a>
+                        </p>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+
+</div>

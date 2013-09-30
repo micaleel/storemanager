@@ -1,0 +1,47 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "Settings";
+}
+
+<div class="container">
+
+    <div class="row">
+        <h2 class="page-header">Settings</h2>
+    </div>
+
+    <div class="row">
+        
+        <div class="col-md-2">
+            <ul class="nav nav-pills nav-stacked">
+                <li class="active"><a href="@Url.Action("Index", "Settings")">General Settings</a></li>
+                <li><a href="@Url.Action("Index", "Account")">User Accounts</a></li>
+                <li><a href="@Url.Action("Create","Account")">Create User Account</a></li>
+            </ul>
+        </div>
+
+        <div class="col-md-10">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">General Settings</h3>
+                </div>
+
+                <div class="panel-body">
+                    <table class="table table-hover table-condensed">
+                        <tr>
+                            <td>Application Title</td>
+                            <td>@ViewHelpers.GetAppSettings().ApplicationTitle</td>
+                        </tr>
+                        <tr>
+                            <td>Current Version</td>
+                            <td>@ViewHelpers.GetAppSettings().ApplicationVersion</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

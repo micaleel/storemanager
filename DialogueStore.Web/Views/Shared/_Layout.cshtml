@@ -1,0 +1,84 @@
+﻿@using System.Web.Optimization
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <title>@ViewBag.Title - Dialogue Store Manager</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/themes/base/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @RenderSection("styles", required: false)
+
+    <link href="~/Content/armwrestler_bold_macroman/stylesheet.css" rel="stylesheet" />
+    <link href="~/Content/opensans_regular_macroman/stylesheet.css" rel="stylesheet" />
+    <link href="~/Content/animate-custom.css" rel="stylesheet" />
+    <link href="~/Content/Custom.css" rel="stylesheet" />
+</head>
+
+<body style="background-color: rgba(234, 250, 255, 0.65)">
+    @Html.Partial("_NavBar")
+    <span id="top"></span>
+    <div id="wrap">
+        <div style="padding-top: 60px">
+            @RenderBody()
+        </div>
+        <div id="push"></div>
+    </div>
+    <span id="bottom"></span>
+
+    <footer id="footer">
+        <div class="container">
+            <p class="text-center text-muted credit">&copy; @DateTime.Now.Year Dialogue Girls Computer School (Version @ViewHelpers.GetAppSettings().ApplicationVersion)</p>
+        </div>
+    </footer>
+
+    @Scripts.Render("~/bundles/scripts")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/scripts")
+    @RenderSection("scripts", required: false)
+
+    @functions
+    {
+        public static bool HasFlashContent(TempDataDictionary tempData, string key)
+        {
+            return tempData[key] != null;
+        }
+    }
+
+    @{
+        if (HasFlashContent(TempData, "ToastWarning"))
+        {
+        <script type="text/javascript">
+            toastr.warning('@TempData["ToastWarning"].ToString()');
+        </script>
+        }
+        if (HasFlashContent(TempData, "ToastSuccess"))
+        {
+        <script type="text/javascript">
+            toastr.success('@TempData["ToastSuccess"].ToString()');
+        </script>
+        }
+        if (HasFlashContent(TempData, "ToastError"))
+        {
+        <script type="text/javascript">
+            toastr.error('@TempData["ToastError"].ToString()');
+        </script>
+        }
+        if (HasFlashContent(TempData, "ToastInfo"))
+        {
+        <script type="text/javascript">
+            toastr.info('@TempData["ToastInfo"].ToString()');
+        </script>
+        }
+    }
+</body>
+</html>

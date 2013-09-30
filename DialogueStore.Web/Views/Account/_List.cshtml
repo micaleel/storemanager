@@ -1,0 +1,62 @@
+﻿@using DialogueStore.Web.Models
+@using DialogueStore.Web.Infrastructure
+@model IEnumerable<User>
+@functions
+{
+    public static string ToYesNo(bool value)
+    {
+        return value ? "Yes" : "No";
+    }
+}
+@functions
+{
+    public static string GetRowClass(User user)
+    {
+        return user.Locked ? "warning" : (!user.Approved ? "info" : string.Empty);
+    }
+
+}
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>UserName</th>
+            <th>Display Name</th>
+            <th>Logged in</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="@GetRowClass(item)">
+                <td>@item.UserName</td>
+                <td>@item.DisplayName</td>
+                <td>@item.LastLogin.Ago()</td>
+                <td>
+                    <div class="pull-right" style="margin-right: 10px">
+                        @if (!item.Approved)
+                        {
+                            <a href="@Url.Action("Approve", new { id = item.UserId })">Approve</a>
+                            <text>&nbsp;|&nbsp;</text>
+                            <a href="@Url.Action("Deny", new { id = item.UserId })">Reject</a>                        
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("Edit", new { id = item.UserId })">Edit</a>
+                            <text>&nbsp;|&nbsp;</text>
+                            if (item.Locked)
+                            {
+                            <a href="@Url.Action("Unlock", new { id = item.UserId })">Unlock</a>
+                            }
+                            else
+                            {
+                            <a href="@Url.Action("Lock", new { id = item.UserId })">Lock</a>                            
+                            }
+                        }
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

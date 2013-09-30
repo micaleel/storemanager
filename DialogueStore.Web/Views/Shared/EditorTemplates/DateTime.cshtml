@@ -1,0 +1,10 @@
+﻿@model DateTime?
+
+@if (Model.HasValue)
+{ 
+    <text>@Html.TextBox("", String.Format("{0:d}", Model.Value.Date.ToShortDateString()), new { @class = "date-picker" })</text>
+}
+else
+{
+    <text>@Html.TextBox("", "", new { @class = "date-picker" })</text>
+}

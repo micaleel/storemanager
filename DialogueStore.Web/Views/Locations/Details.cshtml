@@ -1,0 +1,100 @@
+﻿@using DialogueStore.Web.Models
+@model Location
+
+@{
+    ViewBag.Title = "Location Details";
+}
+
+<div class="container">
+
+    <div class="row">
+        <h2>@Model.Name <small>Location Details</small></h2>
+    </div>
+
+    <p>&nbsp;</p>
+
+    <div class="row">
+        <ul class="nav nav-pills">
+            <li><a href="@Url.Action("Index")">All Locations</a></li>
+            <li><a href="@Url.Action("Create")">Create New</a></li>
+            <li class="active"><a href="@Url.Action("Details", "Locations", new { id = Model.Id })">Details</a></li>
+            <li><a href="@Url.Action("Edit", "Locations", new { id = Model.Id })">Edit</a></li>
+        </ul>
+    </div>
+
+    <p>&nbsp;</p>
+
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Location Details <small>@Model.Name</small></h3>
+            </div>
+
+            <div class="panel-body">
+                <table class="table table-condensed table-hover">
+                    <tr>
+                        <td>@Html.DisplayNameFor(f => f.Name)</td>
+                        <td>@Html.DisplayFor(f => f.Name)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(f => f.IsStore)</td>
+                        <td>@Html.DisplayFor(f => f.IsStore)</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <p>&nbsp;</p>
+
+    <div class="row">
+        @Html.Action("LocationInventory", "Locations", new { id = Model.Id })
+    </div>
+    <div class="row">
+        <h3>Item Movements <small>History of items moved to and from this location</small></h3>
+
+        @if (Model.ToMovements.Any()) {  
+            <table class="table table-condensed table-hover">
+                <thead>
+                    <tr>
+                        <th>Date Created</th>
+                        <th>Stock Item</th>
+                        <th>From Location</th>
+                        <th>To Location</th>
+                        <th>@Html.DisplayNameFor(f => f.Notes)</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.ToMovements) {
+                        <tr>
+                            <td>@item.DateCreated.FormatDate() <small>@item.DateCreated.FriendlyDate()</small></td>
+                            <td><a href="@Url.Action("Details", "Stock", new { id = item.StockId })">@item.Stock.Item.Name</a> </td>
+                            <td>
+                                @if (item.FromLocationId.HasValue) {
+                                    <a href="@Url.Action("Details", "Locations", new { id = item.FromLocationId })">@Html.DisplayFor(_ => item.FromLocation.Name)</a>
+                                }
+                                else {
+                                    <span class="text-muted">(not specified)</span>                                    
+                                }
+                            </td>
+                            <td>
+                                <a href="@Url.Action("Details", "Locations", new { id = item.ToLocationId })">@Html.DisplayFor(_ => item.ToLocation.Name)</a>
+                            </td>
+                            <td>@Html.DisplayFor(_ => item.Notes)</td>
+                            <td>
+                                @Html.ActionLink("Details", "Details", "Locations", new { id = item.Id }, null)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else {
+            <p class="alert alert-info alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                There are no records of any items moved to this location.
+            </p>
+        }
+    </div>
+</div>

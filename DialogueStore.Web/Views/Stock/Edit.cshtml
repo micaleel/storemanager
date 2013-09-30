@@ -1,0 +1,67 @@
+﻿@model DialogueStore.Web.Models.Stock
+
+@{
+    ViewBag.Title = "Edit Stock Item";
+}
+
+<div class="container">
+
+    <div class="row">
+        <h2 class="page-header">Edit Stock Item <small>@Model.Item.Name</small></h2>
+    </div>
+
+    <div class="row">
+        <ul class="nav nav-pills">
+            <li><a href="@Url.Action("Index", "Items")">All Items</a></li>
+            <li><a href="@Url.Action("Details", "Items", new { id = Model.ItemId })">Item Details</a></li>
+            <li><a href="@Url.Action("Create", "Stock", new { id = Model.ItemId })">Add Stock</a></li>
+            <li><a href="@Url.Action("Details", "Items", new { id = Model.Id })">Stock Details</a></li>
+            <li><a href="@Url.Action("Move", "Stock", new { id = Model.Id })">Move Item</a></li>
+            <li class="active"><a href="@Url.Action("Edit", "Stock", new { id = Model.Id })">Edit Stock</a></li>
+            <li><a href="@Url.Action("Delete", "Stock", new { id = Model.Id })">Delete Stock</a></li>
+        </ul>
+    </div>
+    
+    <p>&nbsp;</p>
+
+    <div class="row">
+        <div class="col-md-6">
+            @using (Html.BeginForm()) {
+
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+                @Html.HiddenFor(f => f.ItemId)
+                @Html.HiddenFor(f => f.IsParent)
+                @Html.HiddenFor(f => f.DateAdded)
+                @Html.HiddenFor(f => f.BatchId)
+                @Html.HiddenFor(f => f.Id)
+                @Html.HiddenFor(f => f.LocationId)
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3>Stock Information</h3>
+                    </div>
+
+                    <div class="panel-body">
+
+                        @Html.Partial("_CreateOrEdit")
+
+                        @if (Model.IsParent) {
+                            <div class="form-group">
+                                <div>
+                                    @Html.CheckBox("updateBatch") &nbsp;
+                                    @Html.Label("Apply updates to batch")
+                                    @Html.ValidationMessageFor(f => f.Notes)
+                                </div>
+                            </div>
+                        }
+
+                        <div class="form-group">
+                            <input type="submit" value="Save Changes" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

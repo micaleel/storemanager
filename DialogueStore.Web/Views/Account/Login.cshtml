@@ -1,0 +1,90 @@
+﻿@model DialogueStore.Web.ViewModels.LoginViewModel
+@{
+    ViewBag.Title = "Log On";
+}
+
+<div class="container">
+    <h2 class="page-header">Login to @ViewHelpers.GetAppSettings().ApplicationTitle <small>@ViewHelpers.GetAppSettings().ApplicationVersion</small></h2>
+    <p class="text-center">
+        @Html.ValidationSummary(true)
+    </p>
+
+    <form class="form-signin" action="@Url.Action("Login", "Account")" method="POST">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Please sign in</h3>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    @Html.TextBoxFor(f => f.UserName, new { placeholder = "Username or Email address" })
+                    @Html.ValidationMessageFor(f => f.UserName)
+                </div>
+                <div class="form-group">
+                    @Html.PasswordFor(f => f.Password, new { @class = "input-block-level", placeholder = "Password" })
+                    @Html.ValidationMessageFor(f => f.Password)
+                </div>
+                <div class="form-group">
+                    <label class="checkbox">
+                        @Html.CheckBoxFor(f => f.RememberMe)
+                        @Html.LabelFor(f => f.RememberMe)
+                    </label>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <button class="btn btn-primary btn-block" type="submit">Sign in</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+@section styles
+{
+    <style type="text/css">
+        body {
+            background-color: rgb(233, 249, 255);
+        }
+
+        .form-signin {
+            max-width: 330px;
+            padding: 15px;
+            margin: 0 auto;
+        }
+
+            .form-signin .form-signin-heading,
+            .form-signin .checkbox {
+                margin-bottom: 10px;
+            }
+
+            .form-signin .checkbox {
+                font-weight: normal;
+            }
+
+            .form-signin .form-control {
+                position: relative;
+                font-size: 16px;
+                height: auto;
+                padding: 10px;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+            }
+
+                .form-signin .form-control:focus {
+                    z-index: 2;
+                }
+
+            .form-signin input[type="text"] {
+                margin-bottom: -1px;
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
+            }
+
+            .form-signin input[type="password"] {
+                margin-bottom: 10px;
+                border-top-left-radius: 0;
+                border-top-right-radius: 0;
+            }
+    </style>
+}

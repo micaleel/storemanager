@@ -1,0 +1,11 @@
+﻿@model IEnumerable<DialogueStore.Web.Models.Stock>
+
+<h3>Location Inventory <small>Items that are currently in this location</small></h3>
+@if (Model != null && Model.Any()) {
+    @Html.Partial("_StockItemsTable", Model)
+}
+else {
+    <p class="alert alert-info">
+        There are no items currently posted in this location.
+    </p>
+}
