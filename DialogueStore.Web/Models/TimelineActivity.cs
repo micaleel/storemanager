@@ -17,6 +17,10 @@ namespace DialogueStore.Web.Models
 
     public enum TimelineActivityObjectType
     {
-        Item
+        Item,
+        Location,
+        Movement,
+        Stock,
+        StockCondition
     }
 }

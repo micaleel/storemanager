@@ -6,16 +6,10 @@ using DialogueStore.Web.Repositories;
 
 namespace DialogueStore.Web.Controllers
 {
-
     [AuthorizeAndRedirect]
     public class ItemsController : BaseController
     {
         private readonly ItemRepository _itemRepo;
-
-        public void LogActivity(string verb, string objectDescriptor, int? objectId)
-        {
-            LogActivity(verb, TimelineActivityObjectType.Item, objectDescriptor, objectId);
-        }
 
         public ItemsController()
         {
@@ -33,7 +27,7 @@ namespace DialogueStore.Web.Controllers
             var item = _itemRepo.Find(id);
             if (item == null) return HttpNotFound("Cannot find Item with given ID");
 
-            LogActivity("viewed details for ", item.Name, item.Id);
+            LogActivity("viewed details for item ", item.Name, item.Id);
 
             return View(item);
         }
@@ -108,6 +102,11 @@ namespace DialogueStore.Web.Controllers
             }
 
             return RedirectToAction("Index");
+        }
+
+        public void LogActivity(string verb, string objectDescriptor, int? objectId)
+        {
+            LogActivity(verb, TimelineActivityObjectType.Item, objectDescriptor, objectId);
         }
     }
 }

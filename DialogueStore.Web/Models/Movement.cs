@@ -2,9 +2,11 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DialogueStore.Web.Models {
+namespace DialogueStore.Web.Models
+{
 
-    public class Movement {
+    public class Movement
+    {
         public int Id { get; set; }
 
         [Display(Name = "Date Created")]
@@ -33,5 +35,19 @@ namespace DialogueStore.Web.Models {
 
         [Display(Name = "Authorization Note")]
         public string AuthorizationDoc { get; set; }
+
+        public override string ToString()
+        {
+            var toLocation = (ToLocation != null) ? ToLocation.Name : string.Empty;
+
+            if (FromLocationId.HasValue && FromLocation != null)
+            {
+                return string.Format("Stock item {0} from {1} to {2}",
+                    Stock.Item.Name, FromLocation.Name, toLocation);
+            }
+
+            return string.Format("Stock item {0} to {1}",
+                Stock.Item.Name, toLocation);
+        }
     }
 }
